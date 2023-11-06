@@ -1,0 +1,12 @@
+{
+    "name": "",
+
+    "words": [ ],
+    
+    "settings":{
+    "Lua.runtime.builtin": {
+        "basic": "disable",
+        "io": "disable"
+    }
+    }
+}

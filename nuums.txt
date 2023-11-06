@@ -1,0 +1,127 @@
+0 or display.DONT_SAVE
+1 or display.SAVE
+
+0 or display.LIMIT_IV: Displays the primary limit setting
+
+1 or display.LIMIT_P: Displays the power limit setting
+
+
+display.KEY_NONE
+  
+ 83
+ display.KEY_MEASB
+ 
+65
+ display.KEY_RANGEUP
+  
+ 84
+ display.KEY_DIGITSB
+ 
+66
+ display.KEY_MODEB
+  
+ 85
+ display.KEY_RECALL
+ 
+67
+ display.KEY_RELB
+  
+ 86
+ display.KEY_MEASA
+ 
+68
+ display.KEY_MENU
+  
+ 87
+ display.KEY_DIGITSA
+ 
+69
+ display.KEY_MODEA
+  
+ 88
+ display.KEY_OUTPUTA
+ 
+70
+ display.KEY_RELA
+  
+ 90
+ display.KEY_LIMITB
+ 
+71
+ display.KEY_RUN
+  
+ 91
+ display.KEY_SPEEDB
+ 
+72
+ display.KEY_DISPLAY
+  
+ 92
+ display.KEY_TRIG
+ 
+73
+ display.KEY_AUTO
+  
+ 93
+ display.KEY_LIMITA
+ 
+74
+ display.KEY_FILTERB
+  
+ 94
+ display.KEY_SPEEDA
+ 
+75
+ display.KEY_EXIT
+  
+ 95
+ display.KEY_LOAD
+ 
+76
+ display.KEY_SRCB
+  
+ 96
+ display.KEY_OUTPUTB
+ 
+77
+ display.KEY_FILTERA
+  
+ 97
+ display.WHEEL_ENTER
+ 
+78
+ display.KEY_STORE
+  
+ 103
+ display.KEY_RIGHT
+ 
+79
+ display.KEY_SRCA
+  
+ 104
+ display.KEY_LEFT
+ 
+80
+ display.KEY_CONFIG
+  
+ 107
+ display.WHEEL_LEFT
+ 
+81
+ display.KEY_RANGEDOWN
+  
+ 114
+ display.WHEEL_RIGHT
+ 
+82
+ display.KEY_ENTER
+ 
+
+
+1 or tspnet.TERM_LF
+4 or tspnet.TERM_CR
+2 or tspnet.TERM_CRLF
+3 or tspnet.TERM_LFCR
+
+
+smuX.buffer.getstats()
