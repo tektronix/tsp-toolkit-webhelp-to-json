@@ -1,13 +1,13 @@
 available()
 presence: boolean
-functionality: functionality
+measFunctionality: functionality
 
 beeper.beep()
 duration: number
 frequency: number
 
 buffer.channelmath()
-readingBuffer: bufferMethods
+readingBuffer: bufferVar
 unit: bufferchannelmathunit
 channelNumber: string
 channelNum2: string
@@ -21,14 +21,14 @@ expr: mathExpression
 expr10: mathExpression
 
 buffer.clearstats()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 buffer.delete()
-bufferName: bufferMethods
+bufferName: bufferVar
 
 buffer.getstats()
 statsVar: statsVar
-bufferVar: bufferMethods
+bufferVar: bufferVar
 channelNumber: number
 absStartTime: number
 absStartFractional: number
@@ -38,12 +38,12 @@ relStartTime: number
 relEndTime: number
 
 buffer.make()
-bufferVar: bufferMethods
-bufferSize: number
+bufferVar: bufferVar
+bufferSize: integer
 style: buffermakestyle
 
 buffer.math()
-readingBuffer: bufferMethods
+readingBuffer: bufferVar
 unit: buffermathunit
 channelNumber: string
 channelNum2: string
@@ -57,32 +57,32 @@ expr: mathExpression
 expr10: mathExpression
 
 buffer.save()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 fileName: string
 what: bufferFileSaveDetails
 start: number
 endPoint: number
 
 buffer.saveappend()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 fileName: string
 timeFormat: buffersaveappendtimeFormat
-start: number
-endPoint: number
+start: integer
+endPoint: integer
 
 buffer.unit()
 UNIT_CUSTOMN: bufferCustomUnit
 unitOfMeasure: string
 
 buffer.write.format()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 units: bufferwriteformatunits
 displayDigits: bufferwriteformatdisplayDigits
 extraUnits: bufferwriteformatunits
 extraDigits: bufferwriteformatdisplayDigits
 
 buffer.write.reading()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 readingValue: number
 extraValue: number
 seconds: number
@@ -92,97 +92,97 @@ channel: string
 
 bufferVar.capacity
 bufferCapacity: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.channels
 date: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.clear()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.dates
 date: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.endindex
 endIndex: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.extraformattedvalues
 extraFormat: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.extravalues
 extravalue: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.extravalueunits
 extraUnits: string
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.fillmode
 fillMode: bufferVarfillmodefillMode
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.formattedreadings 
 reading: string
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.fractionalseconds
 fractionalSec: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.logstate
 logState: bufferVarlogstatelogState
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.n 
 numberOfReadings: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.readings
 reading: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.relativetimestamps
 timestamp: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.seconds
 nonFracSeconds: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.startindex
 startIndex: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 bufferVar.statuses
 statusInformation: bufferVarstatuses
 
 bufferVar.times
 readingTime: string
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.timestamps
 readingTimestamp: string
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 bufferVar.units
 readingUnit: string
-bufferVar: bufferMethods
+bufferVar: bufferVar
 N: number
 
 channel.close()
@@ -252,7 +252,7 @@ channelList: string
 channel.read()
 value: string
 channelList: string
-readingBuffer: bufferMethods
+readingBuffer: bufferVar
 width: number
 
 channel.setcommonside()
@@ -333,10 +333,10 @@ digio.readport()
 data: number
 
 digio.writeport()
-data: any
+data: number
 
 display.activebuffer
-bufferName: bufferMethods
+bufferName: bufferVar
 
 display.changescreen()
 screenName: displaychangescreenscreenName
@@ -477,13 +477,13 @@ value: number
 
 dmm.digitize.read()
 reading: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 dmm.digitize.readwithtime()
 reading: number
 seconds: number
 fractional: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 dmm.digitize.rel.enable
 state: dmmdigitizerelenablestate
@@ -648,13 +648,13 @@ rangeValue: number
 
 dmm.measure.read()
 reading: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 dmm.measure.readwithtime()
 reading: number
 seconds: number
 fractional: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 dmm.measure.refjunction
 type: dmmmeasurerefjunctiontype
@@ -726,15 +726,6 @@ terminals: dmmterminalsterminals
 
 eventlog.getcount()
 eventType: eventloggetcounteventType
-
-eventlog.next()
-eventNumber: number
-message: string
-severity: number
-nodeID: number
-timeSeconds: number
-timeNanoSeconds: number
-eventType: eventlognexteventType
 
 
 eventlog.post()
@@ -875,11 +866,12 @@ value2: string
 printbuffer()
 startIndex: number
 endIndex: number
-buffer1: bufferMethods
-buffer2: bufferMethods
-bufferN: bufferMethods
-bufferVar: bufferMethods
-bufferVar2: bufferMethods
+buffer1: bufferVar
+buffer2: bufferVar
+bufferN: bufferVar
+bufferVar: bufferVar
+bufferVar2: bufferVar
+bufferVarN: bufferVar
 
 printnumber()
 value: number
@@ -902,7 +894,7 @@ scan.background()
 scanCount: number
 stepCount: number
 reading: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 scan.addwrite()
 channelList: string
@@ -913,7 +905,7 @@ value: scanalarmnotifyvalue
 
 
 scan.buffer
-readingBuffer: bufferMethods
+readingBuffer: bufferVar
 
 scan.bypass
 bypass: scanbypassbypass
@@ -931,7 +923,7 @@ scan.execute()
 scanCount: number
 stepCount: number
 reading: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 scan.export()
 filename: string
@@ -985,13 +977,13 @@ scriptName: string
 
 script.load()
 file: string
-scriptVar: script_object
+scriptVar: scriptVar
 name: string
 
  script.new()
  code: string
  name: string
- scriptVar: script_object
+ scriptVar: scriptVar
 
  script.restore()
  name: string
@@ -999,7 +991,7 @@ name: string
  script.newautorun()
   code: string
  name: string
- scriptVar: script_object
+ scriptVar: scriptVar
 
  setup.save()
  id: string
@@ -1141,14 +1133,14 @@ dmm.makebuffer()
 bufferSize: number
 
 dmm.measure()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 reading: number
 
 dmm.measurewithtime()
 reading: number
 sconds: number
 fractional: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 dmm.open()
 channelList: string
@@ -1168,7 +1160,7 @@ dmm.measurewithptp()
 reading: number
 sconds: number
 fractional: number
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 scan.nobufferbackground()
 scancount: number
@@ -1372,7 +1364,7 @@ trigger.model.load() - ConfigList
 ConfigList: loadFunConstParam
 measureConfigList: string
 delay: number
-bufferName: bufferMethods
+bufferName: bufferVar
 sourceConfigList: string
 
 trigger.model.load() - Empty
@@ -1382,7 +1374,7 @@ trigger.model.load() - DurationLoop
 DurationLoop: loadFunConstParam
 duration: number
 delay: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.load() - GradeBinning
 GradeBinning: loadFunConstParam
@@ -1397,7 +1389,7 @@ limit2Pattern: number
 limit3Pattern: number
 limit4Pattern: number
 allPattern: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.load() - LogicTrigger
 LogicTrigger: loadFunConstParam
@@ -1406,7 +1398,7 @@ digOutLine: number
 count: number
 clear: number
 delay: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.load() - LoopUntilEvent
 LoopUntilEvent: loadFunConstParam
@@ -1414,13 +1406,13 @@ triggerEvent: triggerEventsForFunctionParam
 position: number
 clear: number
 delay: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.load() - SimpleLoop
 SimpleLoop: loadFunConstParam
 count: number
 delay: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.load() - SortBinning
 SortBinning: loadFunConstParam
@@ -1435,7 +1427,7 @@ limit2Pattern: number
 limit3Pattern: number
 limit4Pattern: number
 allPattern: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 
 trigger.model.setblock() - trigger.BLOCK_BRANCH_ALWAYS
@@ -1488,7 +1480,7 @@ branchToBlock: number
 trigger.model.setblock() - trigger.BLOCK_BUFFER_CLEAR
 BLOCK_BUFFER_CLEAR: triggerBlockBranch
 blockNumber: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.setblock() - trigger.BLOCK_CONFIG_NEXT
 BLOCK_CONFIG_NEXT: triggerBlockBranch
@@ -1533,7 +1525,7 @@ message: string
 trigger.model.setblock() - trigger.BLOCK_MEASURE_DIGITIZE
 BLOCK_MEASURE_DIGITIZE: triggerBlockBranch
 blockNumber: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 trigger.model.setblock() - trigger.BLOCK_NOP
 BLOCK_NOP: triggerBlockBranch
@@ -1712,6 +1704,7 @@ listName: string
 index: number
 sourceListName: string
 sourceListName: number
+sourceIndex: number
 
 smu.measure.configlist.size()
 indexCount: number
@@ -1729,24 +1722,24 @@ measfunction: smumeasureconfigliststorefuncfunction
 smu.measure.getattribute()
 value: number
 measfunction: smumeasuregetattributefunction
-setting: functionAttributes | functions
+setting: smuMeasuresetFunctionattribute
 
 smu.measure.read()
 reading: number[]
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.measure.readwithtime()
 reading: number[]
 seconds: number
 fractional: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.measure.rel.acquire()
 relativeValue: number
 
 smu.measure.setattribute()
 measfunction: smumeasuresetattributefunction
-setting: functionAttributes | functions
+setting: smuMeasuresetFunctionattribute
 value: number
 
 smu.source.configlist.create()
@@ -1782,12 +1775,12 @@ ConfigListName: string
 
 smu.source.getattribute()
 measfunction: smusourcegetattributefunction
-value: number
-setting: functionAttributes | functions
+value: any
+setting: smuSourceGetSetAttributes
 
 smu.source.setattribute()
 measfunction: smusourcesetattributefunction
-setting: functionAttributes | functions
+setting: smuSourceGetSetAttributes
 value: number
 
 smu.source.sweeplinear()
@@ -1800,7 +1793,7 @@ count: smusourcesweeplinearcount | number
 rangeType: smusourcesweeplinearrangeType
 failAbort: smusourcesweeplinearfailAbort
 dual: smusourcesweeplinear
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.source.sweeplinearstep()
 configListName: string
@@ -1812,7 +1805,7 @@ count: smusourcesweeplinearstepcount | number
 rangeType: smusourcesweeplinearsteprangeType
 failAbort: smusourcesweeplinearstepfailAbort
 dual: smusourcesweeplinearstepdual
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.source.sweeplist()
 configListName: string
@@ -1820,7 +1813,7 @@ index: number
 sDelay: number
 count: smusourcesweeplistcount | number
 failAbort: smusourcesweeplistfailAbort
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.source.sweeplog()
 configListName: string
@@ -1832,7 +1825,7 @@ count: smusourcesweeplogcount | number
 rangeType: smusourcesweeplograngeType
 failAbort: smusourcesweeplogfailAbort
 dual: smusourcesweeplogdual
-bufferName: bufferMethods
+bufferName: bufferVar
 asymptote: number
 
 node[N].getglobal()
@@ -1841,13 +1834,13 @@ name: string
 
 smu.digitize.read()
 reading: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.digitize.readwithtime()
 reading: number
 seconds: number
 fractional: number
-bufferName: bufferMethods
+bufferName: bufferVar
 
 smu.source.pulsesweeplinear()
 configListName: string
@@ -1857,7 +1850,7 @@ stop: number
 points: number
 pulseWidth: number
 measEnable: smusourcepulsesweeplinearmeasEnable
-bufferName: bufferMethods
+bufferName: bufferVar
 sDelay: number
 offTime: number
 count: smusourcepulsesweeplinearcount | number
@@ -1874,7 +1867,7 @@ stop: number
 step: number
 pulseWidth: number
 measEnable: smusourcepulsesweeplinearstepmeasEnable
-bufferName: bufferMethods
+bufferName: bufferVar
 sDelay: number
 offTime: number
 count: smusourcepulsesweeplinearstepcount | number
@@ -1887,7 +1880,7 @@ smu.source.pulsesweeplist()
 configListName: string
 pulseWidth: number
 measEnable: smusourcepulsesweeplistmeasEnable
-bufferName: bufferMethods
+bufferName: bufferVar
 count: smusourcepulsesweeplistcount | number
 offTime: number
 sDelay: number
@@ -1901,7 +1894,7 @@ stop: number
 points: number
 pulseWidth: number
 measEnable: smusourcepulsesweeplogmeasEnable
-bufferName: bufferMethods
+bufferName: bufferVar
 sDelay: number
 offTime: number
 count: smusourcepulsesweeplogcount | number
@@ -1918,7 +1911,7 @@ pulseLevel: number
 pulseWidth: number
 count: smusourcepulstraincount | number
 measEnable: smusourcepulsetrainmeasEnable
-bufferName: bufferMethods
+bufferName: bufferVar
 sDelay: number
 offTime: number
 xBiasLimit: number
@@ -2479,9 +2472,6 @@ errorNode: number
 eventlog.all()
 logString: string|nil
 
-eventlog.next()
-logString: string|nil
-
 fileVar:seek()
 position: any
 errorMsg: string
@@ -2648,15 +2638,6 @@ value2: any
 valueN: any
 ...: any
 
-printbuffer()
-bufferVar: bufferMethods
-startIndex: number
-endIndex: number
-buffer1: any
-buffer2: any
-bufferN: any
-...:any
-
 printnumber()
 value1: number
 value2: number
@@ -2699,17 +2680,17 @@ name: string
 body: string
 
 script.load()
-scriptVar: script_object
+scriptVar: scriptVar
 file: string
 name: string
 
 script.new()
-scriptVar: script_object
+scriptVar: scriptVar
 code: string
 name: string
 
 script.newautorun()
-scriptVar: script_object
+scriptVar: scriptVar
 code: string
 name: string
 
@@ -2719,9 +2700,6 @@ name: string
 script.user.catalog()
 name: string
 body: string
-
-scriptVar.save()
-filename: string
 
 serial.read()
 maxchars: number
@@ -2747,10 +2725,10 @@ id: number|string
 
 smuX.buffer.getstats()
 statistics: statistics
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 smuX.buffer.recalculatestats()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 
 smuX.cal.unlock()
 password: string
@@ -2772,8 +2750,11 @@ rhi: any
 rlo: any
 
 smuX.makebuffer()
-bufferVar: bufferMethods
+bufferVar: bufferVar
 bufferSize: number
+
+smuX.nvbufferY
+bufferVar: bufferVar
 
 smuX.measure.calibrateY()
 range: number
@@ -2783,25 +2764,25 @@ cp2Measured: number
 cp2Reference: number
 
 smuX.measure.overlappedY()
-rbuffer: any
-ibuffer: any
-vbuffer: any
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 smuX.measure.Y()
-readingBuffer: any
-iReading: any
-vReading: any
-iReadingBuffer: any
-vReadingBuffer: any
+readingBuffer: bufferVar
+iReading: number
+vReading: number
+iReadingBuffer: bufferVar
+vReadingBuffer: bufferVar
 
 eventlog.suppress()
 eventNumber: number
 
 smuX.measureYandstep()
-reading: any
-sourceValue: any
-iReading: any
-vReading: any
+reading: number
+sourceValue: number
+iReading: number
+vReading: number
 
 smuX.source.calibrateY()
 range: number
@@ -2811,24 +2792,24 @@ cp2Measured: number
 cp2Reference: number
 
 smuX.savebuffer()
-buffer: bufferMethods
+buffer: bufferVar
 
 smuX.trigger.measure.Y()
-rbuffer: any
-ibuffer: any
-vbuffer: any
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 smuX.trigger.source.linearY()
 startValue: number
-endValue: number
+endPointValue: number
 points: number
 
 smuX.trigger.source.listY()
-sweepList: any
+sweepList: table
 
 smuX.trigger.source.logY()
 startValue: number
-endValue: number
+endPointValue: number
 points: number
 asymptote: number
 

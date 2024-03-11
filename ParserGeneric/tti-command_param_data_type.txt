@@ -1,0 +1,3133 @@
+available()
+presence: boolean
+functionality: functionality
+
+beeper.beep()
+duration: number
+frequency: number
+
+buffer.channelmath()
+readingBuffer: bufferVar
+unit: bufferchannelmathunit
+channelNumber: string
+channelNum2: string
+constant0: number
+constant1: number
+constant2: number
+constant3: number
+constant4: number
+constant5: number
+expr: mathExpression
+expr10: mathExpression
+
+buffer.clearstats()
+bufferVar: bufferVar
+
+buffer.delete()
+bufferName: bufferVar
+
+buffer.getstats()
+statsVar: statsVar
+bufferVar: bufferVar
+channelNumber: number
+absStartTime: number
+absStartFractional: number
+absEndTime: number
+absEndFractional: number
+relStartTime: number
+relEndTime: number
+
+buffer.make()
+bufferVar: bufferVar
+bufferSize: integer
+style: buffermakestyle
+
+buffer.math()
+readingBuffer: bufferVar
+unit: buffermathunit
+channelNumber: string
+channelNum2: string
+constant0: number
+constant1: number
+constant2: number
+constant3: number
+constant4: number
+constant5: number
+expr: mathExpression
+expr10: mathExpression
+
+buffer.save()
+timeFormat: buffersavetimeFormat
+bufferVar: bufferVar
+fileName: string
+what: bufferFileSaveDetails
+start: integer
+end: integer
+
+buffer.saveappend()
+bufferVar: bufferVar
+fileName: string
+timeFormat: buffersaveappendtimeFormat
+start: integer
+end: integer
+
+buffer.unit()
+UNIT_CUSTOMN: bufferCustomUnit
+unitOfMeasure: string
+
+buffer.write.format()
+bufferVar: bufferVar
+units: bufferwriteformatunits
+displayDigits: bufferwriteformatdisplayDigits
+extraUnits: bufferwriteformatunits
+extraDigits: bufferwriteformatdisplayDigits
+
+buffer.write.reading()
+bufferVar: bufferVar
+readingValue: integer
+extraValue: integer
+seconds: number
+fractionalSeconds: number
+status: readingStatus
+channel: string
+
+bufferVar.capacity
+bufferCapacity: integer
+bufferVar: bufferVar
+
+bufferVar.channels
+date: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.clear()
+bufferVar: bufferVar
+
+bufferVar.dates
+date: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.endindex
+endIndex: integer
+bufferVar: bufferVar
+
+bufferVar.extraformattedvalues
+extraFormat: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.extravalues
+extravalue: number[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.extravalueunits
+extraUnits: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.fillmode
+fillMode: bufferVarfillmodefillMode
+bufferVar: bufferVar
+
+bufferVar.formattedreadings 
+reading: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.fractionalseconds
+fractionalSec: number[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.logstate
+logState: bufferVarlogstatelogState
+bufferVar: bufferVar
+
+bufferVar.n 
+numberOfReadings: integer
+bufferVar: bufferVar
+
+bufferVar.readings
+reading: number[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.relativetimestamps
+timestamp: number[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.seconds
+nonFracSeconds: number[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.startindex
+startIndex: integer
+bufferVar: bufferVar
+
+bufferVar.statuses
+statusInformation: bufferVarstatuses
+
+bufferVar.sourcevalues
+sourceValue: number[]
+
+bufferVar.sourceunits
+readingUnits: string[]
+
+bufferVar.sourceformattedvalues
+values: string[]
+bufferVar: bufferVar
+
+bufferVar.times
+readingTime: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.timestamps
+readingTimestamp: string[]
+bufferVar: bufferVar
+N: number
+
+bufferVar.units
+readingUnit: string[]
+bufferVar: bufferVar
+N: number
+
+channel.close()
+channelList: string
+
+channel.getclose()
+closed: string
+channelList: string
+
+channel.getcommonside()
+state: string
+slot: string
+
+channel.getcount()
+counts: string
+channelList: string
+
+channel.getcountinterval()
+update: channelgetcountintervalupdate
+
+channel.getdelay()
+delayTimes: string
+channelList: string
+
+channel.getdmm()
+channelList: string
+setting: functionAttributes | functions
+
+channel.getlabel()
+label: string
+channelNumber: string
+
+channel.getmatch()
+matchValue: string
+channelList: string
+
+channel.getmatchtype()
+matchType: string
+channelList: string
+
+channel.getmode()
+mode: string
+channelList: string
+
+channel.getstate()
+state: string
+channelList: string
+indicatorMask: channelgetstateindicatorMask
+
+channel.gettype()
+type: string
+channelList: string
+
+channel.getwidth()
+width: string
+channelNumber: string
+
+channel.multiple.close()
+channelList: string
+
+channel.multiple.open()
+channelList: string
+
+channel.open()
+channelList: string
+
+channel.read()
+value: string
+channelList: string
+readingBuffer: bufferVar
+width: number
+
+channel.setcommonside()
+slot: string
+state: channelsetcommonsidestate
+
+channel.setcountinterval()
+interval: channelsetcountintervalinterval
+
+channel.setdelay()
+channelList: string
+delay: number
+
+channel.setdmm()
+channelList: string
+setting: functionAttributes | functions
+value: any
+
+channel.setlabel()
+channelNumber: string
+labelname: string
+channelList: string
+
+channel.setmatch()
+channelList: string
+matchValue: number
+mask: number
+
+channel.setmatchtype()
+channelList: string
+type: channelMatchType
+
+channel.setmode()
+channelList: string
+mode: channelsetmodemode
+
+channel.setwidth()
+channelNumber: string
+width: number
+
+channel.write()
+channelList: string
+value: number
+width: number
+
+createconfigscript() 
+scriptName: string
+
+dataqueue.add()
+result: boolean
+value: any
+timeout: number
+
+dataqueue.CAPACITY
+count: dataqueue.CAPACITY | integer
+
+dataqueue.clear()
+
+dataqueue.count
+count: number
+
+dataqueue.next()
+value: any
+timeout: number
+
+delay()
+seconds: number
+
+digio.line[N].mode
+lineMode: digiolinemodelineMode
+N: number
+
+digio.line[N].state
+N: number
+state: digiolinestatestate
+
+digio.readport()
+data: integer
+
+digio.writeport()
+data: number
+
+display.activebuffer
+bufferName: bufferVar
+
+display.changescreen()
+screenName: displaychangescreenscreenName
+
+display.delete()
+promptID: promptID
+
+display.input.number()
+numberEntered: number
+dialogTitle: string
+numberFormat: displayinputnumbernumberFormat
+defaultValue: number
+minimumValue: number
+maximumValue: number
+
+display.input.option()
+n: display_BUTTON_OPTIONs | nil 
+dialogTitle: string
+buttonTitle1: string
+...: string
+
+display.input.prompt()
+buttonReturn: displayinputpromptbuttonReturn
+buttonSet: displayinputpromptbuttonSet
+dialogTitle: string
+
+display.input.string()
+textEntered: string|nil
+dialogTitle: string
+textFormat: displayinputstringtextFormat
+
+display.lightstate
+brightness: displaylightstatebrightness
+
+display.prompt()
+promptID: promptID
+buttonID: displaypromptbuttonID
+promptText: string
+
+display.readingformat
+format: displayreadingformatformat
+
+display.settext()
+displayArea: displaysettextdisplayArea
+text: string
+
+display.waitevent()
+objectID: number
+subID: displaywaiteventsubID
+timeout: number
+
+display.watchchannels
+channelList: string
+
+dmm.digitize.filter.count
+range: integer
+
+dmm.digitize.analogtrigger.edge.level
+value: number
+
+dmm.digitize.analogtrigger.edge.slope
+value: dmmdigitizeanalogtriggeredgeslopevalue
+
+
+dmm.digitize.analogtrigger.mode
+setting: dmmdigitizeanalogtriggermodesetting
+
+dmm.digitize.analogtrigger.window.direction
+value: dmmdigitizeanalogtriggerwindowdirectionvalue
+
+dmm.digitize.analogtrigger.window.levelhigh
+value: number
+
+dmm.digitize.analogtrigger.window.levellow
+value: number
+
+dmm.digitize.aperture
+value: number
+
+dmm.digitize.count
+value: number
+
+dmm.digitize.dbreference
+value: number
+
+dmm.digitize.dbmreference
+value: number
+
+dmm.digitize.displaydigits
+value: dmmdigitizedisplaydigitsvalue
+
+dmm.digitize.func
+value: dmmdigitizefunc
+
+dmm.digitize.inputimpedance
+setting: dmmdigitizeinputimpedancesetting
+
+dmm.digitize.limit[Y].audible
+value: dmmdigitizelimitArraudiblevalue
+
+dmm.digitize.limit[Y].autoclear
+state: dmmdigitizelimitArrautoclearstate
+
+dmm.digitize.limit[Y].enable
+state: dmmdigitizelimitArrenablestate
+
+
+dmm.digitize.limit[Y].fail
+value: dmmdigitizelimitArrfailvalue
+
+dmm.digitize.limit[Y].high.value
+highLimit: number
+
+dmm.digitize.limit[Y].low.value
+lowLimit: number
+
+dmm.digitize.math.enable
+value: dmmdigitizemathenablevalue
+
+dmm.digitize.math.format
+operation: dmmdigitizemathformatoperation
+
+dmm.digitize.math.mxb.bfactor
+offsetFactor: number
+
+dmm.digitize.math.mxb.mfactor
+scaleFactor: number
+
+dmm.digitize.math.percent
+value: number
+
+dmm.digitize.range
+value: number
+
+dmm.digitize.read()
+reading: number
+bufferName: bufferVar
+
+dmm.digitize.readwithtime()
+reading: number
+seconds: number
+fractional: number
+bufferName: bufferVar
+
+dmm.digitize.rel.enable
+state: dmmdigitizerelenablestate
+
+dmm.digitize.rel.level
+value: number
+
+dmm.digitize.samplerate
+readings: number
+
+dmm.digitize.unit
+value: dmmdigitizeunitvalue
+
+dmm.digitize.userdelay[N]
+delayTime: number
+
+dmm.measure.analogtrigger.edge.level
+value: number
+
+dmm.measure.analogtrigger.edge.slope
+value: dmmmeasureanalogtriggeredgeslopevalue
+
+dmm.measure.analogtrigger.mode
+setting: dmmmeasureanalogtriggermodesetting
+
+dmm.measure.analogtrigger.window.direction
+value: dmmmeasureanalogtriggerwindowdirectionvalue
+
+dmm.measure.analogtrigger.window.levelhigh
+value: number
+
+dmm.measure.analogtrigger.window.levellow
+value: number
+
+dmm.measure.aperture
+value: number
+
+dmm.measure.autodelay
+value: dmmmeasureautodelayvalue
+
+dmm.measure.autozero.enable
+state: dmmmeasureautozeroenablestate
+
+dmm.measure.autorange
+state: dmmmeasureautorangestate
+
+
+dmm.measure.bias.level
+value: number
+
+dmm.measure.configlist.create()
+listName: string
+
+dmm.measure.configlist.delete()
+listName: string
+index: integer
+
+dmm.measure.configlist.query()
+listName: string
+index: integer
+fieldSeparator: string
+
+dmm.measure.configlist.recall()
+listName: string
+index: integer
+
+dmm.measure.configlist.size()
+indexCount: number
+listName: string
+
+dmm.measure.configlist.store()
+listName: string
+index: integer
+
+dmm.measure.configlist.storefunc()
+listName: string
+function: functions
+index: integer
+
+dmm.measure.count
+count: number
+
+dmm.measure.dbreference
+value: number
+
+dmm.measure.dbmreference
+value: number
+
+dmm.measure.detectorbandwidth
+value: dmmmeasuredetectorbandwidthvalue
+
+dmm.measure.displaydigits
+value: dmmmeasuredisplaydigitsvalue
+
+dmm.measure.filter.count
+filterCount: number
+
+dmm.measure.filter.enable
+filterState: dmmmeasurefilterenablefilterState
+
+dmm.measure.filter.type
+type: dmmmeasurefiltertypetype
+
+dmm.measure.filter.window
+value: number
+
+dmm.measure.fourrtd
+RTDType: dmmmeasurefourrtdRTDType
+
+dmm.measure.func 
+mFunction: functions
+
+dmm.measure.getattribute()
+value: any
+function: functions
+setting: functionAttributes
+
+dmm.measure.inputimpedance
+setting: dmmmeasureinputimpedancesetting
+
+dmm.measure.limit[Y].audible
+state: dmmmeasurelimitArraudiblestate
+
+dmm.measure.limit[Y].autoclear
+value: dmmmeasurelimitArrautoclearvalue
+
+dmm.measure.limit[Y].enable
+state: dmmmeasurelimitArrenablestate
+
+dmm.measure.limit[Y].fail
+value: dmmmeasurelimitArrfailvalue
+
+dmm.measure.limit[Y].high.value
+highLimit: number
+
+dmm.measure.limit[Y].low.value
+lowLimit: number
+
+dmm.measure.linesync
+state: dmmmeasurelinesyncstate
+
+dmm.measure.math.enable
+value: dmmmeasuremathenablevalue
+
+dmm.measure.math.format
+operation: dmmmeasuremathformatoperation
+
+dmm.measure.math.mxb.bfactor
+offsetFactor: number
+
+dmm.measure.math.mxb.mfactor
+scaleFactor: number
+
+dmm.measure.math.percent
+reference: number
+
+dmm.measure.nplc
+nplc: number
+
+dmm.measure.range
+rangeValue: number
+
+dmm.measure.read()
+reading: number
+bufferName: bufferVar
+
+dmm.measure.readwithtime()
+reading: number
+seconds: number
+fractional: number
+bufferName: bufferVar
+
+dmm.measure.refjunction
+type: dmmmeasurerefjunctiontype
+
+dmm.measure.rel.enable
+state: dmmmeasurerelenablestate
+
+dmm.measure.rel.level
+value: number
+
+dmm.measure.rel.method
+value: dmmmeasurerelmethodvalue
+
+dmm.measure.rtdalpha
+value: number
+
+dmm.measure.rtdbeta
+value: number
+
+dmm.measure.rtddelta
+value: number
+
+dmm.measure.rtdzero
+value: number
+
+dmm.measure.sense.autorange
+setting: dmmmeasurerelenablestate
+
+dmm.measure.sense.range
+value: number
+
+dmm.measure.setattribute()
+function: functions
+setting: functionAttributes
+value: any
+
+dmm.measure.simreftemperature
+value: number
+
+dmm.measure.thermistor
+value: dmmmeasurethermistorvalue
+
+dmm.measure.thermocouple
+value: dmmmeasurethermocouplevalue
+
+dmm.measure.threertd
+value: dmmmeasurethreertdvalue
+
+dmm.measure.threshold.autorange
+state: dmmmeasurethresholdautorangestate
+
+dmm.measure.threshold.range
+range: number
+
+dmm.measure.transducer
+type: dmmmeasuretransducertype
+
+dmm.measure.twortd
+type: dmmmeasuretwortdtype
+
+dmm.measure.unit
+value: dmmmeasureunitvalue
+
+dmm.measure.userdelay[N]
+delayTime: number
+
+dmm.terminals
+terminals: dmmterminalsterminals
+
+eventlog.getcount()
+eventType: eventloggetcounteventType
+
+eventlog.next()
+eventNumber: integer
+message: string
+severity: integer
+nodeID: integer
+timeSeconds: integer
+timeNanoSeconds: integer
+eventType: eventlognexteventType
+
+
+eventlog.post()
+message: string
+eventType: eventlogposteventType
+
+eventlog.save()
+filename: string
+eventType: eventlogsaveeventType
+
+file.close()
+fileNumber: file_object
+
+file.flush()
+fileNumber: file_object
+
+file.mkdir()
+path: string
+
+file.open()
+fileNumber: file_object
+fileName: string
+accessType: fileopenaccessType
+
+file.read()
+fileNumber: file_object
+fileContents: string | nil
+readAction: filereadreadAction
+
+file.usbdriveexists()
+driveInserted: 0|1
+
+file.write()
+fileNumber: file_object
+string: string
+
+format.asciiprecision
+precision: number
+
+format.byteorder
+order: formatbyteorderorder
+
+format.data
+value: formatdatavalue
+
+fs.chdir()
+workingDirectory: string
+path: string
+
+fs.cwd()
+path: string
+
+fs.is_dir()
+status: boolean
+path: string
+
+fs.is_file()
+status: boolean
+path: string
+
+fs.mkdir()
+path: string
+newpath: string
+
+fs.readdir()
+files: string[]
+path: string
+
+fs.rmdir()
+path: string
+
+gpib.address
+address: number
+
+lan.ipconfig()
+method: lanipconfigmethod
+ipV4Address: string
+subnetMask: string
+gateway: string
+
+lan.lxidomain
+domain: number
+
+lan.macaddress
+MACaddress: string
+
+localnode.access
+accessType: localnodeaccessaccessType
+
+localnode.linefreq
+frequency: number
+
+localnode.model
+model: string
+
+localnode.password
+password: string
+
+localnode.prompts
+prompting: localnodepromptsprompting
+
+localnode.prompts4882
+prompting: localnodeprompts4882prompting
+
+localnode.serialno
+serialno: string
+
+localnode.settime()
+year: number
+month: number
+day: number
+hour: number
+minute: number
+second: number
+
+localnode.showevents 
+errorMode: localnodeshoweventserrorMode
+
+localnode.version
+version: string
+
+node[N].execute()
+scriptCode: string
+
+node[N].getglobal()
+value: any
+name: string
+
+node[N].setglobal()
+name: string
+value: any
+
+
+printbuffer()
+startIndex: integer
+endIndex: integer
+bufferVar: bufferVar
+...: bufferVar
+
+scan.add()
+channelList: string
+configList: string
+index: integer
+dmmConfig: string
+
+scan.addsinglestep()
+channelList: string
+configList: string
+index: integer
+
+scan.background()
+scanCount: number
+stepCount: number
+reading: number
+bufferVar: bufferVar
+
+scan.addwrite()
+channelList: string
+writeValue: number
+
+scan.alarmnotify
+value: scanalarmnotifyvalue
+
+
+scan.buffer
+readingBuffer: bufferVar
+
+scan.bypass
+bypass: scanbypassbypass
+
+scan.channel.stimulus
+eventID: triggerEvents
+
+scan.create()
+channelList: string
+configList: string
+index: integer
+dmmConfig: string
+
+scan.execute()
+scanCount: number
+stepCount: number
+reading: number
+bufferVar: bufferVar
+
+scan.export()
+filename: string
+what: bufferFileSaveDetails
+
+scan.learnlimits()
+window: number
+iterations: number
+
+scan.list()
+scanList: string
+
+scan.measure.interval
+time: number
+
+scan.measure.stimulus
+eventID: triggerEvents
+
+scan.monitor.channel
+value: string
+
+scan.monitor.limit.high.value
+value: number
+
+scan.monitor.limit.low.value
+value: number
+
+scan.scancount
+scanCount: number
+
+scan.scaninterval
+scanInterval: number
+
+scan.state()
+scanCount: number
+stepCount: number
+reading: number
+
+scan.addimagestep()
+channelList: string
+dmmConfig: string
+
+scan.start.stimulus
+eventID: triggerEvents
+
+scan.stepcount
+scanStepCount: number
+
+script.delete()
+scriptName: string
+
+script.load()
+file: string
+scriptVar: scriptVar
+name: string
+
+ script.new()
+ code: string
+ name: string
+ scriptVar: scriptVar
+
+ script.restore()
+ name: string
+
+ script.newautorun()
+  code: string
+ name: string
+ scriptVar: scriptVar
+
+ setup.save()
+ id: string
+
+ setup.cards()
+ CardModel: string
+
+ setup.recall()
+ id: number
+
+
+ os.time()
+ utcTime: any
+ timspec: any
+
+ channel.calibration.adjustcount()
+ count: number
+
+ channel.calibration.adjustdate()
+ returnDate: any
+ date: any
+
+ channel.calibration.unlock()
+ password: string
+
+ channel.calibration.verifydate()
+ returnDate: any
+ date: any
+
+ channel.calibration.password()
+ password: string
+
+digio.trigger[N].wait()
+triggered: boolean
+timeout: number
+
+display.loadmenu.delete()
+displayName: string
+
+display.loadmenu.add()
+displayName: string
+code: string
+
+lan.trigger[N].wait()
+triggered: boolean
+timeout: number
+
+timer.measure.t()
+time: number
+
+tsplink.initialize()
+nodesFound: integer
+expectedNodes: integer
+
+tsplink.trigger[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.blender[N].wait()
+triggered: boolean
+timeout: number
+
+channel.pattern.delete()
+name: string
+
+channel.pattern.getimage()
+channelList: string
+name: string
+
+channel.pattern.setimage()
+channelList: string
+name: string
+
+channel.pattern.snapshot()
+name: string
+
+channel.trigger[N].get()
+channelList: string
+stateMatch: number
+
+channel.trigger[N].set
+channelList: string
+stateMatch: number
+
+channel.trigger[N].wait
+triggered: boolean
+timeout: number
+
+dmm.buffer.info()
+size: number
+capacity:number
+bufferVar: string
+
+dmm.calibration.unlock()
+password: string
+
+dmm.configure.delete()
+name: string
+
+dmm.configure.query()
+config: string
+userConfiguration: string
+userSeparator: string
+
+dmm.configure.recall()
+configuration: string
+
+dmm.configure.set()
+name: string
+
+dmm.rel.acquire()
+relativeValue: number
+
+settime()
+time: any
+
+tsplink.readbit()
+data: number
+N: number
+
+tsplink.reset()
+nodesFound: number
+expectedNodes: number
+
+tsplink.writebit()
+N: number
+data: boolean
+
+dmm.appendbuffer()
+bufferVar: string
+fileName: string
+
+dmm.close()
+channelList: string
+
+dmm.getconfig()
+channelList: string
+DMMconfiguration: string
+
+dmm.makebuffer()
+bufferSize: number
+
+dmm.measure()
+bufferVar: bufferVar
+reading: number
+
+dmm.measurewithtime()
+reading: number
+sconds: number
+fractional: number
+bufferVar: bufferVar
+
+dmm.open()
+channelList: string
+
+ dmm.reset()
+ scope: string
+
+ dmm.savebuffer()
+ bufferVar: string
+ fileName: string
+
+dmm.setconfig()
+channelList: string
+dmmConfiguration: string
+
+dmm.measurewithptp()
+reading: number
+sconds: number
+fractional: number
+bufferVar: bufferVar
+
+scan.nobufferbackground()
+scancount: number
+stepcount: number
+
+scan.nobufferbackground()
+scancount: number
+stepcount: number
+
+slot[slot].amps.endchannel
+value: number
+slot: number
+
+slot[slot].amps.startchannel
+value: number
+slot: number
+
+slot[slot].analogoutput.endchannel
+value: number
+slot: number
+
+slot[slot].analogoutput.startchannel
+value: number
+slot: number
+
+
+slot[slot].commonsideohms
+slot: number
+commonside: 1|nil
+
+slot[slot].digitalio.endchannel
+value: number
+slot: number
+
+slot[slot].digitalio.startchannel
+value: number
+slot: number
+
+slot[slot].idn
+idnString: string
+slot: 1|2
+
+slot[slot].isolated.endchannel
+value: number
+slot: number
+
+slot[slot].isolated.startchannel
+value: number
+slot: number
+
+slot[slot].matrix.columns
+value: number
+slot: number
+
+slot[slot].matrix.rows
+value: number
+slot: number
+
+slot[slot].maxvoltage
+maximumVolts: number
+slot: number
+
+slot[slot].pseudocard
+pseudoCard: number
+slot: number
+
+slot[X].pseudocard
+
+slot[slot].tempsensor
+value: 1|nil
+slot: number
+
+slot[slot].totalizer.endchannel
+value: number
+slot: number
+
+slot[slot].totalizer.startchannel
+value: number
+slot: number
+
+slot[slot].voltage.endchannel
+value: number
+slot: number
+
+slot[slot].voltage.startchannel
+value: number
+slot: number
+
+status.condition
+statusByte: number
+
+status.operation.condition
+operationRegister: number
+
+status.operation.enable
+operationRegister: number
+
+status.operation.event
+operationRegister: number
+
+status.operation.getmap()
+setEvent: integer
+clearEvent: integer
+bitNumber: integer
+
+status.operation.setmap()
+setEvent: integer
+clearEvent: integer
+bitNumber: integer
+
+status.questionable.condition
+questionableRegister: number
+
+status.questionable.enable
+questionableRegister: number
+
+status.questionable.event
+questionableRegister: number
+
+status.questionable.getmap()
+setEvent: integer
+clearEvent: integer
+bitNumber: integer
+
+status.questionable.setmap()
+setEvent: integer
+clearEvent: integer
+bitNumber: integer
+
+status.request_enable
+SRQEnableRegister: integer
+
+status.standard.enable
+standardRegister: number
+
+status.standard.event
+standardRegister: number
+
+timer.gettime()
+time: number
+
+trigger.blender[N].orenable
+orenable: boolean | true | false
+
+trigger.blender[N].overrun
+overrun: boolean
+
+trigger.blender[N].stimulus[M]
+event: triggerEvents[]
+
+trigger.blender[N].wait()
+triggered: boolean
+
+trigger.digin[N].overrun
+overrun: boolean
+
+trigger.digin[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.digout[N].pulsewidth
+width: number
+
+trigger.digout[N].stimulus
+event: triggerEvents
+
+trigger.extin.overrun
+overrun: boolean
+
+trigger.extin.wait()
+triggered: number
+timeout: number
+
+
+trigger.extout.stimulus
+event: triggerEvents
+
+trigger.lanin[N].edge
+edgeMode: triggerMode
+
+trigger.lanin[N].overrun
+overrun: boolean
+
+trigger.lanin[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.lanout[N].connected
+connected: boolean
+
+trigger.lanout[N].ipaddress
+ipAddress: string
+
+trigger.lanout[N].stimulus
+LANevent: triggerEvents
+
+trigger.model.getblocklist()
+output: string
+
+trigger.model.getbranchcount()
+output: integer
+
+trigger.model.getbranchcount()
+blockNumber: number
+
+trigger.model.load() - ConfigList
+ConfigList: loadFunConstParam
+measureConfigList: string
+delay: number
+bufferName: bufferVar
+sourceConfigList: string
+
+trigger.model.load() - Empty
+Empty: loadFunConstParam
+
+trigger.model.load() - DurationLoop
+DurationLoop: loadFunConstParam
+duration: number
+delay: number
+bufferName: bufferVar
+
+trigger.model.load() - GradeBinning
+GradeBinning: loadFunConstParam
+components: number
+startInLine: number
+startDelay: number
+endDelay: number
+limitxHigh: number
+limitxLow: number
+limit1Pattern: number
+limit2Pattern: number
+limit3Pattern: number
+limit4Pattern: number
+allPattern: number
+bufferName: bufferVar
+
+trigger.model.load() - LogicTrigger
+LogicTrigger: loadFunConstParam
+digInLine: number
+digOutLine: number
+count: number
+clear: triggermodelloadLogicTriggerclear
+delay: number
+bufferName: bufferVar
+
+trigger.model.load() - LoopUntilEvent
+LoopUntilEvent: loadFunConstParam
+triggerEvent: triggerEventsForFunctionParam
+position: number
+clear: triggermodelloadLoopUntilEventclear
+delay: number
+bufferName: bufferVar
+
+trigger.model.load() - SimpleLoop
+SimpleLoop: loadFunConstParam
+count: number
+delay: number
+bufferName: bufferVar
+
+trigger.model.load() - SortBinning
+SortBinning: loadFunConstParam
+components: number
+startInLine: number
+startDelay: number
+endDelay: number
+limitxHigh: number
+limitxLow: number
+limit1Pattern: number
+limit2Pattern: number
+limit3Pattern: number
+limit4Pattern: number
+allPattern: number
+bufferName: bufferVar
+
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_ALWAYS
+BLOCK_BRANCH_ALWAYS: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_COUNTER
+BLOCK_BRANCH_COUNTER: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+targetCount: number
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_DELTA
+BLOCK_BRANCH_DELTA: triggerBlockBranch
+blockNumber: number
+targetDifference: number
+branchToBlock: number
+measureBlock: number
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_LIMIT_CONSTANT
+limitB: triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitB
+limitA: triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitA
+limitType: triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitType
+BLOCK_BRANCH_LIMIT_CONSTANT: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+measureBlock: number
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_LIMIT_DYNAMIC
+limitType: triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_DYNAMIClimitType
+BLOCK_BRANCH_LIMIT_DYNAMIC: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+measureBlock: number
+limitNumber: 1|2
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_ON_EVENT
+BLOCK_BRANCH_ON_EVENT: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+event: triggerEventsForFunctionParam
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_ONCE
+BLOCK_BRANCH_ONCE: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+
+trigger.model.setblock() - trigger.BLOCK_BRANCH_ONCE_EXCLUDED
+BLOCK_BRANCH_ONCE_EXCLUDED: triggerBlockBranch
+blockNumber: number
+branchToBlock: number
+
+trigger.model.setblock() - trigger.BLOCK_BUFFER_CLEAR
+BLOCK_BUFFER_CLEAR: triggerBlockBranch
+blockNumber: number
+bufferName: bufferVar
+
+trigger.model.setblock() - trigger.BLOCK_CONFIG_NEXT
+BLOCK_CONFIG_NEXT: triggerBlockBranch
+blockNumber: number
+configurationList: string
+optionalConfigList: string
+
+trigger.model.setblock() - trigger.BLOCK_CONFIG_PREV
+BLOCK_CONFIG_PREV: triggerBlockBranch
+blockNumber: number
+configurationList: string
+optionalConfigList: string
+
+trigger.model.setblock() - trigger.BLOCK_CONFIG_RECALL
+BLOCK_CONFIG_RECALL: triggerBlockBranch
+blockNumber: number
+configurationList: string
+index: integer
+optionalConfigList: string
+
+trigger.model.setblock() - trigger.BLOCK_DELAY_CONSTANT
+BLOCK_DELAY_CONSTANT: triggerBlockBranch
+blockNumber: number
+time: number
+
+trigger.model.setblock() - trigger.BLOCK_DELAY_DYNAMIC
+userDelay: triggermodelsetblocktriggerBLOCK_DELAY_DYNAMICuserDelay
+BLOCK_DELAY_DYNAMIC: triggerBlockBranch
+blockNumber: number
+USER_DELAY_Mn: triggerUserDelay
+
+trigger.model.setblock() - trigger.BLOCK_DIGITAL_IO
+BLOCK_DIGITAL_IO: triggerBlockBranch
+blockNumber: number
+bitPattern: number
+bitMask: number
+
+trigger.model.setblock() - trigger.BLOCK_LOG_EVENT
+eventNumber: triggermodelsetblocktriggerBLOCK_LOG_EVENTeventNumber
+BLOCK_LOG_EVENT: triggerBlockBranch
+blockNumber: number
+message: string
+
+trigger.model.setblock() - trigger.BLOCK_MEASURE_DIGITIZE
+count: triggermodelsetblocktriggerBLOCK_MEASURE_DIGITIZEcount
+BLOCK_MEASURE_DIGITIZE: triggerBlockBranch
+blockNumber: number
+bufferName: bufferVar
+
+trigger.model.setblock() - trigger.BLOCK_NOP
+BLOCK_NOP: triggerBlockBranch
+blockNumber: number
+
+trigger.model.setblock() - trigger.BLOCK_NOTIFY
+BLOCK_NOTIFY: triggerBlockBranch
+blockNumber: number
+EVENT_NOTIFYN: triggerEventNotify
+
+trigger.model.setblock() - trigger.BLOCK_RESET_BRANCH_COUNT
+BLOCK_RESET_BRANCH_COUNT: triggerBlockBranch
+blockNumber: number
+counter: number
+
+trigger.model.setblock() - trigger.BLOCK_WAIT
+logic: triggermodelsetblocktriggerBLOCK_WAITlogic
+clear: triggermodelsetblocktriggerBLOCK_WAITclear
+BLOCK_WAIT: triggerBlockBranch
+blockNumber: number
+event: triggerEventsForFunctionParam
+
+trigger.timer[N].count
+count: number
+
+trigger.timer[N].delay
+interval: number
+
+trigger.timer[N].delaylist
+intervals: number[]
+
+trigger.timer[N].start.fractionalseconds
+time: number
+
+trigger.timer[N].start.overrun
+state: boolean
+
+trigger.timer[N].start.seconds
+time: number
+
+trigger.timer[N].start.stimulus
+event: triggerEvents
+
+trigger.timer[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.tsplinkin[N].overrun
+overrun: boolean
+
+trigger.tsplinkin[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.tsplinkout[N].pulsewidth
+width: number
+
+trigger.tsplinkout[N].stimulus
+event: triggerEvents
+
+trigger.wait()
+triggered: boolean
+timeout: number
+
+tsplink.group
+groupNumber: number
+
+tsplink.line[N].mode
+mode: tsplinkLineMode 
+
+tsplink.master
+masterNodeNumber: number
+
+tsplink.node
+nodeNumber: number
+
+tsplink.readport()
+data: number
+
+tsplink.state
+state: "online" | "offline"
+
+tsplink.writeport()
+data: number
+
+tspnet.connect()
+connectionID: tspnetConnectionID
+ipAddress: string
+portNumber: number
+initString: string
+
+tspnet.clear()
+connectionID: tspnetConnectionID
+
+tspnet.disconnect()
+connectionID: tspnetConnectionID
+
+tspnet.execute()
+connectionID: tspnetConnectionID
+commandString: string
+formatString: string
+...: number|string|...
+
+tspnet.idn()
+idnString: string
+connectionID: tspnetConnectionID
+
+tspnet.read()
+connectionID: tspnetConnectionID
+commandString: string
+formatString: string
+...: number|string|...
+
+tspnet.readavailable()
+bytesAvailable: number
+connectionID: tspnetConnectionID
+
+tspnet.termination()
+connectionID:tspnetConnectionID
+termSequence: tspnetterminationtermSequence
+type: tspnetterminationtype
+
+tspnet.timeout
+value: number
+
+tspnet.tsp.abort()
+connectionID: tspnetConnectionID
+
+tspnet.tsp.abortonconnect
+value: 0|1
+
+tspnet.tsp.rbtablecopy()
+table: table
+connectionID: tspnetConnectionID
+name: string
+startIndex: integer
+endIndex: integer
+
+tspnet.tsp.runscript()
+connectionID: tspnetConnectionID
+name: string
+script: string
+
+tspnet.write()
+connectionID: tspnetConnectionID
+inputString: string
+
+userstring.add()
+name: string
+value: string
+
+userstring.delete()
+name: string
+
+userstring.get()
+name: string
+value: string
+
+waitcomplete()
+group: any
+
+smu.source.delay
+function: smusourcedelayfunction
+sDelay: number
+
+smu.source.range
+function: smusourcerangefunction
+rangeValue: number
+
+smu.source.level
+function: smusourcelevelfunction
+sourceLevel: number
+
+smu.source.userdelay[N]
+function: smusourceuserdelayfunction
+delayTime: number[]
+
+smu.measure.userdelay[N]
+function: smumeasureuserdelayfunction
+delayTime: number[]
+
+smu.measure.configlist.create()
+listName: string
+
+smu.measure.configlist.delete()
+listName: string
+index: integer
+
+smu.measure.configlist.query()
+listName: string
+index: integer
+fieldSeparator: string
+output: string
+
+smu.measure.configlist.recall()
+listName: string
+index: integer
+sourceListName: string
+sourceIndex: integer
+
+smu.measure.configlist.size()
+indexCount: integer
+listName: string
+
+smu.measure.configlist.store()
+listName: string
+index: integer
+
+smu.measure.configlist.catalog()
+output: string | nil
+
+smu.measure.configlist.storefunc()
+function: smumeasureconfigliststorefuncfunction
+listName: string
+index: integer
+
+
+smu.measure.getattribute()
+function: smumeasuregetattributefunction
+value: any
+setting: smuMeasuresetFunctionattribute
+
+smu.measure.read()
+reading: number
+bufferName: bufferVar
+
+smu.measure.readwithtime()
+reading: number
+seconds: number
+fractional: number
+bufferName: bufferVar
+
+smu.measure.rel.acquire()
+relativeValue: number
+
+smu.measure.setattribute()
+function: smumeasuresetattributefunction
+setting: smuMeasuresetFunctionattribute
+value: any
+
+smu.source.configlist.create()
+listName: string
+
+smu.source.configlist.delete()
+listName: string
+index: integer
+
+smu.source.configlist.query()
+listName: string
+index: integer
+fieldSeparator: string
+
+smu.source.configlist.recall()
+listName: string
+index: integer
+measureListName: string
+measureIndex: integer
+
+smu.source.configlist.size()
+listName: string
+indexCount: integer
+
+smu.source.configlist.store()
+listName: string
+index: integer
+
+smu.source.configlist.storefunc()
+function: smusourceconfigliststorefuncfunction
+listName: string
+index: integer
+ConfigListName: string
+
+smu.source.getattribute()
+function: smusourcegetattributefunction
+value: any
+setting: smuSourceGetSetAttributes
+
+smu.source.setattribute()
+function: smusourcesetattributefunction
+setting: smuSourceGetSetAttributes
+value: any
+
+smu.source.sweeplinear()
+configListName: string
+start: number
+stop: number
+points: integer
+sDelay: smusourcesweeplinearsDelay | number
+count: smusourcesweeplinearcount | integer
+rangeType: smusourcesweeplinearrangeType
+failAbort: smusourcesweeplinearfailAbort
+dual: smusourcesweeplineardual
+bufferName: bufferVar
+
+smu.source.sweeplinearstep()
+configListName: string
+start: number
+stop: number
+step: number
+sDelay: smusourcesweeplinearstepsDelay | number
+count: smusourcesweeplinearstepcount | integer
+rangeType: smusourcesweeplinearsteprangeType
+failAbort: smusourcesweeplinearstepfailAbort
+dual: smusourcesweeplinearstepdual
+bufferName: bufferVar
+
+smu.source.sweeplist()
+configListName: string
+index: integer
+sDelay: number
+count: smusourcesweeplistcount | integer
+failAbort: smusourcesweeplistfailAbort
+bufferName: bufferVar
+
+smu.source.sweeplog()
+configListName: string
+start: number
+stop: number
+points: integer
+sDelay: smusourcesweeplogsDelay | number
+count: smusourcesweeplogcount | integer
+rangeType: smusourcesweeplograngeType
+failAbort: smusourcesweeplogfailAbort
+dual: smusourcesweeplogdual
+bufferName: bufferVar
+asymptote: number
+
+node[N].getglobal()
+value: number
+name: string
+
+smu.digitize.read()
+reading: number
+bufferName: bufferVar
+
+smu.digitize.readwithtime()
+reading: number
+seconds: number
+fractional: number
+bufferName: bufferVar
+
+smu.source.pulsesweeplinear()
+configListName: string
+biasLevel: number
+start: number
+stop: number
+points: number
+pulseWidth: number
+measEnable: smusourcepulsesweeplinearmeasEnable
+bufferName: bufferVar
+sDelay: number
+offTime: number
+count: smusourcepulsesweeplinearcount | number
+xBiasLimit: number
+xPulseLimit: number
+failAbort: smusourcepulsesweeplinearfailAbort
+dual: smusourcepulsesweeplineardual
+
+smu.source.pulsesweeplinearstep()
+configListName: string
+biasLevel: number
+start: number
+stop: number
+step: number
+pulseWidth: number
+measEnable: smusourcepulsesweeplinearstepmeasEnable
+bufferName: bufferVar
+sDelay: number
+offTime: number
+count: smusourcepulsesweeplinearstepcount | number
+xBiasLimit: number
+xPulseLimit: number
+failAbort: smusourcepulsesweeplinearstepfailAbort
+dual: smusourcepulsesweeplinearstepdual
+
+smu.source.pulsesweeplist()
+configListName: string
+pulseWidth: number
+measEnable: smusourcepulsesweeplistmeasEnable
+bufferName: bufferVar
+count: smusourcepulsesweeplistcount | number
+offTime: number
+sDelay: number
+failAbort: smusourcepulsesweeplistfailAbort
+
+smu.source.pulsesweeplog()
+configListName: string
+biasLevel: number
+start: number
+stop: number
+points: number
+pulseWidth: number
+measEnable: smusourcepulsesweeplogmeasEnable
+bufferName: bufferVar
+sDelay: number
+offTime: number
+count: smusourcepulsesweeplogcount | number
+xBiasLimit: number
+xPulseLimit: number
+failAbort: smusourcepulsesweeplogfailAbort
+dual: smusourcepulsesweeplogdual
+asymptote: number
+
+smu.source.pulsetrain()
+configListName: string
+biasLevel: number
+pulseLevel: number
+pulseWidth: number
+count: smusourcepulstraincount | number
+measEnable: smusourcepulsetrainmeasEnable
+bufferName: bufferVar
+sDelay: number
+offTime: number
+xBiasLimit: number
+xPulseLimit: number
+failAbort: smusourcepulsetrainfailAbort
+
+reset()
+system: boolean
+
+channelpowerstate()
+channelList: string
+state: channelsetpowerstatestate
+
+channel.getbackplane()
+analogBusList: string
+channelList: string
+
+channel.getoutputenable()
+outputEnable: boolean
+channelList: string
+
+channel.getpole()
+poles: string 
+channelList: string 
+
+channel.getpowerstate()
+states: string
+channelList: string
+
+channel.resetstatelatch()
+states: string
+channelList: string
+
+channel.setbackplane()
+abuslist: string
+channelList: string
+
+channel.setoutputenable()
+channelList: string
+state: channelState
+
+channel.setpole()
+channelList: string
+value: channelsetpolevalue
+
+channel.setstatelatch()
+channelList: string
+stateLatchMask: channelsetstatelatchstateLatchMask
+
+channel.getstatelatch()
+channelList: string
+state: channelsetstatelatchstateLatchMask
+
+channel.createspecifier()
+bank: number
+row: number
+column: number
+slotX: number
+
+channel.reset()
+channelList: string
+
+channel.setforbidden()
+channelList: string
+
+channel.getforbidden()
+channelList: string
+forbiddenList: string
+
+channel.clearforbidden()
+channelList: string
+
+channel.exclusiveclose()
+channelList: string
+
+channel.exclusiveslotclose()
+channelList: string
+
+channel.getimage()
+channels: string
+channelList: string
+
+channel.getlabel
+channelList: string
+label: string
+
+bit.bitand()
+result: number
+value1: number
+value2: number
+
+bit.bitor()
+result: number
+value1: number
+value2: number
+
+bit.bitxor()
+result: number
+value1: number
+value2: number
+
+bit.clear()
+result: number
+value: number
+index: integer
+
+bit.get()
+result: number
+value: number
+index: integer
+
+bit.getfield()
+result: number
+value: number
+index: integer
+width: number
+
+bit.set()
+result: number
+value: number
+index: integer
+
+bit.setfield()
+result: number
+value: number
+index: integer
+width: number
+fieldValue: number
+
+bit.test()
+result: number
+value: number
+index: integer
+
+bit.toggle()
+result: number
+value: number
+index: integer
+
+digio.readbit()
+data: number
+N: number
+
+digio.writebit()
+data: number
+N: number
+
+digio.writeport()
+data: integer
+
+display.getcursor()
+row: number
+column: number
+style: boolean
+
+display.gettext()
+columnStart: number
+columnEnd: number
+row: number
+embellished: boolean
+text: string
+
+display.inputvalue()
+format: string
+default: number
+minimum: number
+maximum: number
+
+display.menu()
+selection: string 
+name: string
+items: string
+
+display.setcursor()
+row: number
+column: number
+style: boolean
+
+display.getannunciators()
+annunciators: displayGetAnnuciators
+
+display.getlastk
+keyCode: displayKeyCode
+
+display.sendkey()
+keyCode: displayKeyCode
+
+display.waitkey()
+keyCode: displayKeyCode
+
+errorqueue.next()
+errorCode: number
+message: string
+severity: string
+errorNode: string
+
+eventlog.all()
+logString: string
+
+fileVar:read()
+data1: number
+data2: number
+format1: string
+format2: string
+
+fileVar:seek()
+position: string
+errorMsg: string
+whence: string
+offset: number
+
+fileVar:write()
+data1: string
+data2: string
+
+gettimezone()
+timeZone: any
+
+settimezone()
+offset: string
+dstOffset: string
+dstStart: string
+dstEnd: string
+
+makegetter()
+table: any
+attributeName: string
+getter: getter_object
+
+makesetter()
+setter: setter_object
+table: any
+attributeName: string
+
+channel.setpowerstate()
+channelList: string
+
+channel.calibration.step()
+channel: any
+step: number
+value: number
+
+dmm.calibration.ac()
+step: number
+value: number
+
+dmm.calibration.dc()
+step: number
+value: number
+
+io.close()
+file: file_object
+
+io.open()
+fileVar: file_object
+path: string
+mode: string
+errorMsg: string
+
+io.output()
+newfile: string
+fileVar: file_object
+
+io.read()
+data1: number
+data2: number
+format1: string
+format2: string
+
+io.type()
+type: string
+obj: file_object
+
+io.write()
+data1: number
+data2: number
+
+io.input()
+fileVar: file_object
+newfile: string
+
+memory.available()
+memoryAvailable: string
+
+memory.used()
+memoryUsed: string
+
+beeper.beep()
+duration: number
+frequency: number
+
+bit.bitand()
+result: number
+value1: number
+value2: number
+
+bit.bitor()
+result: number
+value1: number
+value2: number
+
+bit.bitxor()
+result: number
+value1: number
+value2: number
+
+
+bit.clear()
+result: number
+value: number
+index: integer
+
+bit.get()
+result: number
+value: number
+index: integer
+
+bit.getfield()
+
+result: number
+value: number
+index: integer
+width: number
+
+bit.set()
+result: number
+value: number
+index: integer
+
+bit.setfield()
+result: number
+value: number
+index: integer
+width: number
+fieldValue: number
+
+bit.test()
+result: boolean
+value: number
+index: integer
+
+bit.toggle()
+result: number
+value: number
+index: integer
+
+ConfigPulseIMeasureV() #TODO
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+ConfigPulseIMeasureVSweepLin()
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+ConfigPulseIMeasureVSweepLog()
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+ConfigPulseVMeasureI()
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+ConfigPulseVMeasureISweepLin()
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+ConfigPulseVMeasureISweepLog()
+f: boolean
+msg: string
+smu: table
+bias: number
+level: number
+limit: number
+ton: number
+toff: number
+points: number
+buffer: table
+tag: number
+sync_in: number
+sync_in_timeout: number
+sync_in_abort: number
+
+dataqueue.add()
+result: boolean
+value: any
+timeout: number
+
+delay()
+seconds: number
+
+
+digio.readbit()
+N: number
+data: number
+
+digio.trigger[N].assert()
+N: number
+
+digio.trigger[N].clear()
+N: number
+
+digio.trigger[N].release()
+N: number
+
+digio.trigger[N].reset()
+N: number
+
+digio.trigger[N].wait()
+N: number
+
+digio.writebit()
+N: number
+data: number
+
+digio.writeport()
+data: number
+
+display.getannunciators()
+annunciators: number
+
+display.getcursor()
+row: number
+column: number
+style: number
+
+display.getlastkey()
+keyCode: number
+
+display.gettext()
+text: string
+embellished: boolean
+row: number
+columnStart: number
+columnEnd: number
+
+display.inputvalue()
+format: string
+default: number
+minimum: number
+maximum: number
+
+display.loadmenu.add()
+displayName: string
+code: string
+memory: display
+
+display.loadmenu.catalog()
+displayName: String
+code: string
+body: string
+
+display.loadmenu.delete()
+displayName: string
+
+display.menu()
+selection: string
+name: string
+items: string
+
+display.sendkey()
+keyCode: number
+
+display.setcursor()
+row: number
+column: number
+style: number
+
+display.trigger.wait()
+triggered: boolean
+timeout: number
+
+display.waitkey()
+keyCode: number
+
+errorqueue.next():
+errorCode: number
+message: string
+severity: number
+errorNode: number
+
+eventlog.all()
+logString: string|nil
+
+fileVar:seek()
+position: any
+errorMsg: string
+fileVar: any
+whence: string
+offset: number
+
+fs.chdir()
+workingDirectory: string
+path: string
+
+fs.cwd()
+path: string
+
+fs.is_dir()
+status: boolean
+path: string
+
+fs.is_file()
+status: boolean
+path: string
+
+fs.rmdir()
+path: string
+
+gettimezone()
+timeZone: string
+
+gm_isweep()
+gm_array: any
+vbuf: number
+ibuf: number
+smu: table
+start_i: number
+stop_i: number
+points: number
+
+gm_vsweep():
+gm_array: any
+vbuf: number
+ibuf: number
+smu: table
+start_i: number
+stop_i: number
+points: number
+
+i_leakage_measure()
+imeas: number
+smu: table
+levelv: number
+limiti: number
+sourcedelay: number
+measurei: number
+measuredelay: number
+
+i_leakage_threshold()
+f: boolean
+smu: table
+levelv: number
+limiti: number
+sourcedelay: number
+measurei: number
+measuredelay: number
+threshold: number
+timeout: number
+
+InitiatePulseTest()
+f: boolean
+msg: string
+tag: number
+
+InitiatePulseTestDual()
+f: boolean
+msg: string
+tag1: number
+tag2: number
+
+io.close()
+file: string
+
+io.input()
+fileVar: io_object
+newfile: string
+
+io.open()
+fileVar: io_object
+errorMsg: string|nil
+path: string
+mode: string
+
+io.output()
+fileVar: io_object
+newfile: string
+
+io.read()
+data1: any
+data2: any
+dataN: any
+format1: string
+format2: string
+formatN: string
+
+io.write()
+data1: string|number
+data2: string|number
+dataN: string|number
+...: string|number
+
+
+lan.trigger[N].wait()
+triggered: any
+timeout: number
+
+makegetter()
+getter: function
+table: table
+attributeName: string
+
+makesetter()
+setter: function
+table: table
+attributeName: string
+
+meminfo()
+freeMem: number
+totalMem: number
+
+node[N].execute()
+N: number
+scriptCode: string
+
+node[N].getglobal()
+value: any
+N: number
+name: string
+
+node[N].setglobal()
+N: number
+name: string
+value: number
+
+os.remove()
+success: boolean|nil
+msg: string|nil
+filename: string
+
+os.rename()
+success: boolean|nil
+msg: string
+oldname: string
+newname: string
+
+print()
+value1: any
+...: any
+
+printnumber()
+value1: number
+...: number
+
+PulseIMeasureV()
+smu: table
+bias: number
+level: number
+ton: number
+toff: number
+points: number
+
+PulseVMeasureI()
+smu: table
+bias: number
+level: number
+ton: number
+toff: number
+points: number
+
+QueryPulseConfig()
+tag: number
+tb1: any
+
+reset()
+system: boolean
+
+savebuffer()
+buffer: any
+formatType: string
+fileName: string
+
+script.delete()
+scriptName: string
+
+script.factory.catalog()
+name: string
+body: string
+
+script.load()
+scriptVar: scriptVar
+file: string
+name: string
+
+script.new()
+scriptVar: scriptVar
+code: string
+name: string
+
+script.newautorun()
+scriptVar: scriptVar
+code: string
+name: string
+
+script.restore()
+name: string
+
+script.user.catalog()
+name: string
+body: string
+
+scriptVar.save()
+filename: string
+
+scriptVar.source
+code: string
+
+
+serial.read()
+maxchars: number
+data: string
+
+serial.write()
+data: string
+
+settime()
+time: any
+
+settimezone()
+offset: string
+dstOffset: string
+dstStart: string
+dstEnd: string
+
+setup.recall()
+id: number|string
+
+setup.save()
+id: number|string
+
+smuX.buffer.getstats()
+statistics: statistics
+bufferVar: bufferVar
+
+smuX.buffer.recalculatestats()
+bufferVar: bufferVar
+
+smuX.cal.unlock()
+password: string
+
+smuX.contact.calibratehi()
+cp1Measured: any
+cp1Reference: any
+cp2Measured: any
+cp2Reference: any
+
+smuX.contact.calibratelo()
+cp1Measured: any
+cp1Reference: any
+cp2Measured: any
+cp2Reference: any
+
+smuX.contact.r()
+rhi: any
+rlo: any
+
+smuX.makebuffer()
+bufferVar: bufferVar
+bufferSize: number
+
+smuX.nvbufferY
+bufferVar: bufferVar
+
+smuX.measure.calibrateY()
+range: number
+cp1Measured: number
+cp1Reference: number
+cp2Measured: number
+cp2Reference: number
+
+smuX.measure.overlappedY()
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
+
+smuX.measure.Y()
+readingBuffer: bufferVar
+iReading: number
+vReading: number
+iReadingBuffer: bufferVar
+vReadingBuffer: bufferVar
+
+eventlog.suppress()
+eventType: eventlogsuppresseventType
+eventNumber: number
+
+smuX.measureYandstep()
+reading: number
+sourceValue: number
+iReading: number
+vReading: number
+
+smuX.source.calibrateY()
+range: number
+cp1Measured: number
+cp1Reference: number
+cp2Measured: number
+cp2Reference: number
+
+smuX.savebuffer()
+buffer: bufferVar
+
+smuX.trigger.measure.Y()
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
+
+smuX.trigger.source.linearY()
+startValue: number
+endValue: number
+points: number
+
+smuX.trigger.source.listY()
+sweepList: table
+
+smuX.trigger.source.logY()
+startValue: number
+endValue: number
+points: number
+asymptote: number
+
+SweepILinMeasureV()
+smu: table
+starti: number
+stopi: number
+stime: number
+points: number
+
+SweepIListMeasureV()
+smu: table
+ilist: table
+stime: number
+points: number
+
+SweepILogMeasureV()
+smu: table
+starti: number
+stopi: number
+stime: number
+points: number
+
+SweepVLinMeasureI()
+smu: table
+startv: number
+stopv: number
+stime: number
+points: number
+
+SweepVListMeasureI()
+smu: table
+vlist: table
+stime: number
+points: number
+
+SweepVLogMeasureI()
+smu: table
+startv: number
+stopv: number
+stime: number
+points: number
+
+timer.measure.t()
+time: number
+
+trigger.blender[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.timer[N].wait()
+triggered: boolean
+timeout: number
+
+trigger.wait()
+triggered: boolean
+timeout: number
+
+tsplink.readbit()
+data: number
+
+tsplink.readport()
+data: number
+
+tsplink.reset()
+nodesFound: number
+expectedNodes: number
+
+tsplink.trigger[N].wait()
+triggered: boolean
+timeout: number
+
+tsplink.writebit()
+data: number
+N: number
+
+tsplink.writeport()
+data: number
+
+userstring.add()
+name: string
+value: string
+
+userstring.catalog()
+name: stirng
+body: string
+
+userstring.delete()
+name: string
+
+userstring.get()
+name: string
+value: number
+
+waitcomplete()
+group: any
+
+smu.measure.func
+mFunction: smumeasurefuncmFunction
+
+smu.measure.math.enable
+function: smumeasuremathenablefunction
+value: smumeasuremathenablevalue
+
+smu.measure.limit[Y].autoclear
+function: smumeasurelimitautoclearfunction
+value: smumeasurelimitautoclearvalue
+
+smu.measure.limit[Y].fail
+function: smumeasurelimitfailfunction
+result: smumeasurelimitfailresult
+
+smu.measure.limit[Y].high.value
+function: smumeasurelimithighvaluefunction
+highLimit: number
+
+smu.measure.limit[Y].low.value
+function: smumeasurelimitlowvaluefunction
+lowLimit: number
+
+smu.measure.math.format
+function: smumeasuremathformatfunction
+operation: smumeasuremathformatoperation
+
+smu.interlock.tripped
+interlockStatus: smuinterlocktrippedinterlockStatus
+
+smu.measure.sense
+function: smumeasuresensefunction
+sensing: smumeasuresensesensing
+
+smu.terminals
+terminals: smuterminalsterminals
+
+trigger.model.state()
+status: triggermodelstatestatus
+n: integer
+
+smu.source.output
+sourceOutput: smusourceoutputsourceOutput
+
+smu.measure.displaydigits
+function: smumeasuredisplaydigitsfunction
+digits: smumeasuredisplaydigitsdigits
+
+smu.measure.autozero.enable
+function: smumeasureautozeroenablefunction
+state: smumeasureautozeroenablestate
+
+smu.measure.nplc
+function: smumeasurenplcfunction
+nplc: number
+
+smu.source.protect.level
+function: smusourceprotectlevelfunction
+sourceOffMode: smusourceprotectlevelsourceOffMode
+PROTECT_x: smusourceprotectlevelPROTECT_x
+
+smu.measure.offsetcompensation
+function: smumeasureoffsetcompensationfunction
+state: smumeasureoffsetcompensationstate
+
+smu.source.offmode
+function: smusourceoffmodefunction
+sourceOffMode: smusourceoffmodesourceOffMode
+
+smu.source.func
+sFunction: smusourcefuncsFunction
+
+smu.source.autorange
+function: smusourceautorangefunction
+sourceAutorange: smusourceautorangesourceAutorange
+
+smu.measure.autorange
+function: smumeasureautorangefunction
+autoRange: smumeasureautorangeautoRange
+
+smu.measure.range
+function: smumeasurerangefunction
+rangeValue: number
+
+smu.measure.autorangelow
+function: smumeasureautorangelowfunction
+lowRange: number
+
+smu.measure.autorangehigh
+function: smumeasureautorangehighfunction
+highRange: number
+
+smu.measure.limit[Y].enable
+function: smumeasurelimitenablefunction
+state: smumeasurelimitenablestate
+
+smu.measure.rel.enable
+function: smumeasurerelenablefunction
+relEnable: smumeasurerelenablerelEnable
+
+smu.measure.rel.level
+function: smumeasurerellevelfunction
+
+smu.measure.filter.count
+function: smumeasurefiltercountfunction
+
+smu.measure.filter.type
+function: smumeasurefiltertypefunction
+filterType: smumeasurefiltertypefilterType
+
+smu.measure.filter.enable
+function: smumeasurefilterenablefunction
+filterState: smumeasurefilterenablefilterState
+
+smu.measure.math.mxb.bfactor
+function: smumeasuremathmxbbfactorfunction
+value: number
+
+smu.measure.math.mxb.mfactor
+function: smumeasuremathmxbmfactorfunction
+value: number
+
+smu.measure.math.percent
+function: smumeasuremathpercentfunction
+
+smu.source.protect.tripped
+function: smusourceprotecttrippedfunction
+value: smusourceprotecttrippedvalue
+
+smu.measure.count
+function: smumeasurecountfunction
+
+trigger.timer[N].start.generate
+state: triggertimerstartgeneratestate
+
+smu.measure.unit
+function: smumeasureunitfunction
+unitOfMeasure: smumeasureunitunitOfMeasure
+
+smu.source.xlimit.level
+function: smusourcexlimitlevelfunction
+value: number
+
+smu.source.xlimit.tripped
+function: smusourcexlimittrippedfunction
+state: 0|1
+
+trigger.timer[N].enable
+state: triggertimerenablestate
+
+smu.source.readback
+function: smusourcereadbackfunction
+state: smusourcereadbackstate
+
+smu.source.highc
+function: smusourcehighcfunction
+state: smusourcehighcstate
+
+trigger.model.setblock() - trigger.BLOCK_SOURCE_OUTPUT
+state: triggermodelsetblocktriggerBLOCK_SOURCE_OUTPUTstate
+
+trigger.digin[N].edge
+detectedEdge: triggerdiginedgedetectedEdge
+
+trigger.lanout[N].protocol
+protocol: triggerlanoutprotocolprotocol
+
+trigger.tsplinkin[N].edge
+detectedEdge: triggertsplinkinedgedetectedEdge
+
+trigger.tsplinkout[N].logic
+logicType: triggertsplinkoutlogiclogicType
+
+tsplink.line[N].state
+lineState: tsplinklinestatelineState
+
+smu.source.autodelay
+function: smusourceautodelayfunction
+sourceAutorange: smusourceautodelaysourceAutorange
+state: smusourceautodelaystate
+
+trigger.lanout[N].logic
+logicType: triggerlanoutlogiclogicType
+
+trigger.digout[N].logic
+logicType: triggerdigoutlogiclogicType
+
+bufferVar.sourcestatuses
+statusInfo: bufferVarsourcestatusesstatusInfo
+
+smu.measure.limit[Y].audible
+function: smumeasurelimitaudiblefunction
+state: smumeasurelimitaudiblestate
+
+trigger.continuous
+setting: triggercontinuoussetting
+
+smu.measure.autorangerebound
+function: smumeasureautorangereboundfunction
+state: smumeasureautorangereboundstate
+
+smu.interlock.enable
+state: smuinterlockenablestate

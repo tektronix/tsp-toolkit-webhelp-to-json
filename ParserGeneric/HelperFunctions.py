@@ -2,6 +2,7 @@ from logging import exception
 import os
 import re
 from bs4 import BeautifulSoup
+from Configuration import MODEL_NUMBER
 from helpers import cmd_param
 
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
@@ -29,7 +30,7 @@ def fetch_details(command_name,soup):
         soup, command_name)
     return description, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link
 
-def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param_info: list, usage, example, related_commands, tsp_link, model):
+def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param_info: list, usage, example, related_commands, tsp_link):
     record = {}
     overloads = list(get_overloads(usage, name, cmd_type))
     return_str = ""
@@ -62,6 +63,10 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
                 for x in temp:
                     if ("(" in x and "Function" in cmd_type):
                         signature = x.strip()
+                        
+                    if ("bufferVar." in x):
+                        signature = x.strip()
+
                     elif ("(" not in x and return_populated == False and x.strip() != name):
                         return_str = x.strip()
                         return_populated = True
@@ -103,7 +108,7 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
     record["usage"] = usage
     record["overloads"] = list(overloads)
     record["examples"] = example
-    if(model == 2600):
+    if(str(MODEL_NUMBER).find("26")!= -1):
         if flag == 1:
             record["supported_models"] = temp_c
         else:
@@ -136,18 +141,17 @@ def usage_func(S, command_name):
             sig = sig.replace("smuX.nvbufferY","buffer")
 
         # modifing sig which have param look like alias name
-        if("setblock()"not in command_name):
-            aliasParam = re.findall("[a-z]+\.\w+[0-9_A-Z]", sig)
+        # fs.is_file() , fs.is_dir() signature is having problem
+        if("setblock()" not in command_name and "fs." not in command_name
+           and "measure.Y()" not in command_name):
+            aliasParam = re.findall("[a-z]+\.[A-Z_0-9]+", sig)
             for s in aliasParam:
                 sig = sig.replace(s, s.split('.')[1])
 
         # when signature has ...[any_text] indicating many such params
-        if "..." in sig:           
-            sig = re.sub(r",\s*\.\.\.\s*[^=)]+", ", ...", sig)
+        #if "..." in sig:           
+            #sig = re.sub(r",\s*\.\.\.\s*[^=)]+","", sig)
 
-        # renaming lua keywords present in signature
-        sig = sig.replace(", end", ", endPoint").replace(       
-            "function,", "measFunction,")
 
         usage.append(sig)
     return usage
@@ -159,7 +163,7 @@ def filter_paragraph(S, command_name):
     
     if "display.settext()" in command_name:
         all_paragraphs.append(get_new_paragraph(
-            S, "display.settext(DisplayText, Text)"))
+            S, "display.settext(displayArea, text)"))
         return all_paragraphs
 
     try:
@@ -194,8 +198,8 @@ def get_parameter_details(S, command_name):
     if "lan.restoredefaults()" in command_name:
         return param_info
     
-    if "bufferVar" in command_name:
-        return param_info
+    # if "bufferVar" in command_name:
+    #     return param_info
     
     try:
         tables = S.find_all("table")
@@ -208,7 +212,7 @@ def get_parameter_details(S, command_name):
             rows.insert(0, new_row)
         
         elif "buffer.unit()" in command_name:
-            new_row = get_new_row(S, "UNIT_CUSTOMN", "buffer.UNIT_CUSTOMN")
+            new_row = get_new_row(S, "UNIT_CUSTOMN", "Custom unit user can create, The number of the custom unit, 1, 2, or 3")
             rows.insert(0, new_row)
             #param_table.insert(0, new_row)
 
@@ -216,10 +220,10 @@ def get_parameter_details(S, command_name):
             rows.pop(1)
             rows.pop(0)
             #param_table.extract()
-            new_row = get_new_row(S, "DisplayText", "display.TEXT1 display.TEXT2")
+            new_row = get_new_row(S, "displayArea", "display.TEXT1 display.TEXT2")
             rows.insert(0, new_row)
             #param_table.insert(0, new_row)
-            new_row = get_new_row(S, "Text", "String that contains the message for the top line of the USER swipe screen (up to 20 characters)")
+            new_row = get_new_row(S, "text", "String that contains the message for the top line of the USER swipe screen (up to 20 characters)")
             #param_table.insert(1, new_row)
             rows.insert(1, new_row)
         elif "smuX.savebuffer()" in command_name:            
@@ -260,25 +264,30 @@ def get_parameter_details(S, command_name):
             mini_dict = {}
 
             data = row.find_all("td")
-            param = data[0].get_text().replace("\n", "").replace(
-                        "end", "endPoint").replace("function", "measFunction").strip()
-            param_desc = data[1].get_text().replace("\n", "")
+            param = data[0].get_text().replace("\n", "").strip() # name of the parameter
+            
+            param_desc = "\n".join([item.get_text(separator='\n') for item in data[1:]]) #24xx, dmm, daq
+            
+            if(str(MODEL_NUMBER).find("26")!= -1):
+                param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+
 
             if param == '':
                 continue
             
             mini_dict["name"] = param                        
 
-            x = re.findall("[a-z]+[X]?\.\w+[0-9_A-Z]", param_desc)
+            x = list(set(re.findall("[a-z]+[X]?\.[A-Z_0-9]+", param_desc)))
             y = re.findall("or\\s(\\d)", param_desc)
+            param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
             #if "buffer.write.format()" in command_name:
             if ":" in param_desc:
                 param_desc = param_desc.split(":")[0]
             mini_dict["description"] = param_desc
 
+            enum_data = ""
             if len(x) != 0:
-                enum_data = ""
                 for index in range(len(x)):
                     if len(y) > index:
                         enum_data += x[index] + \
@@ -309,13 +318,11 @@ def get_parameter_details(S, command_name):
                 enum_data = re.sub("[\w]+scan","scan",enum_data)
                 enum_data = re.sub("[\w]+channel","channel",enum_data)
                 enum_data = re.sub("[\w]+dmm","dmm",enum_data)
-                #mini_dict["enum"] = enum_data.replace("valuesmuX","smuX") # 2600 smua.trigger.source.limiti
-                mini_dict["enum"] = enum_data
-                mini_dict["type"] = enum_class.replace(" ","").replace("[1]","")
-            else:
-                mini_dict["enum"] = ""
-                mini_dict["type"] = get_param_type(
-                    command_name, param)
+                  
+        
+            mini_dict["enum"] = enum_data
+            mini_dict["type"] = get_param_type(
+                command_name, param)
              
             mini_dict["range"] = get_range(
                 command_name, param_desc)
@@ -422,8 +429,13 @@ def get_new_row(S, param, disc):
 
 def get_param_type(cmd, param_name) -> str:
     data_type = "any"
+
+    file_path = "ParserGeneric\\tti-command_param_data_type.txt"
+    if(str(MODEL_NUMBER).find("26")!= -1):
+        file_path = "ParserGeneric\\26xx-command_param_data_type.txt"
+
     paramTypeDetails = cmd_param.getParamTypeDetails(
-    os.path.abspath("ParserGeneric\command_param_data_type.txt"))
+            os.path.abspath(file_path))
     value = paramTypeDetails.get(cmd, None)
     if value:
         param_details = {v.split(':')[0]: v.split(
@@ -484,7 +496,7 @@ def get_signature_details(S, command_name):
     try:
         tables = S.find_all("table")
         table = tables[1]             
-        command_type = table.find_all("tr")[1].find_all("td")[0].text
+        command_type = table.find_all("tr")[1].find_all("td")[0].text.replace("\n", "")
         if "ptp.ds.info" in command_name:
             command_type = "Attribute (R)"  
         default_value = table.find_all("tr")[1].find_all("td")[4].text  
