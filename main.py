@@ -113,8 +113,15 @@ for filename in os.listdir(HELP_FILE_FOLDER_PATH):
             y_param_details = HelperFunctions.get_Y_param_options(
                 command, param_info, command_type, usage)
 
+            usage_orignal = copy.deepcopy(usage)
+
             for x in ["a", "b"]:
                 for y in y_param_details:
+                    if "iv" in y:
+                        usage = [sig for sig in usage_orignal if "iv" in sig]
+                    else:
+                        usage = [sig for sig in usage_orignal if "Y" in sig]
+
                     name = command.replace("Y", y).replace("X", x)
                     usage1 = [sig.replace("Y", y).replace("X", x)
                               for sig in usage] 

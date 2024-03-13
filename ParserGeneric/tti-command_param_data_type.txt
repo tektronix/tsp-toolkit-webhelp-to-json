@@ -1134,7 +1134,7 @@ channelList: string
 DMMconfiguration: string
 
 dmm.makebuffer()
-bufferSize: number
+bufferSize: integer
 
 dmm.measure()
 bufferVar: bufferVar
@@ -2743,96 +2743,9 @@ id: number|string
 setup.save()
 id: number|string
 
-smuX.buffer.getstats()
-statistics: statistics
-bufferVar: bufferVar
-
-smuX.buffer.recalculatestats()
-bufferVar: bufferVar
-
-smuX.cal.unlock()
-password: string
-
-smuX.contact.calibratehi()
-cp1Measured: any
-cp1Reference: any
-cp2Measured: any
-cp2Reference: any
-
-smuX.contact.calibratelo()
-cp1Measured: any
-cp1Reference: any
-cp2Measured: any
-cp2Reference: any
-
-smuX.contact.r()
-rhi: any
-rlo: any
-
-smuX.makebuffer()
-bufferVar: bufferVar
-bufferSize: number
-
-smuX.nvbufferY
-bufferVar: bufferVar
-
-smuX.measure.calibrateY()
-range: number
-cp1Measured: number
-cp1Reference: number
-cp2Measured: number
-cp2Reference: number
-
-smuX.measure.overlappedY()
-rbuffer: bufferVar
-ibuffer: bufferVar
-vbuffer: bufferVar
-
-smuX.measure.Y()
-readingBuffer: bufferVar
-iReading: number
-vReading: number
-iReadingBuffer: bufferVar
-vReadingBuffer: bufferVar
-
 eventlog.suppress()
 eventType: eventlogsuppresseventType
 eventNumber: number
-
-smuX.measureYandstep()
-reading: number
-sourceValue: number
-iReading: number
-vReading: number
-
-smuX.source.calibrateY()
-range: number
-cp1Measured: number
-cp1Reference: number
-cp2Measured: number
-cp2Reference: number
-
-smuX.savebuffer()
-buffer: bufferVar
-
-smuX.trigger.measure.Y()
-rbuffer: bufferVar
-ibuffer: bufferVar
-vbuffer: bufferVar
-
-smuX.trigger.source.linearY()
-startValue: number
-endValue: number
-points: number
-
-smuX.trigger.source.listY()
-sweepList: table
-
-smuX.trigger.source.logY()
-startValue: number
-endValue: number
-points: number
-asymptote: number
 
 SweepILinMeasureV()
 smu: table

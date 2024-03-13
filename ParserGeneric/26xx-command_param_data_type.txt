@@ -1,189 +1,82 @@
-available()
-presence: boolean
-measFunctionality: functionality
-
 beeper.beep()
 duration: number
 frequency: number
 
-buffer.channelmath()
-readingBuffer: bufferVar
-unit: bufferchannelmathunit
-channelNumber: string
-channelNum2: string
-constant0: number
-constant1: number
-constant2: number
-constant3: number
-constant4: number
-constant5: number
-expr: mathExpression
-expr10: mathExpression
+bufferVar.appendmode
+state: 0|1
 
-buffer.clearstats()
-bufferVar: bufferVar
+bufferVar.basetimestamp
+basetime: number
 
-buffer.delete()
-bufferName: bufferVar
-
-buffer.getstats()
-statsVar: statsVar
-bufferVar: bufferVar
-channelNumber: number
-absStartTime: number
-absStartFractional: number
-absEndTime: number
-absEndFractional: number
-relStartTime: number
-relEndTime: number
-
-buffer.make()
-bufferVar: bufferVar
-bufferSize: integer
-style: buffermakestyle
-
-buffer.math()
-readingBuffer: bufferVar
-unit: buffermathunit
-channelNumber: string
-channelNum2: string
-constant0: number
-constant1: number
-constant2: number
-constant3: number
-constant4: number
-constant5: number
-expr: mathExpression
-expr10: mathExpression
-
-buffer.save()
-bufferVar: bufferVar
-fileName: string
-what: bufferFileSaveDetails
-start: number
-endPoint: number
-
-buffer.saveappend()
-bufferVar: bufferVar
-fileName: string
-timeFormat: buffersaveappendtimeFormat
-start: integer
-endPoint: integer
-
-buffer.unit()
-UNIT_CUSTOMN: bufferCustomUnit
-unitOfMeasure: string
-
-buffer.write.format()
-bufferVar: bufferVar
-units: bufferwriteformatunits
-displayDigits: bufferwriteformatdisplayDigits
-extraUnits: bufferwriteformatunits
-extraDigits: bufferwriteformatdisplayDigits
-
-buffer.write.reading()
-bufferVar: bufferVar
-readingValue: number
-extraValue: number
-seconds: number
-fractionalSeconds: number
-status: readingStatus
-channel: string
+bufferVar.cachemode
+cacheMode: 0|1
 
 bufferVar.capacity
-bufferCapacity: number
+bufferCapacity: integer
 bufferVar: bufferVar
-
-bufferVar.channels
-date: number
-bufferVar: bufferVar
-N: number
 
 bufferVar.clear()
 bufferVar: bufferVar
 
-bufferVar.dates
-date: number
-bufferVar: bufferVar
-N: number
 
-bufferVar.endindex
-endIndex: number
+bufferVar.clearcache()
 bufferVar: bufferVar
 
-bufferVar.extraformattedvalues
-extraFormat: number
-bufferVar: bufferVar
-N: number
+bufferVar.collectsourcevalues
+state: 0|1
 
-bufferVar.extravalues
-extravalue: number
-bufferVar: bufferVar
-N: number
+bufferVar.collecttimestamps
+state: 0|1
 
-bufferVar.extravalueunits
-extraUnits: string
-bufferVar: bufferVar
-N: number
+bufferVar.fillcount
+fillCount: integer
+
 
 bufferVar.fillmode
 fillMode: bufferVarfillmodefillMode
 bufferVar: bufferVar
 
-bufferVar.formattedreadings 
-reading: string
+bufferVar.measurefunctions
+measurefunction: string[]
 bufferVar: bufferVar
-N: number
 
-bufferVar.fractionalseconds
-fractionalSec: number
-bufferVar: bufferVar
-N: number
-
-bufferVar.logstate
-logState: bufferVarlogstatelogState
-bufferVar: bufferVar
+bufferVar.measureranges
+measurerange: number[]
 
 bufferVar.n 
-numberOfReadings: number
+numberOfReadings: integer
 bufferVar: bufferVar
 
 bufferVar.readings
-reading: number
+reading: number[]
 bufferVar: bufferVar
 N: number
 
-bufferVar.relativetimestamps
-timestamp: number
+bufferVar.sourcefunctions
+sourcefunction: string[]
 bufferVar: bufferVar
-N: number
 
-bufferVar.seconds
-nonFracSeconds: number
+bufferVar.sourceoutputstates
+state: string[]
 bufferVar: bufferVar
-N: number
 
-bufferVar.startindex
-startIndex: number
+bufferVar.sourceranges
+sourcerange: number[]
+bufferVar: bufferVar
+
+bufferVar.sourcevalues
+sourcevalue: number[]
 bufferVar: bufferVar
 
 bufferVar.statuses
-statusInformation: bufferVarstatuses
+statusInformation: number[]
 
-bufferVar.times
-readingTime: string
-bufferVar: bufferVar
-N: number
+bufferVar.timestampresolution
+resolution: number
 
 bufferVar.timestamps
-readingTimestamp: string
+timestamp: number[]
 bufferVar: bufferVar
-N: number
-
-bufferVar.units
-readingUnit: string
-bufferVar: bufferVar
-N: number
 
 channel.close()
 channelList: string
@@ -307,7 +200,7 @@ value: any
 timeout: number
 
 dataqueue.CAPACITY
-count: number
+count: dataqueueCAPACITYcount
 
 dataqueue.clear()
 
@@ -331,6 +224,164 @@ state: digiolineArrstatestate
 
 digio.readport()
 data: number
+
+digio.writeprotect
+mask: number
+
+errorqueue.count
+count: integer
+
+eventlog.count
+N: integer
+
+lan.linktimeout
+timeout: number
+
+lan.timedwait
+timeout: number
+
+localnode.autolinefreq
+flag: boolean
+
+localnode.description
+description: string
+
+serial.databits
+bits: number
+
+setup.poweron
+id: integer
+
+tsplink.writeprotect
+mask: number
+
+scriptVar.autorun
+state: "yes"|"no"
+
+scriptVar.source
+code: string
+
+scriptVar.name
+scriptName: string
+
+digio.trigger[N].mode
+triggerMode: triggerMode
+
+digio.trigger[N].overrun
+overrun: boolean
+
+digio.trigger[N].pulsewidth
+width: number
+
+display.trigger.overrun
+overrun: boolean
+
+lan.config.gateway
+gatewayAddress: string
+
+lan.config.ipaddress
+ipAddress: string
+
+lan.config.speed
+speed: number
+
+lan.config.subnetmask
+mask: string
+
+lan.status.gateway
+gatewayAddress: string
+
+
+lan.status.ipaddress
+ipAddress: string
+
+lan.status.macaddress
+macAddress: string
+
+lan.status.speed
+speed: number
+
+lan.status.subnetmask
+mask: string
+
+lan.trigger[N].connected
+connected:  boolean
+
+lan.trigger[N].ipaddress
+ipAddress: string
+
+lan.trigger[N].mode
+mode: lanTriggerMode
+
+lan.trigger[N].overrun
+overrun: boolean
+
+smuX.cal.due
+calDue: number
+
+smuX.source.compliance
+compliance: boolean
+
+smuX.source.levelY
+sourceLevel: number
+
+smuX.source.lowrangeY
+sourceRangeLow: number
+
+smuX.source.offlimitY
+sourceLimit: number
+
+smuX.source.rangeY
+rangeValue: number
+
+smuX.source.limitY
+limit: number
+
+smuX.trigger.count
+triggerCount: integer
+
+tsplink.trigger[N].mode
+mode: triggerMode
+
+tsplink.trigger[N].overrun
+overrun: boolean
+
+tsplink.trigger[N].pulsewidth
+width: number
+
+trigger.timer[N].delaylist
+intervals: table
+
+trigger.timer[N].overrun
+overrun: boolean
+
+trigger.timer[N].passthrough
+passthrough: boolean
+
+lan.config.dns.domain
+domain: string
+
+lan.config.dns.hostname
+hostName: string
+
+lan.status.dns.name
+hostName: string
+
+lan.status.port.dst
+port: integer
+
+lan.status.port.rawsocket
+port: integer
+
+lan.status.port.telnet
+port: integer
+
+lan.status.port.vxi11
+port: number
+
+smuX.trigger.arm.count
+triggerArmCount: integer
+
 
 digio.writeport()
 data: number
@@ -558,11 +609,6 @@ dmm.measure.configlist.store()
 listName: string
 index: number
 
-dmm.measure.configlist.storefunc()
-listName: string
-measFunction: functions
-index: number
-
 dmm.measure.count
 count: number
 
@@ -595,11 +641,6 @@ RTDType: dmmmeasurefourrtdRTDType
 
 dmm.measure.func 
 mFunction: functions
-
-dmm.measure.getattribute()
-value: any
-measFunction: functions
-setting: functionAttributes
 
 dmm.measure.inputimpedance
 setting: dmmmeasureinputimpedancesetting
@@ -685,11 +726,6 @@ setting: dmmmeasurerelenablestate
 
 dmm.measure.sense.range
 value: number
-
-dmm.measure.setattribute()
-measFunction: functions
-setting: functionAttributes
-value: any
 
 dmm.measure.simreftemperature
 value: number
@@ -791,7 +827,7 @@ path: string
 newpath: string
 
 fs.readdir()
-files: table
+files: string[]
 path: string
 
 fs.rmdir()
@@ -811,6 +847,15 @@ domain: number
 
 lan.macaddress
 MACaddress: string
+
+localnode.revision
+revision: string
+
+localnode.showerrors
+errorMode: 0|1
+
+localnode.license
+license_agreement: string
 
 localnode.access
 accessType: localnodeaccessaccessType
@@ -859,25 +904,19 @@ name: string
 value: number
 
 print()
-value: string
-value1: string
-value2: string
-
-printbuffer()
-startIndex: number
-endIndex: number
-buffer1: bufferVar
-buffer2: bufferVar
-bufferN: bufferVar
-bufferVar: bufferVar
-bufferVar2: bufferVar
-bufferVarN: bufferVar
+value1: any
+...: any
 
 printnumber()
-value: number
 value1: number
-value2: number
-value_N: number
+...: number
+
+
+printbuffer()
+startIndex: integer
+endIndex: integer
+bufferVar: bufferVar
+...: bufferVar
 
 scan.add()
 channelList: string
@@ -969,8 +1008,14 @@ dmmConfig: string
 scan.start.stimulus
 eventID: triggerEvents
 
+serial.baud
+baud: number
+
 scan.stepcount
 scanStepCount: number
+
+script.anonymous
+scriptVar: table
 
 script.delete()
 scriptName: string
@@ -1006,8 +1051,8 @@ name: string
  filename: string
 
  os.time()
- utcTime: any
- timspec: any
+ utcTime: number
+ timespec: table
 
  channel.calibration.adjustcount()
  count: number
@@ -1034,6 +1079,7 @@ display.loadmenu.delete()
 displayName: string
 
 display.loadmenu.add()
+memory: displayloadmenuaddmemory
 displayName: string
 code: string
 
@@ -1077,11 +1123,6 @@ stateMatch: number
 channel.trigger[N].wait
 triggered: boolean
 timeout: number
-
-dmm.buffer.info()
-size: number
-capacity:number
-bufferVar: string
 
 dmm.calibration.unlock()
 password: string
@@ -1137,26 +1178,6 @@ bufferVar: bufferVar
 reading: number
 
 dmm.measurewithtime()
-reading: number
-sconds: number
-fractional: number
-bufferVar: bufferVar
-
-dmm.open()
-channelList: string
-
- dmm.reset()
- scope: string
-
- dmm.savebuffer()
- bufferVar: string
- fileName: string
-
-dmm.setconfig()
-channelList: string
-dmmConfiguration: string
-
-dmm.measurewithptp()
 reading: number
 sconds: number
 fractional: number
@@ -1249,6 +1270,22 @@ slot[slot].voltage.startchannel
 value: number
 slot: number
 
+status.node_enable
+nodeEnableRegister: number
+
+status.node_event
+nodeEventRegister: number
+
+status.request_enable
+requestSRQEnableRegister: number
+
+status.request_event
+requestSRQEventRegister: number
+
+lan.trigger[N].pseudostate
+pseudostate: 0|1
+
+
 status.condition
 statusByte: number
 
@@ -1289,9 +1326,6 @@ status.questionable.setmap()
 setEvent: number
 clearEvent: number
 bitNumber: number
-
-status.request_enable
-SRQEnableRegister: number
 
 status.standard.enable
 standardRegister: number
@@ -1552,9 +1586,6 @@ count: number
 trigger.timer[N].delay
 interval: number
 
-trigger.timer[N].delaylist
-interval: number
-
 trigger.timer[N].start.fractionalseconds
 time: number
 
@@ -1625,8 +1656,7 @@ tspnet.execute()
 connectionID: tspnetConnectionID
 commandString: string
 formatString: string
-value1: number
-value2: number
+...: number|string|...
 
 tspnet.idn()
 idnString: string
@@ -1636,8 +1666,7 @@ tspnet.read()
 connectionID: tspnetConnectionID
 commandString: string
 formatString: string
-value1: number
-value2: number
+...: number|string|...
 
 tspnet.readavailable()
 bytesAvailable: number
@@ -1646,7 +1675,7 @@ connectionID: tspnetConnectionID
 tspnet.termination()
 connectionID:tspnetConnectionID
 termSequence: tspnetterminationtermSquence
-type: any
+type: tspnetterminationtype
 
 tspnet.timeout
 value: number
@@ -1714,16 +1743,6 @@ smu.measure.configlist.store()
 listName: string
 index: number
 
-smu.measure.configlist.storefunc()
-listName: string
-index: number
-measfunction: smumeasureconfigliststorefuncfunction
-
-smu.measure.getattribute()
-value: number
-measfunction: smumeasuregetattributefunction
-setting: smuMeasuresetFunctionattribute
-
 smu.measure.read()
 reading: number[]
 bufferName: bufferVar
@@ -1736,11 +1755,6 @@ bufferName: bufferVar
 
 smu.measure.rel.acquire()
 relativeValue: number
-
-smu.measure.setattribute()
-measfunction: smumeasuresetattributefunction
-setting: smuMeasuresetFunctionattribute
-value: number
 
 smu.source.configlist.create()
 listName: string
@@ -1772,16 +1786,6 @@ smu.source.configlist.storefunc()
 listName: string
 index: number
 ConfigListName: string
-
-smu.source.getattribute()
-measfunction: smusourcegetattributefunction
-value: any
-setting: smuSourceGetSetAttributes
-
-smu.source.setattribute()
-measfunction: smusourcesetattributefunction
-setting: smuSourceGetSetAttributes
-value: number
 
 smu.source.sweeplinear()
 configListName: string
@@ -2261,7 +2265,7 @@ result: number
 value: number
 index: number
 
-ConfigPulseIMeasureV() #TODO
+ConfigPulseIMeasureV()
 f: boolean
 msg: string
 smu: table
@@ -2271,8 +2275,11 @@ limit: number
 ton: number
 toff: number
 points: number
-buffer: table
+buffer: bufferVar
 tag: number
+sync_out: number
+start: number
+stop: number
 sync_in: number
 sync_in_timeout: number
 sync_in_abort: number
@@ -2287,8 +2294,11 @@ limit: number
 ton: number
 toff: number
 points: number
-buffer: table
+buffer: bufferVar
 tag: number
+sync_out: number
+start: number
+stop: number
 sync_in: number
 sync_in_timeout: number
 sync_in_abort: number
@@ -2296,6 +2306,7 @@ sync_in_abort: number
 ConfigPulseIMeasureVSweepLog()
 f: boolean
 msg: string
+start: number
 smu: table
 bias: number
 level: number
@@ -2303,8 +2314,11 @@ limit: number
 ton: number
 toff: number
 points: number
-buffer: table
+buffer: bufferVar
 tag: number
+sync_out: number
+start: number
+stop: number
 sync_in: number
 sync_in_timeout: number
 sync_in_abort: number
@@ -2322,6 +2336,9 @@ points: number
 buffer: table
 tag: number
 sync_in: number
+sync_out: number
+start: number
+stop: number
 sync_in_timeout: number
 sync_in_abort: number
 
@@ -2337,6 +2354,9 @@ toff: number
 points: number
 buffer: table
 tag: number
+sync_out: number
+start: number
+stop: number
 sync_in: number
 sync_in_timeout: number
 sync_in_abort: number
@@ -2353,6 +2373,9 @@ toff: number
 points: number
 buffer: table
 tag: number
+sync_out: number
+start: number
+stop: number
 sync_in: number
 sync_in_timeout: number
 sync_in_abort: number
@@ -2383,9 +2406,6 @@ digio.trigger[N].release()
 N: number
 
 digio.trigger[N].reset()
-N: number
-
-digio.trigger[N].wait()
 N: number
 
 digio.writebit()
@@ -2472,13 +2492,6 @@ errorNode: number
 eventlog.all()
 logString: string|nil
 
-fileVar:seek()
-position: any
-errorMsg: string
-fileVar: any
-whence: string
-offset: number
-
 fs.chdir()
 workingDirectory: string
 path: string
@@ -2497,10 +2510,6 @@ path: string
 fs.mkdir()
 path: string
 newpath: string
-
-fs.readdir()
-files: any
-path: string
 
 fs.rmdir()
 path: string
@@ -2588,11 +2597,6 @@ data2: string|number
 dataN: string|number
 ...: string|number
 
-
-lan.trigger[N].wait()
-triggered: any
-timeout: number
-
 makegetter()
 getter: function
 table: table
@@ -2632,17 +2636,6 @@ msg: string
 oldname: string
 newname: string
 
-print()
-value1: any
-value2: any
-valueN: any
-...: any
-
-printnumber()
-value1: number
-value2: number
-valueN: number
-...: number
 
 PulseIMeasureV()
 smu: table
@@ -2668,7 +2661,7 @@ reset()
 system: boolean
 
 savebuffer()
-buffer: any
+buffer: bufferVar
 formatType: string
 fileName: string
 
@@ -2709,7 +2702,7 @@ serial.write()
 data: string
 
 settime()
-time: any
+time: number
 
 settimezone()
 offset: string
@@ -2724,34 +2717,46 @@ setup.save()
 id: number|string
 
 smuX.buffer.getstats()
-statistics: statistics
+statistics: statsVar
 bufferVar: bufferVar
 
 smuX.buffer.recalculatestats()
 bufferVar: bufferVar
 
+smuX.cal.adjustdate
+adjustDate: number
+
+smuX.cal.date
+calDate: number
+
+smua.cal.due
+calDue: number
+
 smuX.cal.unlock()
 password: string
 
 smuX.contact.calibratehi()
-cp1Measured: any
-cp1Reference: any
-cp2Measured: any
-cp2Reference: any
+cp1Measured: number
+cp1Reference: number
+cp2Measured: number
+cp2Reference: number
 
 smuX.contact.calibratelo()
-cp1Measured: any
-cp1Reference: any
-cp2Measured: any
-cp2Reference: any
+cp1Measured: number
+cp1Reference: number
+cp2Measured: number
+cp2Reference: number
+
+smuX.contact.check()
+result: boolean
 
 smuX.contact.r()
-rhi: any
-rlo: any
+rhi: number
+rlo: number
 
 smuX.makebuffer()
 bufferVar: bufferVar
-bufferSize: number
+bufferSize: integer
 
 smuX.nvbufferY
 bufferVar: bufferVar
@@ -2763,12 +2768,42 @@ cp1Reference: number
 cp2Measured: number
 cp2Reference: number
 
+smuX.measure.count
+count: integer
+
+smuX.measure.delayfactor
+delayFactor: number
+
+smuX.measure.filter.count
+filterCount: integer
+
+smuX.measure.highcrangedelayfactor
+delayFactor: integer
+
+smuX.measure.interval
+interval: number
+
+smuX.measure.lowrangeY
+lowRange: number
+
+smuX.measure.nplc
+nplc: number
+
 smuX.measure.overlappedY()
 rbuffer: bufferVar
 ibuffer: bufferVar
 vbuffer: bufferVar
 
+smuX.measure.rangeY
+rangeValue: number
+
+smuX.measure.rel.levelY
+relValue: number
+
+
+
 smuX.measure.Y()
+reading: number
 readingBuffer: bufferVar
 iReading: number
 vReading: number
@@ -2786,9 +2821,9 @@ vReading: number
 
 smuX.source.calibrateY()
 range: number
-cp1Measured: number
+cp1Expected: number
 cp1Reference: number
-cp2Measured: number
+cp2Expected: number
 cp2Reference: number
 
 smuX.savebuffer()
@@ -2801,7 +2836,7 @@ vbuffer: bufferVar
 
 smuX.trigger.source.linearY()
 startValue: number
-endPointValue: number
+endValue: number
 points: number
 
 smuX.trigger.source.listY()
@@ -2809,7 +2844,7 @@ sweepList: table
 
 smuX.trigger.source.logY()
 startValue: number
-endPointValue: number
+endValue: number
 points: number
 asymptote: number
 
@@ -2869,7 +2904,8 @@ triggered: boolean
 timeout: number
 
 tsplink.readbit()
-data: number
+data: 0|1
+N: number
 
 tsplink.readport()
 data: number
@@ -2906,3 +2942,175 @@ value: number
 
 waitcomplete()
 group: any
+beeper.enable
+state: beeperenablestate
+
+display.locallockout
+lockout: displaylocallockoutlockout
+
+display.numpad
+numericKeypad: displaynumpadnumericKeypad
+
+display.smuX.digits
+digits: displaysmuXdigitsdigits
+
+display.smuX.measure.func
+func: displaysmuXmeasurefuncfunc
+
+display.screen
+displayID: displayscreendisplayID
+
+eventlog.overwritemethod
+method: eventlogoverwritemethodmethod
+
+eventlog.enable
+status: eventlogenablestatus
+
+lan.autoconnect
+state: lanautoconnectstate
+
+lan.nagle
+state: lannaglestate
+
+lan.config.dns.dynamic
+state: lanconfigdnsdynamicstate
+
+lan.config.dns.verify
+state: lanconfigdnsverifystate
+
+lan.config.duplex
+duplex: lanconfigduplexduplex
+
+lan.config.method
+method: lanconfigmethodmethod
+
+lan.status.duplex
+duplex: lanstatusduplexduplex
+
+lan.trigger[N].protocol
+protocol: lantriggerprotocolprotocol
+
+localnode.passwordmode
+mode: localnodepasswordmodemode
+
+serial.flowcontrol
+flow: serialflowcontrolflow
+
+serial.parity
+parity: serialparityparity
+
+smuX.cal.restore()
+calset: smuXcalrestorecalset
+
+smuX.cal.polarity
+calPolarity: smuXcalpolaritycalPolarity
+
+smuX.cal.state
+calState: smuXcalstatecalState
+
+smuX.contact.speed
+speedSetting: smuXcontactspeedspeedSetting
+
+smuX.contact.threshold
+rValue: number
+
+smuX.measure.analogfilter
+option: 0|1
+
+smuX.measure.autorangeY
+autoRange: smuXmeasureautorangeYautoRange
+
+smuX.measure.autozero
+azMode: smuXmeasureautozeroazMode
+
+smuX.measure.delay
+mDelay: smuXmeasuredelaymDelay
+
+smuX.measure.filter.enable
+filterState: smuXmeasurefilterenablefilterState
+
+smuX.measure.filter.type
+filterType: smuXmeasurefiltertypefilterType
+
+smuX.measure.rel.enableY
+relEnable: smuXmeasurerelenableYrelEnable
+
+smuX.sense
+senseMode: smuXsensesenseMode
+
+smuX.source.autorangeY
+sourceAutorange: smuXsourceautorangeYsourceAutorange
+
+smuX.source.delay
+sDelay: smuXsourcedelaysDelay
+
+smuX.source.func
+sFunction: smuXsourcefuncsFunction
+
+smuX.source.highc
+highC: smuXsourcehighchighC
+
+smuX.source.offmode
+sourceOffMode: smuXsourceoffmodesourceOffMode
+
+smuX.source.output
+sourceOutput: smuXsourceoutputsourceOutput
+
+smuX.source.outputenableaction
+sourceOutput: smuXsourceoutputsourceOutput
+outputAction: smuXsourceoutputenableactionoutputAction
+
+smuX.source.settling
+settleOption: smuXsourcesettlingsettleOption
+
+smuX.source.sink
+sinkMode: smuXsourcesinksinkMode
+
+smuX.trigger.ARMED_EVENT_ID
+X: smuXtriggerARMED_EVENT_IDX
+
+smuX.trigger.autoclear
+autoClear: smuXtriggerautoclearautoClear
+
+smuX.trigger.endpulse.action
+pulseAction: smuXtriggerendpulseactionpulseAction
+
+smuX.trigger.endsweep.action
+action: smuXtriggerendsweepactionaction
+
+smuX.trigger.IDLE_EVENT_ID
+X: smuXtriggerIDLE_EVENT_IDX
+
+smuX.trigger.measure.action
+action: smuXtriggermeasureactionaction
+
+smuX.trigger.MEASURE_COMPLETE_EVENT_ID
+X: smuXtriggerMEASURE_COMPLETE_EVENT_IDX
+
+smuX.trigger.PULSE_COMPLETE_EVENT_ID
+X: smuXtriggerPULSE_COMPLETE_EVENT_IDX
+
+smuX.trigger.SOURCE_COMPLETE_EVENT_ID
+X: smuXtriggerSOURCE_COMPLETE_EVENT_IDX
+
+smuX.trigger.SWEEP_COMPLETE_EVENT_ID
+X: smuXtriggerSWEEP_COMPLETE_EVENT_IDX
+
+smuX.trigger.SWEEPING_EVENT_ID
+X: smuXtriggerSWEEPING_EVENT_IDX
+
+smuX.trigger.source.action
+action: smuXtriggersourceactionaction
+
+smuX.trigger.source.limitY
+sweepSourceLimit: smuXtriggersourcelimitYsweepSourceLimit
+
+smuX.source.offfunc
+offfunc: smuXsourceofffuncofffunc
+
+display.smuX.limit.func
+func: displaysmuXlimitfuncfunc
+func: displaysmuXlimitfuncfunc
+
+smuX.cal.password
+newPassword: string

@@ -2,10 +2,10 @@
 import os
 
 
-HELP_FILE_FOLDER_PATH = "C:\\Users\\rjha\\source\\repos\\GitHub\\tsp-toolkit-webhelp\\WebHelpDocs\\Commands_DMM7510\\"
+HELP_FILE_FOLDER_PATH = "C:\\Users\\rjha\\source\\repos\\GitHub\\tsp-toolkit-webhelp\\WebHelpDocs\\Commands_26xx\\"
 
 # model number
-MODEL_NUMBER = "DMM7510"
+MODEL_NUMBER = "2636B"
 
 # folder path where generated json file will store
 

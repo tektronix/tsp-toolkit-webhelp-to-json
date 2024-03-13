@@ -430,6 +430,9 @@ def get_new_row(S, param, disc):
 def get_param_type(cmd, param_name) -> str:
     data_type = "any"
 
+    if str(cmd).startswith("status.") and "*" in cmd:
+        return "number"
+    
     file_path = "ParserGeneric\\tti-command_param_data_type.txt"
     if(str(MODEL_NUMBER).find("26")!= -1):
         file_path = "ParserGeneric\\26xx-command_param_data_type.txt"
