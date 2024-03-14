@@ -2,6 +2,7 @@ from logging import exception
 import os
 import re
 from bs4 import BeautifulSoup
+from ordered_set import OrderedSet
 from Configuration import MODEL_NUMBER
 from helpers import cmd_param
 
@@ -277,7 +278,7 @@ def get_parameter_details(S, command_name):
             
             mini_dict["name"] = param                        
 
-            x = list(set(re.findall("[a-z]+[X]?\.[A-Z_0-9]+", param_desc)))
+            x = list(OrderedSet(re.findall("[a-z]+[X]?\.[A-Z_0-9]+", param_desc)))
             y = re.findall("or\\s(\\d)", param_desc)
             param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 

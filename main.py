@@ -1,6 +1,6 @@
 import os
 import json
-from Configuration import HELP_FILE_FOLDER_PATH, MODEL_NUMBER, OUTPUT_FOLDER_PATH
+from Configuration import CHANNELS, HELP_FILE_FOLDER_PATH, MODEL_NUMBER, OUTPUT_FOLDER_PATH
 from ParserGeneric import HelperFunctions
 import copy
 
@@ -69,7 +69,7 @@ for filename in os.listdir(HELP_FILE_FOLDER_PATH):
             channel = [""]
 
             if "smuX" in command:
-                channel = ["a", "b"]
+                channel = CHANNELS
 
             for ch in channel:
                 for x in range(0, 5):                
@@ -87,7 +87,7 @@ for filename in os.listdir(HELP_FILE_FOLDER_PATH):
         elif "smuX" in command and "Y" not in command:
             explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(
                 command,soup)
-            for x in ["a", "b"]:
+            for x in CHANNELS:
                 name = command.replace("X", x)
                 usage1 = [sig.replace("X", x) for sig in usage]
                 parameter = copy.deepcopy(param_info)
@@ -115,7 +115,7 @@ for filename in os.listdir(HELP_FILE_FOLDER_PATH):
 
             usage_orignal = copy.deepcopy(usage)
 
-            for x in ["a", "b"]:
+            for x in CHANNELS:
                 for y in y_param_details:
                     if "iv" in y:
                         usage = [sig for sig in usage_orignal if "iv" in sig]
@@ -160,7 +160,7 @@ for filename in os.listdir(HELP_FILE_FOLDER_PATH):
                     for parm in parameter:
                             for key in parm:                                
                                 if "smuX" in parm[key]:
-                                    for x in ["a", "b"]:
+                                    for x in CHANNELS:
                                         parm[key] = parm[key].replace("X",x)
 
                     record = HelperFunctions.get_record(

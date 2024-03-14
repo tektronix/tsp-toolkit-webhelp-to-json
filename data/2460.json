@@ -2626,7 +2626,7 @@
                 {
                     "name": "style",
                     "description": "The type of reading buffer to create",
-                    "enum": "buffer.STYLE_WRITABLE_FULL nil|buffer.STYLE_FULL nil|buffer.STYLE_WRITABLE nil|buffer.STYLE_COMPACT nil|buffer.STYLE_STANDARD nil",
+                    "enum": "buffer.STYLE_COMPACT nil|buffer.STYLE_STANDARD nil|buffer.STYLE_FULL nil|buffer.STYLE_WRITABLE nil|buffer.STYLE_WRITABLE_FULL nil",
                     "type": "buffermakestyle",
                     "range": ""
                 }
@@ -2965,7 +2965,7 @@
                 {
                     "name": "timeFormat",
                     "description": "Indicates how date and time information from the buffer is saved in the file on the USB flash drive; the options are",
-                    "enum": "buffer.SAVE_TIMESTAMP_TIME nil|buffer.SAVE_RELATIVE_TIME nil|buffer.SAVE_FORMAT_TIME nil|buffer.SAVE_RAW_TIME nil",
+                    "enum": "buffer.SAVE_FORMAT_TIME nil|buffer.SAVE_RELATIVE_TIME nil|buffer.SAVE_RAW_TIME nil|buffer.SAVE_TIMESTAMP_TIME nil",
                     "type": "buffersaveappendtimeFormat",
                     "range": ""
                 },
@@ -3186,7 +3186,7 @@
                 {
                     "name": "result",
                     "description": "The results of the limit test for limit Y",
-                    "enum": "smu.FAIL_NONE nil|smu.FAIL_LOW nil|smu.FAIL_HIGH nil|smu.FAIL_BOTH nil",
+                    "enum": "smu.FAIL_NONE nil|smu.FAIL_HIGH nil|smu.FAIL_LOW nil|smu.FAIL_BOTH nil",
                     "type": "smumeasurelimitfailresult",
                     "range": ""
                 },
@@ -3715,7 +3715,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_ALL nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlogsaveeventType",
                     "range": ""
                 }
@@ -4050,7 +4050,7 @@
                 {
                     "name": "format",
                     "description": "Use exponent format",
-                    "enum": "display.FORMAT_PREFIX nil|display.FORMAT_EXPONENT nil",
+                    "enum": "display.FORMAT_EXPONENT nil|display.FORMAT_PREFIX nil",
                     "type": "displayreadingformatformat",
                     "range": ""
                 }
@@ -4084,7 +4084,7 @@
                 {
                     "name": "displayArea",
                     "description": "display.TEXT1 display.TEXT2",
-                    "enum": "display.TEXT2 nil|display.TEXT1 nil",
+                    "enum": "display.TEXT1 nil|display.TEXT2 nil",
                     "type": "displaysettextdisplayArea",
                     "range": ""
                 },
@@ -4172,7 +4172,7 @@
                 {
                     "name": "accessType",
                     "description": "The type of action to do",
-                    "enum": "file.MODE_READ nil|file.MODE_APPEND nil|file.MODE_WRITE nil",
+                    "enum": "file.MODE_APPEND nil|file.MODE_READ nil|file.MODE_WRITE nil",
                     "type": "fileopenaccessType",
                     "range": ""
                 }
@@ -4426,7 +4426,7 @@
                 {
                     "name": "terminals",
                     "description": "Use the front-panel input and output terminals",
-                    "enum": "smu.TERMINALS_REAR nil|smu.TERMINALS_FRONT nil",
+                    "enum": "smu.TERMINALS_FRONT nil|smu.TERMINALS_REAR nil",
                     "type": "smuterminalsterminals",
                     "range": ""
                 }
@@ -4460,7 +4460,7 @@
                 {
                     "name": "status",
                     "description": "The status of the trigger model",
-                    "enum": "trigger.STATE_ABORTING nil|trigger.STATE_WAITING nil|trigger.STATE_BUILDING nil|trigger.STATE_RUNNING nil|trigger.STATE_IDLE nil|trigger.STATE_EMPTY nil|trigger.STATE_FAILED nil|trigger.STATE_ABORTED nil",
+                    "enum": "trigger.STATE_ABORTED nil|trigger.STATE_ABORTING nil|trigger.STATE_BUILDING nil|trigger.STATE_EMPTY nil|trigger.STATE_FAILED nil|trigger.STATE_IDLE nil|trigger.STATE_RUNNING nil|trigger.STATE_WAITING nil",
                     "type": "triggermodelstatestatus",
                     "range": ""
                 },
@@ -4570,7 +4570,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_ALL nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlognexteventType",
                     "range": ""
                 }
@@ -4622,7 +4622,7 @@
                 {
                     "name": "readAction",
                     "description": "The action",
-                    "enum": "file.READ_NUMBER nil|file.READ_ALL nil|file.READ_LINE nil",
+                    "enum": "file.READ_LINE nil|file.READ_NUMBER nil|file.READ_ALL nil",
                     "type": "filereadreadAction",
                     "range": ""
                 }
@@ -4797,7 +4797,7 @@
                 {
                     "name": "order",
                     "description": "Byte order value as follows",
-                    "enum": "format.LITTLEENDIAN nil|format.BIGENDIAN nil",
+                    "enum": "format.BIGENDIAN nil|format.LITTLEENDIAN nil",
                     "type": "formatbyteorderorder",
                     "range": ""
                 }
@@ -4872,7 +4872,7 @@
                 {
                     "name": "value",
                     "description": "The format to use for data, set to one of the following values",
-                    "enum": "format.REAL64 nil|format.REAL32 nil|format.ASCII nil",
+                    "enum": "format.ASCII nil|format.REAL32 nil|format.REAL64 nil",
                     "type": "formatdatavalue",
                     "range": ""
                 }
@@ -4951,7 +4951,7 @@
                 {
                     "name": "digits",
                     "description": "6\u00bd display digits",
-                    "enum": "smu.DIGITS_3_5 nil|smu.DIGITS_4_5 nil|smu.DIGITS_6_5 nil|smu.DIGITS_5_5 nil",
+                    "enum": "smu.DIGITS_6_5 nil|smu.DIGITS_5_5 nil|smu.DIGITS_4_5 nil|smu.DIGITS_3_5 nil",
                     "type": "smumeasuredisplaydigitsdigits",
                     "range": ""
                 },
@@ -5346,21 +5346,21 @@
                 {
                     "name": "PROTECT_x",
                     "description": "The overvoltage protection level, 2V, 5V, 10V, 20V, 40V, 60V, 80V, or NONEsmu.PROTECT_2Vsmu.PROTECT_5Vsmu.PROTECT_10Vsmu.PROTECT_20Vsmu.PROTECT_40Vsmu.PROTECT_60Vsmu.PROTECT_80Vsmu.PROTECT_NONE",
-                    "enum": "smu.PROTECT_60V nil|smu.PROTECT_NONE nil|smu.PROTECT_20V nil|smu.PROTECT_2V nil|smu.PROTECT_5V nil|smu.PROTECT_80V nil|smu.PROTECT_40V nil|smu.PROTECT_10V nil",
+                    "enum": "smu.PROTECT_2V nil|smu.PROTECT_5V nil|smu.PROTECT_10V nil|smu.PROTECT_20V nil|smu.PROTECT_40V nil|smu.PROTECT_60V nil|smu.PROTECT_80V nil|smu.PROTECT_NONE nil",
                     "type": "smusourceprotectlevelPROTECT_x",
                     "range": ""
                 },
                 {
                     "name": "sourceOffMode",
                     "description": "The output-off setting; set to one of the following values (see the Details below for specifics regarding each option)",
-                    "enum": "smu.OFFMODE_GUARD nil|smu.OFFMODE_HIGHZ nil|smu.OFFMODE_NORMAL nil|smu.OFFMODE_ZERO nil",
+                    "enum": "smu.OFFMODE_NORMAL nil|smu.OFFMODE_ZERO nil|smu.OFFMODE_HIGHZ nil|smu.OFFMODE_GUARD nil",
                     "type": "smusourceprotectlevelsourceOffMode",
                     "range": "(see the Details below for specifics regarding each option)"
                 },
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceprotectlevelfunction",
                     "range": ""
                 }
@@ -5403,7 +5403,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcedelayfunction",
                     "range": ""
                 }
@@ -5482,14 +5482,14 @@
                 {
                     "name": "sourceOffMode",
                     "description": "The output-off setting; set to one of the following values (see the Details below for specifics regarding each option)",
-                    "enum": "smu.OFFMODE_GUARD nil|smu.OFFMODE_HIGHZ nil|smu.OFFMODE_NORMAL nil|smu.OFFMODE_ZERO nil",
+                    "enum": "smu.OFFMODE_NORMAL nil|smu.OFFMODE_ZERO nil|smu.OFFMODE_HIGHZ nil|smu.OFFMODE_GUARD nil",
                     "type": "smusourceoffmodesourceOffMode",
                     "range": "(see the Details below for specifics regarding each option)"
                 },
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceoffmodefunction",
                     "range": ""
                 }
@@ -5525,7 +5525,7 @@
                 {
                     "name": "sFunction",
                     "description": "The source function; set to one of the following values",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcefuncsFunction",
                     "range": ""
                 }
@@ -5567,7 +5567,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcerangefunction",
                     "range": ""
                 }
@@ -5610,7 +5610,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceautorangefunction",
                     "range": ""
                 }
@@ -5954,7 +5954,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcelevelfunction",
                     "range": ""
                 }
@@ -6351,7 +6351,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceprotecttrippedfunction",
                     "range": ""
                 }
@@ -6596,7 +6596,7 @@
                 {
                     "name": "screenName",
                     "description": "The screen to display",
-                    "enum": "display.SCREEN_HOME_LARGE_READING nil|display.SCREEN_STATS_SWIPE nil|display.SCREEN_SETTINGS_SWIPE nil|display.SCREEN_GRAPH nil|display.SCREEN_HISTOGRAM nil|display.SCREEN_GRAPH_SWIPE nil|display.SCREEN_HOME nil|display.SCREEN_READING_TABLE nil|display.SCREEN_USER_SWIPE nil|display.SCREEN_SOURCE_SWIPE nil|display.SCREEN_PROCESSING nil",
+                    "enum": "display.SCREEN_HOME nil|display.SCREEN_HOME_LARGE_READING nil|display.SCREEN_READING_TABLE nil|display.SCREEN_GRAPH nil|display.SCREEN_HISTOGRAM nil|display.SCREEN_GRAPH_SWIPE nil|display.SCREEN_SETTINGS_SWIPE nil|display.SCREEN_SOURCE_SWIPE nil|display.SCREEN_STATS_SWIPE nil|display.SCREEN_USER_SWIPE nil|display.SCREEN_PROCESSING nil",
                     "type": "displaychangescreenscreenName",
                     "range": ""
                 }
@@ -6629,7 +6629,7 @@
                 {
                     "name": "errorMode",
                     "description": "The errors that are returned",
-                    "enum": "eventlog.SEV_ALL nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "localnodeshoweventserrorMode",
                     "range": ""
                 }
@@ -6869,7 +6869,7 @@
                 {
                     "name": "state",
                     "description": "Generate a timer event when the timer delay elapses",
-                    "enum": "trigger.ON nil|trigger.OFF nil",
+                    "enum": "trigger.OFF nil|trigger.ON nil",
                     "type": "triggertimerstartgeneratestate",
                     "range": ""
                 },
@@ -7111,8 +7111,8 @@
         {
             "name": "tsplink.initialize()",
             "webhelpfile": "30551.htm",
-            "signature": "tsplink.initialize()",
-            "command_return": "nodesFound",
+            "signature": "tsplink.initialize(expectedNodes)",
+            "command_return": "",
             "type": "Function",
             "default_value": "\u00a0\n",
             "tsp_link": "No\n",
@@ -7139,7 +7139,7 @@
                 "tsplink.initialize(expectedNodes)"
             ],
             "overloads": [
-                "tsplink.initialize(expectedNodes)"
+                "nodesFound = tsplink.initialize()"
             ],
             "examples": [
                 {
@@ -7168,7 +7168,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_ALL nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventloggetcounteventType",
                     "range": ""
                 },
@@ -7338,7 +7338,7 @@
                 {
                     "name": "unitOfMeasure",
                     "description": "The units of measure to be displayed for the measurement",
-                    "enum": "smu.UNIT_OHM nil|smu.UNIT_AMP nil|smu.UNIT_WATT nil|smu.UNIT_VOLT nil",
+                    "enum": "smu.UNIT_AMP nil|smu.UNIT_OHM nil|smu.UNIT_VOLT nil|smu.UNIT_WATT nil",
                     "type": "smumeasureunitunitOfMeasure",
                     "range": ""
                 },
@@ -7395,7 +7395,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcexlimitlevelfunction",
                     "range": ""
                 }
@@ -7446,7 +7446,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcexlimitlevelfunction",
                     "range": ""
                 }
@@ -7497,7 +7497,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcexlimittrippedfunction",
                     "range": ""
                 }
@@ -7545,7 +7545,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcexlimittrippedfunction",
                     "range": ""
                 }
@@ -7621,7 +7621,7 @@
                 {
                     "name": "rangeType",
                     "description": "The source range that is used for the sweep",
-                    "enum": "smu.RANGE_FIXED nil|smu.RANGE_BEST nil|smu.RANGE_AUTO nil",
+                    "enum": "smu.RANGE_AUTO nil|smu.RANGE_BEST nil|smu.RANGE_FIXED nil",
                     "type": "smusourcesweeplinearrangeType",
                     "range": ""
                 },
@@ -7730,7 +7730,7 @@
                 {
                     "name": "rangeType",
                     "description": "The source range that is used for the sweep",
-                    "enum": "smu.RANGE_FIXED nil|smu.RANGE_BEST nil|smu.RANGE_AUTO nil",
+                    "enum": "smu.RANGE_AUTO nil|smu.RANGE_BEST nil|smu.RANGE_FIXED nil",
                     "type": "smusourcesweeplinearsteprangeType",
                     "range": ""
                 },
@@ -7839,7 +7839,7 @@
                 {
                     "name": "rangeType",
                     "description": "The source range that is used for the sweep",
-                    "enum": "smu.RANGE_FIXED nil|smu.RANGE_BEST nil|smu.RANGE_AUTO nil",
+                    "enum": "smu.RANGE_AUTO nil|smu.RANGE_BEST nil|smu.RANGE_FIXED nil",
                     "type": "smusourcesweeplograngeType",
                     "range": ""
                 },
@@ -8085,7 +8085,7 @@
                 {
                     "name": "state",
                     "description": "Disable the trigger timer",
-                    "enum": "trigger.ON nil|trigger.OFF nil",
+                    "enum": "trigger.OFF nil|trigger.ON nil",
                     "type": "triggertimerenablestate",
                     "range": ""
                 },
@@ -8174,7 +8174,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcereadbackfunction",
                     "range": ""
                 }
@@ -8218,7 +8218,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcehighcfunction",
                     "range": ""
                 }
@@ -8456,7 +8456,7 @@
                 {
                     "name": "logic",
                     "description": "If each event must occur before the trigger model continues",
-                    "enum": "trigger.WAIT_OR nil|trigger.WAIT_AND nil",
+                    "enum": "trigger.WAIT_AND nil|trigger.WAIT_OR nil",
                     "type": "triggermodelsetblocktriggerBLOCK_WAITlogic",
                     "range": ""
                 }
@@ -8510,7 +8510,7 @@
                 {
                     "name": "count",
                     "description": "The number of measure or digitize readings to make before moving to the next block in the trigger model; set to",
-                    "enum": "trigger.COUNT_AUTO nil|trigger.COUNT_STOP nil|trigger.COUNT_INFINITE nil",
+                    "enum": "trigger.COUNT_INFINITE nil|trigger.COUNT_STOP nil|trigger.COUNT_AUTO nil",
                     "type": "triggermodelsetblocktriggerBLOCK_MEASURE_DIGITIZEcount",
                     "range": ""
                 }
@@ -8788,7 +8788,7 @@
                 {
                     "name": "userDelay",
                     "description": "The number of the user delay",
-                    "enum": "trigger.USER_DELAY_S nil|trigger.USER_DELAY_M nil",
+                    "enum": "trigger.USER_DELAY_M nil|trigger.USER_DELAY_S nil",
                     "type": "triggermodelsetblocktriggerBLOCK_DELAY_DYNAMICuserDelay",
                     "range": ""
                 }
@@ -8971,21 +8971,21 @@
                 {
                     "name": "limitType",
                     "description": "The type of limit, which can be one of the following types",
-                    "enum": "trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil|trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitType",
                     "range": ""
                 },
                 {
                     "name": "limitA",
                     "description": "The lower limit that the measurement is tested against; if limitType is set to",
-                    "enum": "trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil|trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitA",
                     "range": ""
                 },
                 {
                     "name": "limitB",
                     "description": "The upper limit that the measurement is tested against; if limitType is set to",
-                    "enum": "trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil|trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitB",
                     "range": ""
                 },
@@ -9259,7 +9259,7 @@
                 {
                     "name": "limitType",
                     "description": "The type of limit, which can be one of the following types",
-                    "enum": "trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil|trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_DYNAMIClimitType",
                     "range": ""
                 },
@@ -9358,7 +9358,7 @@
                 {
                     "name": "detectedEdge",
                     "description": "The trigger logic value",
-                    "enum": "trigger.EDGE_RISING nil|trigger.EDGE_FALLING nil|trigger.EDGE_EITHER nil",
+                    "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
                     "type": "triggerdiginedgedetectedEdge",
                     "range": ""
                 },
@@ -9402,7 +9402,7 @@
                 {
                     "name": "lineMode",
                     "description": "The digital line control type and line mode",
-                    "enum": "digio.MODE_DIGITAL_OPEN_DRAIN nil|digio.MODE_TRIGGER_OUT nil|digio.MODE_DIGITAL_IN nil|digio.MODE_SYNCHRONOUS_ACCEPTOR nil|digio.MODE_TRIGGER_IN nil|digio.MODE_TRIGGER_OPEN_DRAIN nil|digio.MODE_DIGITAL_OUT nil|digio.MODE_SYNCHRONOUS_MASTER nil",
+                    "enum": "digio.MODE_DIGITAL_IN nil|digio.MODE_DIGITAL_OUT nil|digio.MODE_DIGITAL_OPEN_DRAIN nil|digio.MODE_TRIGGER_IN nil|digio.MODE_TRIGGER_OUT nil|digio.MODE_TRIGGER_OPEN_DRAIN nil|digio.MODE_SYNCHRONOUS_MASTER nil|digio.MODE_SYNCHRONOUS_ACCEPTOR nil",
                     "type": "digiolinemodelineMode",
                     "range": ""
                 },
@@ -10066,7 +10066,7 @@
                 {
                     "name": "protocol",
                     "description": "The protocol to use for messages from the trigger",
-                    "enum": "lan.PROTOCOL_MULTICAST nil|lan.PROTOCOL_UDP nil|lan.PROTOCOL_TCP nil",
+                    "enum": "lan.PROTOCOL_TCP nil|lan.PROTOCOL_UDP nil|lan.PROTOCOL_MULTICAST nil",
                     "type": "triggerlanoutprotocolprotocol",
                     "range": ""
                 },
@@ -10846,7 +10846,7 @@
                 {
                     "name": "detectedEdge",
                     "description": "The trigger mode",
-                    "enum": "trigger.EDGE_RISING nil|trigger.EDGE_FALLING nil|trigger.EDGE_EITHER nil",
+                    "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
                     "type": "triggertsplinkinedgedetectedEdge",
                     "range": ""
                 },
@@ -10889,7 +10889,7 @@
                 {
                     "name": "logicType",
                     "description": "The output logic of the trigger generator",
-                    "enum": "trigger.LOGIC_NEGATIVE nil|trigger.LOGIC_POSITIVE nil",
+                    "enum": "trigger.LOGIC_POSITIVE nil|trigger.LOGIC_NEGATIVE nil",
                     "type": "triggertsplinkoutlogiclogicType",
                     "range": ""
                 },
@@ -11507,7 +11507,7 @@
                 {
                     "name": "accessType",
                     "description": "The type of access",
-                    "enum": "localnode.ACCESS_PROTECTED nil|localnode.ACCESS_FULL nil|localnode.ACCESS_LOCKOUT nil|localnode.ACCESS_EXCLUSIVE nil",
+                    "enum": "localnode.ACCESS_FULL nil|localnode.ACCESS_EXCLUSIVE nil|localnode.ACCESS_PROTECTED nil|localnode.ACCESS_LOCKOUT nil",
                     "type": "localnodeaccessaccessType",
                     "range": ""
                 }
@@ -11555,7 +11555,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceautodelayfunction",
                     "range": ""
                 }
@@ -11686,7 +11686,7 @@
                 {
                     "name": "logicType",
                     "description": "The type of logic",
-                    "enum": "trigger.LOGIC_NEGATIVE nil|trigger.LOGIC_POSITIVE nil",
+                    "enum": "trigger.LOGIC_POSITIVE nil|trigger.LOGIC_NEGATIVE nil",
                     "type": "triggerlanoutlogiclogicType",
                     "range": ""
                 },
@@ -11727,7 +11727,7 @@
                 {
                     "name": "logicType",
                     "description": "The output logic of the trigger generator",
-                    "enum": "trigger.LOGIC_NEGATIVE nil|trigger.LOGIC_POSITIVE nil",
+                    "enum": "trigger.LOGIC_POSITIVE nil|trigger.LOGIC_NEGATIVE nil",
                     "type": "triggerdigoutlogiclogicType",
                     "range": ""
                 },
@@ -11903,7 +11903,7 @@
                 {
                     "name": "buttonID",
                     "description": "The type of prompt to display; choose one of the following options",
-                    "enum": "display.BUTTONS_OKCANCEL nil|display.BUTTONS_CANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_OK nil|display.BUTTONS_NONE nil|display.BUTTONS_YESNOCANCEL nil",
+                    "enum": "display.BUTTONS_NONE nil|display.BUTTONS_OK nil|display.BUTTONS_CANCEL nil|display.BUTTONS_OKCANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_YESNOCANCEL nil",
                     "type": "displaypromptbuttonID",
                     "range": ""
                 },
@@ -11951,7 +11951,7 @@
                 {
                     "name": "subID",
                     "description": "The returned value after a button is pressed on the front panel",
-                    "enum": "display.BUTTON_OK nil|display.BUTTON_YES nil|display.BUTTON_NO nil|display.BUTTON_CANCEL nil",
+                    "enum": "display.BUTTON_YES nil|display.BUTTON_NO nil|display.BUTTON_OK nil|display.BUTTON_CANCEL nil",
                     "type": "displaywaiteventsubID",
                     "range": ""
                 },
@@ -12152,7 +12152,7 @@
                 {
                     "name": "brightness",
                     "description": "The brightness of the display",
-                    "enum": "display.STATE_LCD_75 nil|display.STATE_BLACKOUT nil|display.STATE_LCD_25 nil|display.STATE_LCD_50 nil|display.STATE_LCD_OFF nil|display.STATE_LCD_100 nil",
+                    "enum": "display.STATE_LCD_100 nil|display.STATE_LCD_75 nil|display.STATE_LCD_50 nil|display.STATE_LCD_25 nil|display.STATE_LCD_OFF nil|display.STATE_BLACKOUT nil",
                     "type": "displaylightstatebrightness",
                     "range": ""
                 }
@@ -12372,7 +12372,7 @@
                 {
                     "name": "statusInfo",
                     "description": "The status value when reading N of the specified buffer was acquired; Source status values are",
-                    "enum": "buffer.STAT_PROTECTION nil|buffer.STAT_OUTPUT nil|buffer.STAT_OVER_TEMP nil|buffer.STAT_SENSE nil|buffer.STAT_READBACK nil|buffer.STAT_LIMIT nil",
+                    "enum": "buffer.STAT_PROTECTION nil|buffer.STAT_READBACK nil|buffer.STAT_OVER_TEMP nil|buffer.STAT_LIMIT nil|buffer.STAT_SENSE nil|buffer.STAT_OUTPUT nil",
                     "type": "bufferVarsourcestatusesstatusInfo",
                     "range": ""
                 },
@@ -12423,7 +12423,7 @@
                 {
                     "name": "type",
                     "description": "The termination type",
-                    "enum": "tspnet.TERM_CR nil|tspnet.TERM_LF nil|tspnet.TERM_LFCR nil|tspnet.TERM_CRLF nil",
+                    "enum": "tspnet.TERM_LF nil|tspnet.TERM_CR nil|tspnet.TERM_CRLF nil|tspnet.TERM_LFCR nil",
                     "type": "tspnetterminationtype",
                     "range": ""
                 },
@@ -12437,7 +12437,7 @@
                 {
                     "name": "termSequence",
                     "description": "The termination sequence",
-                    "enum": "tspnet.TERM_CR nil|tspnet.TERM_LF nil|tspnet.TERM_LFCR nil|tspnet.TERM_CRLF nil",
+                    "enum": "tspnet.TERM_LF nil|tspnet.TERM_CR nil|tspnet.TERM_CRLF nil|tspnet.TERM_LFCR nil",
                     "type": "tspnetterminationtermSequence",
                     "range": ""
                 }
@@ -12632,7 +12632,7 @@
                 {
                     "name": "eventType",
                     "description": "The type of event; if no event is defined, defaults to eventlog.SEV_INFO",
-                    "enum": "eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil",
                     "type": "eventlogposteventType",
                     "range": ""
                 }
@@ -12715,7 +12715,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceuserdelayfunction",
                     "range": ""
                 }
@@ -13028,7 +13028,7 @@
                 {
                     "name": "eventNumber",
                     "description": "The event number",
-                    "enum": "trigger.LOG_INFO nil|trigger.LOG_WARN_ABORT nil|trigger.LOG_ERROR nil|trigger.LOG_WARN nil",
+                    "enum": "trigger.LOG_INFO nil|trigger.LOG_WARN nil|trigger.LOG_ERROR nil|trigger.LOG_WARN_ABORT nil",
                     "type": "triggermodelsetblocktriggerBLOCK_LOG_EVENTeventNumber",
                     "range": ""
                 },
@@ -13134,7 +13134,7 @@
                 {
                     "name": "eventType",
                     "description": "The type of the event to be suppressed",
-                    "enum": "eventlog.SEV_ALL nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlogsuppresseventType",
                     "range": ""
                 },
@@ -13191,7 +13191,7 @@
                 {
                     "name": "numberFormat",
                     "description": "The format of the displayed number",
-                    "enum": "display.NFORMAT_PREFIX nil|display.NFORMAT_INTEGER nil|display.NFORMAT_EXPONENT nil|display.NFORMAT_DECIMAL nil",
+                    "enum": "display.NFORMAT_INTEGER nil|display.NFORMAT_DECIMAL nil|display.NFORMAT_EXPONENT nil|display.NFORMAT_PREFIX nil",
                     "type": "displayinputnumbernumberFormat",
                     "range": ""
                 },
@@ -13312,14 +13312,14 @@
                 {
                     "name": "buttonReturn",
                     "description": "Indicates which button was pressed",
-                    "enum": "display.BUTTON_OK nil|display.BUTTON_YES nil|display.BUTTON_NO nil|display.BUTTON_CANCEL nil",
+                    "enum": "display.BUTTON_OK nil|display.BUTTON_CANCEL nil|display.BUTTON_YES nil|display.BUTTON_NO nil",
                     "type": "displayinputpromptbuttonReturn",
                     "range": ""
                 },
                 {
                     "name": "buttonSet",
                     "description": "The set of buttons to display",
-                    "enum": "display.BUTTONS_OKCANCEL nil|display.BUTTONS_CANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_OK nil|display.BUTTONS_YESNOCANCEL nil",
+                    "enum": "display.BUTTONS_OK nil|display.BUTTONS_CANCEL nil|display.BUTTONS_OKCANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_YESNOCANCEL nil",
                     "type": "displayinputpromptbuttonSet",
                     "range": ""
                 },
@@ -13375,7 +13375,7 @@
                 {
                     "name": "textFormat",
                     "description": "The format of the entered text",
-                    "enum": "display.SFORMAT_UPPER_LOWER nil|display.SFORMAT_BUFFER_NAME nil|display.SFORMAT_ANY nil|display.SFORMAT_UPPER nil",
+                    "enum": "display.SFORMAT_ANY nil|display.SFORMAT_UPPER_LOWER nil|display.SFORMAT_UPPER nil|display.SFORMAT_BUFFER_NAME nil",
                     "type": "displayinputstringtextFormat",
                     "range": ""
                 }
@@ -13447,7 +13447,7 @@
                 {
                     "name": "state",
                     "description": "When the beeper sounds",
-                    "enum": "smu.AUDIBLE_FAIL nil|smu.AUDIBLE_NONE nil|smu.AUDIBLE_PASS nil",
+                    "enum": "smu.AUDIBLE_NONE nil|smu.AUDIBLE_FAIL nil|smu.AUDIBLE_PASS nil",
                     "type": "smumeasurelimitaudiblestate",
                     "range": ""
                 },
@@ -14002,14 +14002,14 @@
                 {
                     "name": "units",
                     "description": "The units for the first measurement in the buffer index",
-                    "enum": "buffer.UNIT_X nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_TOT nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_WATT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_OHM nil|buffer.UNIT_VOLT nil|buffer.UNIT_DBM nil|buffer.UNIT_NONE nil|buffer.UNIT_KELVIN nil|buffer.UNIT_DIO nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_AMP nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_RATIO nil|buffer.UNIT_FARAD nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_DAC nil|buffer.UNIT_HERTZ nil|buffer.UNIT_CUSTOM2 nil",
+                    "enum": "buffer.UNIT_AMP nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DAC nil|buffer.UNIT_DBM nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_DIO nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_KELVIN nil|buffer.UNIT_NONE nil|buffer.UNIT_OHM nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RATIO nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_TOT nil|buffer.UNIT_VOLT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
                     "type": "bufferwriteformatunits",
                     "range": ""
                 },
                 {
                     "name": "displayDigits",
                     "description": "The number of digits to use for the first measurement",
-                    "enum": "buffer.DIGITS_6_5 nil|buffer.DIGITS_3_5 nil|buffer.DIGITS_4_5 nil|buffer.DIGITS_5_5 nil|buffer.DIGITS_7_5 nil|buffer.DIGITS_8_5 nil",
+                    "enum": "buffer.DIGITS_3_5 nil|buffer.DIGITS_4_5 nil|buffer.DIGITS_5_5 nil|buffer.DIGITS_6_5 nil|buffer.DIGITS_7_5 nil|buffer.DIGITS_8_5 nil",
                     "type": "bufferwriteformatdisplayDigits",
                     "range": ""
                 },
@@ -14325,7 +14325,7 @@
                 {
                     "name": "unit",
                     "description": "The units to be applied to the value generated by the expression",
-                    "enum": "buffer.UNIT_X nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_TOT nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_WATT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_OHM nil|buffer.UNIT_VOLT nil|buffer.UNIT_DBM nil|buffer.UNIT_NONE nil|buffer.UNIT_KELVIN nil|buffer.UNIT_DIO nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_AMP nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_RATIO nil|buffer.UNIT_FARAD nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_DAC nil|buffer.UNIT_HERTZ nil|buffer.UNIT_CUSTOM2 nil",
+                    "enum": "buffer.UNIT_AMP nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DAC nil|buffer.UNIT_DBM nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_DIO nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_KELVIN nil|buffer.UNIT_NONE nil|buffer.UNIT_OHM nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RATIO nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_TOT nil|buffer.UNIT_VOLT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
                     "type": "buffermathunit",
                     "range": ""
                 },
@@ -14609,7 +14609,7 @@
                 {
                     "name": "setting",
                     "description": "Do not start continuous measurements after boot",
-                    "enum": "trigger.CONT_AUTO nil|trigger.CONT_OFF nil|trigger.CONT_RESTART nil",
+                    "enum": "trigger.CONT_OFF nil|trigger.CONT_AUTO nil|trigger.CONT_RESTART nil",
                     "type": "triggercontinuoussetting",
                     "range": ""
                 }
@@ -14865,7 +14865,7 @@
                 {
                     "name": "function",
                     "description": "The function to save into the configuration list",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourceconfigliststorefuncfunction",
                     "range": ""
                 },
@@ -14908,7 +14908,7 @@
                 {
                     "name": "function",
                     "description": "The source function; set to one of the following values",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcesetattributefunction",
                     "range": ""
                 },
@@ -14964,7 +14964,7 @@
                 {
                     "name": "function",
                     "description": "The source function",
-                    "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil",
+                    "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
                     "type": "smusourcegetattributefunction",
                     "range": ""
                 },

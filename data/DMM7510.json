@@ -2754,7 +2754,7 @@
                 {
                     "name": "style",
                     "description": "The type of reading buffer to create",
-                    "enum": "buffer.STYLE_COMPACT nil|buffer.STYLE_WRITABLE nil|buffer.STYLE_FULL nil|buffer.STYLE_WRITABLE_FULL nil|buffer.STYLE_STANDARD nil",
+                    "enum": "buffer.STYLE_COMPACT nil|buffer.STYLE_STANDARD nil|buffer.STYLE_FULL nil|buffer.STYLE_WRITABLE nil|buffer.STYLE_WRITABLE_FULL nil",
                     "type": "buffermakestyle",
                     "range": ""
                 }
@@ -3199,7 +3199,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_ALL nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlogsaveeventType",
                     "range": ""
                 }
@@ -3485,7 +3485,7 @@
                 {
                     "name": "format",
                     "description": "Use exponent format",
-                    "enum": "display.FORMAT_PREFIX nil|display.FORMAT_EXPONENT nil",
+                    "enum": "display.FORMAT_EXPONENT nil|display.FORMAT_PREFIX nil",
                     "type": "displayreadingformatformat",
                     "range": ""
                 }
@@ -3519,7 +3519,7 @@
                 {
                     "name": "displayArea",
                     "description": "display.TEXT1 display.TEXT2",
-                    "enum": "display.TEXT2 nil|display.TEXT1 nil",
+                    "enum": "display.TEXT1 nil|display.TEXT2 nil",
                     "type": "displaysettextdisplayArea",
                     "range": ""
                 },
@@ -3607,7 +3607,7 @@
                 {
                     "name": "accessType",
                     "description": "The type of action to do",
-                    "enum": "file.MODE_READ nil|file.MODE_APPEND nil|file.MODE_WRITE nil",
+                    "enum": "file.MODE_APPEND nil|file.MODE_READ nil|file.MODE_WRITE nil",
                     "type": "fileopenaccessType",
                     "range": ""
                 }
@@ -3640,7 +3640,7 @@
                 {
                     "name": "method",
                     "description": "The method for configuring LAN settings; it can be one of the following values",
-                    "enum": "lan.MODE_MANUAL nil|lan.MODE_AUTO nil",
+                    "enum": "lan.MODE_AUTO nil|lan.MODE_MANUAL nil",
                     "type": "lanipconfigmethod",
                     "range": ""
                 },
@@ -3785,7 +3785,7 @@
                 {
                     "name": "status",
                     "description": "The status of the trigger model",
-                    "enum": "trigger.STATE_PAUSED nil|trigger.STATE_RUNNING nil|trigger.STATE_ABORTED nil|trigger.STATE_ABORTING nil|trigger.STATE_WAITING nil|trigger.STATE_IDLE nil|trigger.STATE_EMPTY nil|trigger.STATE_FAILED nil|trigger.STATE_BUILDING nil",
+                    "enum": "trigger.STATE_ABORTED nil|trigger.STATE_ABORTING nil|trigger.STATE_BUILDING nil|trigger.STATE_EMPTY nil|trigger.STATE_FAILED nil|trigger.STATE_IDLE nil|trigger.STATE_PAUSED nil|trigger.STATE_RUNNING nil|trigger.STATE_WAITING nil",
                     "type": "triggermodelstatestatus",
                     "range": ""
                 },
@@ -3895,7 +3895,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_ALL nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlognexteventType",
                     "range": ""
                 }
@@ -3947,7 +3947,7 @@
                 {
                     "name": "readAction",
                     "description": "The action",
-                    "enum": "file.READ_ALL nil|file.READ_NUMBER nil|file.READ_LINE nil",
+                    "enum": "file.READ_LINE nil|file.READ_NUMBER nil|file.READ_ALL nil",
                     "type": "filereadreadAction",
                     "range": ""
                 }
@@ -4162,7 +4162,7 @@
                 {
                     "name": "value",
                     "description": "The format to use for data, set to one of the following values",
-                    "enum": "format.REAL32 nil|format.REAL64 nil|format.ASCII nil",
+                    "enum": "format.ASCII nil|format.REAL32 nil|format.REAL64 nil",
                     "type": "formatdatavalue",
                     "range": ""
                 }
@@ -4455,7 +4455,7 @@
                 {
                     "name": "dmm.FUNC_DC_VOLTAGE",
                     "description": "dmm.FUNC_RESISTANCE\ndmm.FUNC_ACV_FREQUENCY",
-                    "enum": "dmm.FUNC_ACV_FREQUENCY nil|dmm.FUNC_RESISTANCE nil",
+                    "enum": "dmm.FUNC_RESISTANCE nil|dmm.FUNC_ACV_FREQUENCY nil",
                     "type": "any",
                     "range": ""
                 },
@@ -4469,14 +4469,14 @@
                 {
                     "name": "dmm.FUNC_DC_CURRENT",
                     "description": "dmm.FUNC_DIODE\ndmm.FUNC_DCV_RATIO",
-                    "enum": "dmm.FUNC_DCV_RATIO nil|dmm.FUNC_DIODE nil",
+                    "enum": "dmm.FUNC_DIODE nil|dmm.FUNC_DCV_RATIO nil",
                     "type": "any",
                     "range": ""
                 },
                 {
                     "name": "dmm.FUNC_AC_CURRENT",
                     "description": "dmm.FUNC_CAPACITANCE\ndmm.FUNC_DIGITIZE_CURRENT",
-                    "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_CAPACITANCE nil",
+                    "enum": "dmm.FUNC_CAPACITANCE nil|dmm.FUNC_DIGITIZE_CURRENT nil",
                     "type": "any",
                     "range": ""
                 },
@@ -4799,7 +4799,7 @@
                 {
                     "name": "screenName",
                     "description": "The screen to display",
-                    "enum": "display.SCREEN_PROCESSING nil|display.SCREEN_HOME nil|display.SCREEN_FUNCTIONS_SWIPE nil|display.SCREEN_SECONDARY_SWIPE nil|display.SCREEN_STATS_SWIPE nil|display.SCREEN_USER_SWIPE nil|display.SCREEN_SETTINGS_SWIPE nil|display.SCREEN_READING_TABLE nil|display.SCREEN_GRAPH nil|display.SCREEN_HOME_LARGE_READING nil|display.SCREEN_GRAPH_SWIPE nil|display.SCREEN_HISTOGRAM nil",
+                    "enum": "display.SCREEN_HOME nil|display.SCREEN_HOME_LARGE_READING nil|display.SCREEN_READING_TABLE nil|display.SCREEN_GRAPH nil|display.SCREEN_HISTOGRAM nil|display.SCREEN_FUNCTIONS_SWIPE nil|display.SCREEN_GRAPH_SWIPE nil|display.SCREEN_SECONDARY_SWIPE nil|display.SCREEN_SETTINGS_SWIPE nil|display.SCREEN_STATS_SWIPE nil|display.SCREEN_USER_SWIPE nil|display.SCREEN_PROCESSING nil",
                     "type": "displaychangescreenscreenName",
                     "range": ""
                 }
@@ -4832,7 +4832,7 @@
                 {
                     "name": "errorMode",
                     "description": "The errors that are returned",
-                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_ALL nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "localnodeshoweventserrorMode",
                     "range": ""
                 }
@@ -4991,7 +4991,7 @@
                 {
                     "name": "state",
                     "description": "Generate a timer event when the timer delay elapses",
-                    "enum": "trigger.ON nil|trigger.OFF nil",
+                    "enum": "trigger.OFF nil|trigger.ON nil",
                     "type": "triggertimerstartgeneratestate",
                     "range": ""
                 },
@@ -5182,7 +5182,7 @@
                 {
                     "name": "eventType",
                     "description": "Limits the return to specific event log types; set a cumulative integer value that represents the event log types to",
-                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_ALL nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventloggetcounteventType",
                     "range": ""
                 }
@@ -5515,7 +5515,7 @@
                 {
                     "name": "state",
                     "description": "Disable the trigger timer",
-                    "enum": "trigger.ON nil|trigger.OFF nil",
+                    "enum": "trigger.OFF nil|trigger.ON nil",
                     "type": "triggertimerenablestate",
                     "range": ""
                 },
@@ -5556,7 +5556,7 @@
                 {
                     "name": "logState",
                     "description": "Do not log information events",
-                    "enum": "buffer.ON nil|buffer.OFF nil",
+                    "enum": "buffer.OFF nil|buffer.ON nil",
                     "type": "bufferVarlogstatelogState",
                     "range": ""
                 },
@@ -5701,7 +5701,7 @@
                 {
                     "name": "state",
                     "description": "Set the line low",
-                    "enum": "digio.STATE_HIGH nil|digio.STATE_LOW nil",
+                    "enum": "digio.STATE_LOW nil|digio.STATE_HIGH nil",
                     "type": "digiolinestatestate",
                     "range": ""
                 }
@@ -5800,7 +5800,7 @@
                 {
                     "name": "logic",
                     "description": "If each event must occur before the trigger model continues",
-                    "enum": "trigger.WAIT_OR nil|trigger.WAIT_AND nil",
+                    "enum": "trigger.WAIT_AND nil|trigger.WAIT_OR nil",
                     "type": "triggermodelsetblocktriggerBLOCK_WAITlogic",
                     "range": ""
                 }
@@ -6217,21 +6217,21 @@
                 {
                     "name": "limitType",
                     "description": "The type of limit, which can be one of the following types",
-                    "enum": "trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitType",
                     "range": ""
                 },
                 {
                     "name": "limitA",
                     "description": "The lower limit that the measurement is tested against; if limitType is set to",
-                    "enum": "trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitA",
                     "range": ""
                 },
                 {
                     "name": "limitB",
                     "description": "The upper limit that the measurement is tested against; if limitType is set to",
-                    "enum": "trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_CONSTANTlimitB",
                     "range": ""
                 },
@@ -6505,7 +6505,7 @@
                 {
                     "name": "limitType",
                     "description": "The type of limit, which can be one of the following types",
-                    "enum": "trigger.LIMIT_OUTSIDE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_ABOVE nil",
+                    "enum": "trigger.LIMIT_ABOVE nil|trigger.LIMIT_BELOW nil|trigger.LIMIT_INSIDE nil|trigger.LIMIT_OUTSIDE nil",
                     "type": "triggermodelsetblocktriggerBLOCK_BRANCH_LIMIT_DYNAMIClimitType",
                     "range": ""
                 },
@@ -6604,7 +6604,7 @@
                 {
                     "name": "detectedEdge",
                     "description": "The trigger logic value",
-                    "enum": "trigger.EDGE_EITHER nil|trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil",
+                    "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
                     "type": "triggerdiginedgedetectedEdge",
                     "range": ""
                 },
@@ -6648,7 +6648,7 @@
                 {
                     "name": "lineMode",
                     "description": "The digital line control type and line mode",
-                    "enum": "digio.MODE_SYNCHRONOUS_ACCEPTOR nil|digio.MODE_DIGITAL_IN nil|digio.MODE_SYNCHRONOUS_MASTER nil|digio.MODE_DIGITAL_OUT nil|digio.MODE_DIGITAL_OPEN_DRAIN nil|digio.MODE_TRIGGER_OPEN_DRAIN nil|digio.MODE_TRIGGER_IN nil|digio.MODE_TRIGGER_OUT nil",
+                    "enum": "digio.MODE_DIGITAL_IN nil|digio.MODE_DIGITAL_OUT nil|digio.MODE_DIGITAL_OPEN_DRAIN nil|digio.MODE_TRIGGER_IN nil|digio.MODE_TRIGGER_OUT nil|digio.MODE_TRIGGER_OPEN_DRAIN nil|digio.MODE_SYNCHRONOUS_MASTER nil|digio.MODE_SYNCHRONOUS_ACCEPTOR nil",
                     "type": "digiolinemodelineMode",
                     "range": ""
                 },
@@ -7312,7 +7312,7 @@
                 {
                     "name": "protocol",
                     "description": "The protocol to use for messages from the trigger",
-                    "enum": "lan.PROTOCOL_UDP nil|lan.PROTOCOL_TCP nil|lan.PROTOCOL_MULTICAST nil",
+                    "enum": "lan.PROTOCOL_TCP nil|lan.PROTOCOL_UDP nil|lan.PROTOCOL_MULTICAST nil",
                     "type": "triggerlanoutprotocolprotocol",
                     "range": ""
                 },
@@ -8006,7 +8006,7 @@
                 {
                     "name": "detectedEdge",
                     "description": "The trigger mode",
-                    "enum": "trigger.EDGE_EITHER nil|trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil",
+                    "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
                     "type": "triggertsplinkinedgedetectedEdge",
                     "range": ""
                 },
@@ -8667,7 +8667,7 @@
                 {
                     "name": "accessType",
                     "description": "The type of access",
-                    "enum": "localnode.ACCESS_LOCKOUT nil|localnode.ACCESS_PROTECTED nil|localnode.ACCESS_FULL nil|localnode.ACCESS_EXCLUSIVE nil",
+                    "enum": "localnode.ACCESS_FULL nil|localnode.ACCESS_EXCLUSIVE nil|localnode.ACCESS_PROTECTED nil|localnode.ACCESS_LOCKOUT nil",
                     "type": "localnodeaccessaccessType",
                     "range": ""
                 }
@@ -8951,7 +8951,7 @@
                 {
                     "name": "buttonID",
                     "description": "The type of prompt to display; choose one of the following options",
-                    "enum": "display.BUTTONS_CANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_YESNOCANCEL nil|display.BUTTONS_OK nil|display.BUTTONS_OKCANCEL nil|display.BUTTONS_NONE nil",
+                    "enum": "display.BUTTONS_NONE nil|display.BUTTONS_OK nil|display.BUTTONS_CANCEL nil|display.BUTTONS_OKCANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_YESNOCANCEL nil",
                     "type": "displaypromptbuttonID",
                     "range": ""
                 },
@@ -8999,7 +8999,7 @@
                 {
                     "name": "subID",
                     "description": "The returned value after a button is pressed on the front panel",
-                    "enum": "display.BUTTON_OK nil|display.BUTTON_NO nil|display.BUTTON_YES nil|display.BUTTON_CANCEL nil",
+                    "enum": "display.BUTTON_YES nil|display.BUTTON_NO nil|display.BUTTON_OK nil|display.BUTTON_CANCEL nil",
                     "type": "displaywaiteventsubID",
                     "range": ""
                 },
@@ -9200,7 +9200,7 @@
                 {
                     "name": "brightness",
                     "description": "The brightness of the display",
-                    "enum": "display.STATE_LCD_25 nil|display.STATE_LCD_50 nil|display.STATE_BLACKOUT nil|display.STATE_LCD_OFF nil|display.STATE_LCD_100 nil|display.STATE_LCD_75 nil",
+                    "enum": "display.STATE_LCD_100 nil|display.STATE_LCD_75 nil|display.STATE_LCD_50 nil|display.STATE_LCD_25 nil|display.STATE_LCD_OFF nil|display.STATE_BLACKOUT nil",
                     "type": "displaylightstatebrightness",
                     "range": ""
                 }
@@ -9420,7 +9420,7 @@
                 {
                     "name": "type",
                     "description": "The termination type",
-                    "enum": "tspnet.TERM_CR nil|tspnet.TERM_LFCR nil|tspnet.TERM_LF nil|tspnet.TERM_CRLF nil",
+                    "enum": "tspnet.TERM_LF nil|tspnet.TERM_CR nil|tspnet.TERM_CRLF nil|tspnet.TERM_LFCR nil",
                     "type": "tspnetterminationtype",
                     "range": ""
                 },
@@ -9434,7 +9434,7 @@
                 {
                     "name": "termSequence",
                     "description": "The termination sequence",
-                    "enum": "tspnet.TERM_CR nil|tspnet.TERM_LFCR nil|tspnet.TERM_LF nil|tspnet.TERM_CRLF nil",
+                    "enum": "tspnet.TERM_LF nil|tspnet.TERM_CR nil|tspnet.TERM_CRLF nil|tspnet.TERM_LFCR nil",
                     "type": "tspnetterminationtermSequence",
                     "range": ""
                 }
@@ -9938,7 +9938,7 @@
                 {
                     "name": "eventNumber",
                     "description": "The event number",
-                    "enum": "trigger.LOG_WARN_ABORT nil|trigger.LOG_INFO nil|trigger.LOG_ERROR nil|trigger.LOG_WARN nil",
+                    "enum": "trigger.LOG_INFO nil|trigger.LOG_WARN nil|trigger.LOG_ERROR nil|trigger.LOG_WARN_ABORT nil",
                     "type": "triggermodelsetblocktriggerBLOCK_LOG_EVENTeventNumber",
                     "range": ""
                 },
@@ -10077,7 +10077,7 @@
                 {
                     "name": "eventType",
                     "description": "The type of the event to be suppressed",
-                    "enum": "eventlog.SEV_INFO nil|eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_ALL nil",
+                    "enum": "eventlog.SEV_ERROR nil|eventlog.SEV_WARN nil|eventlog.SEV_INFO nil|eventlog.SEV_ALL nil",
                     "type": "eventlogsuppresseventType",
                     "range": ""
                 },
@@ -10134,7 +10134,7 @@
                 {
                     "name": "numberFormat",
                     "description": "The format of the displayed number",
-                    "enum": "display.NFORMAT_PREFIX nil|display.NFORMAT_INTEGER nil|display.NFORMAT_DECIMAL nil|display.NFORMAT_EXPONENT nil",
+                    "enum": "display.NFORMAT_INTEGER nil|display.NFORMAT_DECIMAL nil|display.NFORMAT_EXPONENT nil|display.NFORMAT_PREFIX nil",
                     "type": "displayinputnumbernumberFormat",
                     "range": ""
                 },
@@ -10262,14 +10262,14 @@
                 {
                     "name": "buttonReturn",
                     "description": "Indicates which button was pressed",
-                    "enum": "display.BUTTON_OK nil|display.BUTTON_NO nil|display.BUTTON_CANCEL nil|display.BUTTON_YES nil",
+                    "enum": "display.BUTTON_OK nil|display.BUTTON_CANCEL nil|display.BUTTON_YES nil|display.BUTTON_NO nil",
                     "type": "displayinputpromptbuttonReturn",
                     "range": ""
                 },
                 {
                     "name": "buttonSet",
                     "description": "The set of buttons to display",
-                    "enum": "display.BUTTONS_CANCEL nil|display.BUTTONS_YESNOCANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_OK nil|display.BUTTONS_OKCANCEL nil",
+                    "enum": "display.BUTTONS_OK nil|display.BUTTONS_CANCEL nil|display.BUTTONS_OKCANCEL nil|display.BUTTONS_YESNO nil|display.BUTTONS_YESNOCANCEL nil",
                     "type": "displayinputpromptbuttonSet",
                     "range": ""
                 },
@@ -10325,7 +10325,7 @@
                 {
                     "name": "textFormat",
                     "description": "The format of the entered text",
-                    "enum": "display.SFORMAT_ANY nil|display.SFORMAT_UPPER_LOWER nil|display.SFORMAT_BUFFER_NAME nil|display.SFORMAT_UPPER nil",
+                    "enum": "display.SFORMAT_ANY nil|display.SFORMAT_UPPER_LOWER nil|display.SFORMAT_UPPER nil|display.SFORMAT_BUFFER_NAME nil",
                     "type": "displayinputstringtextFormat",
                     "range": ""
                 }
@@ -10525,7 +10525,7 @@
                 {
                     "name": "value",
                     "description": "3.5 digit resolution",
-                    "enum": "dmm.DIGITS_4_5 nil|dmm.DIGITS_6_5 nil|dmm.DIGITS_7_5 nil|dmm.DIGITS_5_5 nil|dmm.DIGITS_3_5 nil",
+                    "enum": "dmm.DIGITS_3_5 nil|dmm.DIGITS_4_5 nil|dmm.DIGITS_5_5 nil|dmm.DIGITS_6_5 nil|dmm.DIGITS_7_5 nil",
                     "type": "dmmmeasuredisplaydigitsvalue",
                     "range": ""
                 },
@@ -10569,7 +10569,7 @@
                 {
                     "name": "state",
                     "description": "Set the measurement range manually",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasureautorangestate",
                     "range": ""
                 },
@@ -10613,7 +10613,7 @@
                 {
                     "name": "state",
                     "description": "Disable autozero",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasureautozeroenablestate",
                     "range": ""
                 },
@@ -10827,7 +10827,7 @@
                 {
                     "name": "value",
                     "description": "The bandwidth that is closest to the line frequency",
-                    "enum": "dmm.DETECTBW_30HZ nil|dmm.DETECTBW_300HZ nil|dmm.DETECTBW_3HZ nil",
+                    "enum": "dmm.DETECTBW_3HZ nil|dmm.DETECTBW_30HZ nil|dmm.DETECTBW_300HZ nil",
                     "type": "dmmmeasuredetectorbandwidthvalue",
                     "range": ""
                 },
@@ -10870,7 +10870,7 @@
                 {
                     "name": "value",
                     "description": "6\u00bd display digits",
-                    "enum": "dmm.DIGITS_4_5 nil|dmm.DIGITS_6_5 nil|dmm.DIGITS_3_5 nil|dmm.DIGITS_5_5 nil",
+                    "enum": "dmm.DIGITS_6_5 nil|dmm.DIGITS_5_5 nil|dmm.DIGITS_4_5 nil|dmm.DIGITS_3_5 nil",
                     "type": "dmmdigitizedisplaydigitsvalue",
                     "range": ""
                 },
@@ -10913,7 +10913,7 @@
                 {
                     "name": "state",
                     "description": "To disable dry circuit, select dmm.OFF; available for all rangesTo enable dry circuit, select dmm.ON; available for the 1 \u03a9 to 10\u00a0k\u03a9 ranges",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 },
@@ -11036,7 +11036,7 @@
                 {
                     "name": "filterState",
                     "description": "The filter status",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasurefilterenablefilterState",
                     "range": ""
                 },
@@ -11270,7 +11270,7 @@
                 {
                     "name": "RTDType",
                     "description": "The type of 4-wire RTD",
-                    "enum": "dmm.RTD_PT3916 nil|dmm.RTD_D100 nil|dmm.RTD_PT100 nil|dmm.RTD_F100 nil|dmm.RTD_PT385 nil|dmm.RTD_USER nil",
+                    "enum": "dmm.RTD_PT100 nil|dmm.RTD_PT385 nil|dmm.RTD_PT3916 nil|dmm.RTD_D100 nil|dmm.RTD_F100 nil|dmm.RTD_USER nil",
                     "type": "dmmmeasurefourrtdRTDType",
                     "range": ""
                 },
@@ -11318,7 +11318,7 @@
                 {
                     "name": "value",
                     "description": "The type for 3-wire RTD",
-                    "enum": "dmm.RTD_PT3916 3|dmm.RTD_D100 nil|dmm.RTD_PT100 nil|dmm.RTD_F100 nil|dmm.RTD_PT385 nil|dmm.RTD_USER nil",
+                    "enum": "dmm.RTD_PT100 3|dmm.RTD_PT385 nil|dmm.RTD_PT3916 nil|dmm.RTD_D100 nil|dmm.RTD_F100 nil|dmm.RTD_USER nil",
                     "type": "dmmmeasurethreertdvalue",
                     "range": ""
                 },
@@ -11366,7 +11366,7 @@
                 {
                     "name": "type",
                     "description": "The transducer type",
-                    "enum": "dmm.TRANS_THREERTD nil|dmm.TRANS_THERMOCOUPLE nil|dmm.TRANS_THERMISTOR nil|dmm.TRANS_FOURRTD nil",
+                    "enum": "dmm.TRANS_THERMOCOUPLE nil|dmm.TRANS_THERMISTOR nil|dmm.TRANS_THREERTD nil|dmm.TRANS_FOURRTD nil",
                     "type": "dmmmeasuretransducertype",
                     "range": ""
                 },
@@ -11593,7 +11593,7 @@
                 {
                     "name": "value",
                     "description": "The thermistor type in ohms",
-                    "enum": "dmm.THERM_5000 nil|dmm.THERM_10000 nil|dmm.THERM_2252 nil",
+                    "enum": "dmm.THERM_2252 nil|dmm.THERM_5000 nil|dmm.THERM_10000 nil",
                     "type": "dmmmeasurethermistorvalue",
                     "range": ""
                 },
@@ -11637,7 +11637,7 @@
                 {
                     "name": "value",
                     "description": "The thermocouple type",
-                    "enum": "dmm.THERMOCOUPLE_J nil|dmm.THERMOCOUPLE_R nil|dmm.THERMOCOUPLE_E nil|dmm.THERMOCOUPLE_S nil|dmm.THERMOCOUPLE_B nil|dmm.THERMOCOUPLE_N nil|dmm.THERMOCOUPLE_K nil|dmm.THERMOCOUPLE_T nil",
+                    "enum": "dmm.THERMOCOUPLE_B nil|dmm.THERMOCOUPLE_E nil|dmm.THERMOCOUPLE_J nil|dmm.THERMOCOUPLE_K nil|dmm.THERMOCOUPLE_N nil|dmm.THERMOCOUPLE_R nil|dmm.THERMOCOUPLE_S nil|dmm.THERMOCOUPLE_T nil",
                     "type": "dmmmeasurethermocouplevalue",
                     "range": ""
                 },
@@ -11682,7 +11682,7 @@
                 {
                     "name": "state",
                     "description": "The reference junction type",
-                    "enum": "dmm.REFJUNCTION_SIMULATED nil|dmm.REFJUNCTION_EXTERNAL nil|dmm.REFJUNCTION_INTERNAL nil",
+                    "enum": "dmm.REFJUNCTION_SIMULATED nil|dmm.REFJUNCTION_INTERNAL nil|dmm.REFJUNCTION_EXTERNAL nil",
                     "type": "any",
                     "range": ""
                 }
@@ -11716,7 +11716,7 @@
                 {
                     "name": "state",
                     "description": "Disable input divider",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 }
@@ -11750,7 +11750,7 @@
                 {
                     "name": "value",
                     "description": "Disable input divider",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 }
@@ -11784,7 +11784,7 @@
                 {
                     "name": "value",
                     "description": "The auto clear setting",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasurelimitArrautoclearvalue",
                     "range": ""
                 },
@@ -11835,7 +11835,7 @@
                 {
                     "name": "state",
                     "description": "The auto clear setting",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmdigitizelimitArrautoclearstate",
                     "range": ""
                 },
@@ -11954,7 +11954,7 @@
                 {
                     "name": "value",
                     "description": "The results of the limit test for limit Y",
-                    "enum": "dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_NONE nil|dmm.FAIL_BOTH nil",
+                    "enum": "dmm.FAIL_NONE nil|dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_BOTH nil",
                     "type": "dmmmeasurelimitArrfailvalue",
                     "range": ""
                 },
@@ -12050,7 +12050,7 @@
                 {
                     "name": "value",
                     "description": "The results of the limit test for limit Y",
-                    "enum": "dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_NONE nil|dmm.FAIL_BOTH nil",
+                    "enum": "dmm.FAIL_NONE nil|dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_BOTH nil",
                     "type": "dmmdigitizelimitArrfailvalue",
                     "range": ""
                 },
@@ -12098,7 +12098,7 @@
                 {
                     "name": "state",
                     "description": "Limit Y testing",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmdigitizelimitArrenablestate",
                     "range": ""
                 },
@@ -12307,7 +12307,7 @@
                 {
                     "name": "state",
                     "description": "Limit Y testing",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasurelimitArrenablestate",
                     "range": ""
                 },
@@ -12362,7 +12362,7 @@
                 {
                     "name": "state",
                     "description": "Disable line sync",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasurelinesyncstate",
                     "range": ""
                 },
@@ -12405,7 +12405,7 @@
                 {
                     "name": "value",
                     "description": "The math enable setting",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasuremathenablevalue",
                     "range": ""
                 },
@@ -12492,7 +12492,7 @@
                 {
                     "name": "value",
                     "description": "The math enable setting",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmdigitizemathenablevalue",
                     "range": ""
                 },
@@ -12535,7 +12535,7 @@
                 {
                     "name": "operation",
                     "description": "Math operation to be performed on measurements",
-                    "enum": "dmm.MATH_MXB nil|dmm.MATH_RECIPROCAL nil|dmm.MATH_PERCENT nil",
+                    "enum": "dmm.MATH_MXB nil|dmm.MATH_PERCENT nil|dmm.MATH_RECIPROCAL nil",
                     "type": "dmmdigitizemathformatoperation",
                     "range": ""
                 },
@@ -12578,7 +12578,7 @@
                 {
                     "name": "operation",
                     "description": "Math operation to be performed on measurements",
-                    "enum": "dmm.MATH_MXB nil|dmm.MATH_RECIPROCAL nil|dmm.MATH_PERCENT nil",
+                    "enum": "dmm.MATH_MXB nil|dmm.MATH_PERCENT nil|dmm.MATH_RECIPROCAL nil",
                     "type": "dmmmeasuremathformatoperation",
                     "range": ""
                 },
@@ -12897,7 +12897,7 @@
                 {
                     "name": "state",
                     "description": "Set offset compensation to",
-                    "enum": "dmm.ON 4|dmm.OCOMP_AUTO nil|dmm.OFF nil",
+                    "enum": "dmm.OFF 4|dmm.ON nil|dmm.OCOMP_AUTO nil",
                     "type": "any",
                     "range": ""
                 },
@@ -12940,7 +12940,7 @@
                 {
                     "name": "state",
                     "description": "Disable",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 }
@@ -13139,7 +13139,7 @@
                 {
                     "name": "dmm.FUNC_DC_VOLTAGE",
                     "description": "dmm.FUNC_RESISTANCE\ndmm.FUNC_ACV_FREQUENCY",
-                    "enum": "dmm.FUNC_ACV_FREQUENCY nil|dmm.FUNC_RESISTANCE nil",
+                    "enum": "dmm.FUNC_RESISTANCE nil|dmm.FUNC_ACV_FREQUENCY nil",
                     "type": "any",
                     "range": ""
                 },
@@ -13153,14 +13153,14 @@
                 {
                     "name": "dmm.FUNC_DC_CURRENT",
                     "description": "dmm.FUNC_DIODE \ndmm.FUNC_DCV_RATIO",
-                    "enum": "dmm.FUNC_DCV_RATIO nil|dmm.FUNC_DIODE nil",
+                    "enum": "dmm.FUNC_DIODE nil|dmm.FUNC_DCV_RATIO nil",
                     "type": "any",
                     "range": ""
                 },
                 {
                     "name": "dmm.FUNC_AC_CURRENT",
                     "description": "dmm.FUNC_CAPACITANCE\ndmm.FUNC_DIGITIZE_CURRENT",
-                    "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_CAPACITANCE nil",
+                    "enum": "dmm.FUNC_CAPACITANCE nil|dmm.FUNC_DIGITIZE_CURRENT nil",
                     "type": "any",
                     "range": ""
                 },
@@ -13424,7 +13424,7 @@
                 {
                     "name": "state",
                     "description": "The auto range setting",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "dmmmeasurethresholdautorangestate",
                     "range": ""
                 },
@@ -13604,7 +13604,7 @@
                 {
                     "name": "state",
                     "description": "Disable open lead detector",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 },
@@ -13735,7 +13735,7 @@
                 {
                     "name": "value",
                     "description": "For DC volts and AC volts, select from the following units",
-                    "enum": "dmm.UNIT_CELSIUS nil|dmm.UNIT_DBM nil|dmm.UNIT_FAHRENHEIT nil|dmm.UNIT_DB nil|dmm.UNIT_KELVIN nil|dmm.UNIT_VOLT nil",
+                    "enum": "dmm.UNIT_VOLT nil|dmm.UNIT_DB nil|dmm.UNIT_DBM nil|dmm.UNIT_CELSIUS nil|dmm.UNIT_KELVIN nil|dmm.UNIT_FAHRENHEIT nil",
                     "type": "dmmmeasureunitvalue",
                     "range": ""
                 },
@@ -13844,7 +13844,7 @@
                 {
                     "name": "detectedEdge",
                     "description": "The trigger edge value",
-                    "enum": "trigger.EDGE_EITHER nil|trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil",
+                    "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
                     "type": "any",
                     "range": ""
                 }
@@ -14212,7 +14212,7 @@
                 {
                     "name": "value",
                     "description": "The setting",
-                    "enum": "dmm.CONDITION_LESS nil|dmm.CONDITION_GREATER nil",
+                    "enum": "dmm.CONDITION_GREATER nil|dmm.CONDITION_LESS nil",
                     "type": "any",
                     "range": ""
                 },
@@ -14261,7 +14261,7 @@
                 {
                     "name": "value",
                     "description": "The setting",
-                    "enum": "dmm.CONDITION_LESS nil|dmm.CONDITION_GREATER nil",
+                    "enum": "dmm.CONDITION_GREATER nil|dmm.CONDITION_LESS nil",
                     "type": "any",
                     "range": ""
                 },
@@ -14308,7 +14308,7 @@
                 {
                     "name": "setting",
                     "description": "The mode setting",
-                    "enum": "dmm.MODE_OFF nil|dmm.MODE_EDGE nil|dmm.MODE_WINDOW nil|dmm.MODE_PULSE nil",
+                    "enum": "dmm.MODE_EDGE nil|dmm.MODE_PULSE nil|dmm.MODE_WINDOW nil|dmm.MODE_OFF nil",
                     "type": "dmmmeasureanalogtriggermodesetting",
                     "range": ""
                 },
@@ -14353,7 +14353,7 @@
                 {
                     "name": "setting",
                     "description": "The mode setting",
-                    "enum": "dmm.MODE_OFF nil|dmm.MODE_EDGE nil|dmm.MODE_WINDOW nil|dmm.MODE_PULSE nil",
+                    "enum": "dmm.MODE_EDGE nil|dmm.MODE_PULSE nil|dmm.MODE_WINDOW nil|dmm.MODE_OFF nil",
                     "type": "dmmdigitizeanalogtriggermodesetting",
                     "range": ""
                 },
@@ -14576,7 +14576,7 @@
                 {
                     "name": "value",
                     "description": "The setting",
-                    "enum": "dmm.POLARITY_BELOW nil|dmm.POLARITY_ABOVE nil",
+                    "enum": "dmm.POLARITY_ABOVE nil|dmm.POLARITY_BELOW nil",
                     "type": "any",
                     "range": ""
                 },
@@ -14767,7 +14767,7 @@
                 {
                     "name": "value",
                     "description": "The slope of the analog trigger edge",
-                    "enum": "dmm.SLOPE_FALLING nil|dmm.SLOPE_RISING nil",
+                    "enum": "dmm.SLOPE_RISING nil|dmm.SLOPE_FALLING nil",
                     "type": "dmmmeasureanalogtriggeredgeslopevalue",
                     "range": ""
                 },
@@ -14861,7 +14861,7 @@
                 {
                     "name": "value",
                     "description": "The setting",
-                    "enum": "dmm.POLARITY_BELOW nil|dmm.POLARITY_ABOVE nil",
+                    "enum": "dmm.POLARITY_ABOVE nil|dmm.POLARITY_BELOW nil",
                     "type": "any",
                     "range": ""
                 },
@@ -14994,7 +14994,7 @@
                 {
                     "name": "value",
                     "description": "The digitize measurement function to make active",
-                    "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_NONE nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
+                    "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil|dmm.FUNC_NONE nil",
                     "type": "dmmdigitizefunc",
                     "range": ""
                 }
@@ -15403,7 +15403,7 @@
                 {
                     "name": "state",
                     "description": "When the beeper sounds",
-                    "enum": "dmm.AUDIBLE_PASS nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_NONE nil",
+                    "enum": "dmm.AUDIBLE_NONE nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_PASS nil",
                     "type": "dmmmeasurelimitArraudiblestate",
                     "range": ""
                 },
@@ -15454,7 +15454,7 @@
                 {
                     "name": "value",
                     "description": "When the beeper sounds",
-                    "enum": "dmm.AUDIBLE_PASS nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_NONE nil",
+                    "enum": "dmm.AUDIBLE_NONE nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_PASS nil",
                     "type": "dmmdigitizelimitArraudiblevalue",
                     "range": ""
                 },
@@ -15684,7 +15684,7 @@
                 {
                     "name": "type",
                     "description": "Type of AC coupling filter",
-                    "enum": "dmm.AC_FILTER_FAST nil|dmm.AC_FILTER_SLOW nil",
+                    "enum": "dmm.AC_FILTER_SLOW nil|dmm.AC_FILTER_FAST nil",
                     "type": "any",
                     "range": ""
                 }
@@ -15894,14 +15894,14 @@
                 {
                     "name": "action",
                     "description": "Determines when and if the instrument automatically runs autocalibration",
-                    "enum": "acal.ACTION_NONE nil|acal.ACTION_RUN nil|acal.ACTION_NOTIFY nil",
+                    "enum": "acal.ACTION_RUN nil|acal.ACTION_NOTIFY nil|acal.ACTION_NONE nil",
                     "type": "any",
                     "range": ""
                 },
                 {
                     "name": "interval",
                     "description": "Determines how often autocalibration should be run or notification should occur",
-                    "enum": "acal.INTERVAL_1DAY nil|acal.INTERVAL_16HR nil|acal.INTERVAL_7DAY nil|acal.INTERVAL_8HR nil|acal.INTERVAL_30DAY nil|acal.INTERVAL_14DAY nil|acal.INTERVAL_90DAY nil",
+                    "enum": "acal.INTERVAL_8HR nil|acal.INTERVAL_16HR nil|acal.INTERVAL_1DAY nil|acal.INTERVAL_7DAY nil|acal.INTERVAL_14DAY nil|acal.INTERVAL_30DAY nil|acal.INTERVAL_90DAY nil",
                     "type": "any",
                     "range": ""
                 },
@@ -16017,7 +16017,7 @@
                 {
                     "name": "value",
                     "description": "The slope of the analog trigger edge",
-                    "enum": "dmm.SLOPE_FALLING nil|dmm.SLOPE_RISING nil",
+                    "enum": "dmm.SLOPE_RISING nil|dmm.SLOPE_FALLING nil",
                     "type": "dmmdigitizeanalogtriggeredgeslopevalue",
                     "range": ""
                 },
@@ -16158,7 +16158,7 @@
                 {
                     "name": "value",
                     "description": "Units to display for the digitize voltage function",
-                    "enum": "dmm.UNIT_DBM nil|dmm.UNIT_DB nil|dmm.UNIT_VOLT nil|dmm.UNIT_AMP nil",
+                    "enum": "dmm.UNIT_VOLT nil|dmm.UNIT_DB nil|dmm.UNIT_DBM nil|dmm.UNIT_AMP nil",
                     "type": "dmmdigitizeunitvalue",
                     "range": ""
                 },
@@ -16307,7 +16307,7 @@
                 {
                     "name": "setting",
                     "description": "0 \u00b5s",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 },
@@ -16351,7 +16351,7 @@
                 {
                     "name": "setting",
                     "description": "0 \u00b5s",
-                    "enum": "dmm.ON nil|dmm.OFF nil",
+                    "enum": "dmm.OFF nil|dmm.ON nil",
                     "type": "any",
                     "range": ""
                 },
@@ -17169,14 +17169,14 @@
                 {
                     "name": "units",
                     "description": "The units for the first measurement in the buffer index",
-                    "enum": "buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DBM nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_SECOND nil|buffer.UNIT_RATIO nil|buffer.UNIT_DIO nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_OHM nil|buffer.UNIT_NONE nil|buffer.UNIT_AMP nil|buffer.UNIT_PERCENT nil|buffer.UNIT_VOLT nil|buffer.UNIT_KELVIN nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_TOT nil|buffer.UNIT_DAC nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
+                    "enum": "buffer.UNIT_AMP nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DAC nil|buffer.UNIT_DBM nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_DIO nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_KELVIN nil|buffer.UNIT_NONE nil|buffer.UNIT_OHM nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RATIO nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_TOT nil|buffer.UNIT_VOLT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
                     "type": "bufferwriteformatunits",
                     "range": ""
                 },
                 {
                     "name": "displayDigits",
                     "description": "The number of digits to use for the first measurement",
-                    "enum": "buffer.DIGITS_3_5 nil|buffer.DIGITS_5_5 nil|buffer.DIGITS_4_5 nil|buffer.DIGITS_8_5 nil|buffer.DIGITS_6_5 nil|buffer.DIGITS_7_5 nil",
+                    "enum": "buffer.DIGITS_3_5 nil|buffer.DIGITS_4_5 nil|buffer.DIGITS_5_5 nil|buffer.DIGITS_6_5 nil|buffer.DIGITS_7_5 nil|buffer.DIGITS_8_5 nil",
                     "type": "bufferwriteformatdisplayDigits",
                     "range": ""
                 },
@@ -17528,7 +17528,7 @@
                 {
                     "name": "unit",
                     "description": "The units to be applied to the value generated by the expression",
-                    "enum": "buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DBM nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_SECOND nil|buffer.UNIT_RATIO nil|buffer.UNIT_DIO nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_OHM nil|buffer.UNIT_NONE nil|buffer.UNIT_AMP nil|buffer.UNIT_PERCENT nil|buffer.UNIT_VOLT nil|buffer.UNIT_KELVIN nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_TOT nil|buffer.UNIT_DAC nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
+                    "enum": "buffer.UNIT_AMP nil|buffer.UNIT_AMP_AC nil|buffer.UNIT_CELSIUS nil|buffer.UNIT_CUSTOM1 nil|buffer.UNIT_CUSTOM2 nil|buffer.UNIT_CUSTOM3 nil|buffer.UNIT_DAC nil|buffer.UNIT_DBM nil|buffer.UNIT_DECIBEL nil|buffer.UNIT_DIO nil|buffer.UNIT_FAHRENHEIT nil|buffer.UNIT_FARAD nil|buffer.UNIT_HERTZ nil|buffer.UNIT_KELVIN nil|buffer.UNIT_NONE nil|buffer.UNIT_OHM nil|buffer.UNIT_PERCENT nil|buffer.UNIT_RATIO nil|buffer.UNIT_RECIPROCAL nil|buffer.UNIT_SECOND nil|buffer.UNIT_TOT nil|buffer.UNIT_VOLT nil|buffer.UNIT_VOLT_AC nil|buffer.UNIT_WATT nil|buffer.UNIT_X nil",
                     "type": "buffermathunit",
                     "range": ""
                 },
@@ -17595,12 +17595,12 @@
                 "buffer.math(readingBuffer, unit, EXPR_RATE)",
                 "buffer.math(readingBuffer, unit, EXPR_NONE)",
                 "buffer.math(readingBuffer, unit, EXPR_LOG10)",
-                "buffer.math(readingBuffer, unit, EXPR_DIVIDE)",
                 "buffer.math(readingBuffer, unit, EXPR_SQROOT)",
+                "buffer.math(readingBuffer, unit, EXPR_DIVIDE)",
                 "buffer.math(readingBuffer, unit, EXPR_AVERAGE)",
+                "buffer.math(readingBuffer, unit, EXPR_MULTIPLY)",
                 "buffer.math(readingBuffer, unit, EXPR_SUBTRACT)",
                 "buffer.math(readingBuffer, unit, EXPR_EXPONENT)",
-                "buffer.math(readingBuffer, unit, EXPR_MULTIPLY)",
                 "buffer.math(readingBuffer, unit, EXPR_RECIPROCAL)",
                 "buffer.math(readingBuffer, unit, EXPR_POWER, constant0)"
             ],
@@ -17904,7 +17904,7 @@
                 {
                     "name": "setting",
                     "description": "Do not start continuous measurements after boot",
-                    "enum": "trigger.CONT_RESTART nil|trigger.CONT_OFF nil|trigger.CONT_AUTO nil",
+                    "enum": "trigger.CONT_OFF nil|trigger.CONT_AUTO nil|trigger.CONT_RESTART nil",
                     "type": "triggercontinuoussetting",
                     "range": ""
                 }
