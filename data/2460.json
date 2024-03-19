@@ -994,7 +994,7 @@
                     "name": "count",
                     "description": "The variable that is assigned the value of dataqueue.CAPACITY",
                     "enum": "dataqueue.CAPACITY nil",
-                    "type": "dataqueue.CAPACITY | integer",
+                    "type": "dataqueueCAPACITYcount | integer",
                     "range": ""
                 }
             ],
@@ -1031,7 +1031,7 @@
                     "name": "count",
                     "description": "The number of items in the data queue",
                     "enum": "",
-                    "type": "number",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -6037,7 +6037,7 @@
                     "name": "relValue",
                     "description": "Relative offset value for measurements",
                     "enum": "",
-                    "type": "any",
+                    "type": "number",
                     "range": ""
                 },
                 {
@@ -6081,7 +6081,7 @@
                     "name": "filterCount",
                     "description": "The number of readings required for each filtered measurement (1 to 100)",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": "(1 to 100)"
                 },
                 {
@@ -6301,7 +6301,7 @@
                     "name": "value",
                     "description": "The reference used when the math operation is set to percent; the range is -1e12 to +1e12",
                     "enum": "",
-                    "type": "any",
+                    "type": "number",
                     "range": ""
                 },
                 {
@@ -6665,7 +6665,7 @@
                     "name": "count",
                     "description": "Number of measurements (1 to 300,000 or buffer capacity)",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": "(1 to 300,000 or buffer capacity)"
                 },
                 {
@@ -7112,7 +7112,7 @@
             "name": "tsplink.initialize()",
             "webhelpfile": "30551.htm",
             "signature": "tsplink.initialize(expectedNodes)",
-            "command_return": "",
+            "command_return": "nodesFound",
             "type": "Function",
             "default_value": "\u00a0\n",
             "tsp_link": "No\n",
@@ -7136,7 +7136,7 @@
             ],
             "usage": [
                 "nodesFound = tsplink.initialize()",
-                "tsplink.initialize(expectedNodes)"
+                "nodesFound = tsplink.initialize(expectedNodes)"
             ],
             "overloads": [
                 "nodesFound = tsplink.initialize()"
@@ -7176,7 +7176,7 @@
                     "name": "count",
                     "description": "A count finds the number of unread events in the event log",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -7989,7 +7989,7 @@
                     "name": "output",
                     "description": "Returns the count value of the trigger model counter block.",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -14395,9 +14395,9 @@
                 "buffer.math(readingBuffer, unit, EXPR_DIVIDE)",
                 "buffer.math(readingBuffer, unit, EXPR_SQROOT)",
                 "buffer.math(readingBuffer, unit, EXPR_AVERAGE)",
-                "buffer.math(readingBuffer, unit, EXPR_EXPONENT)",
                 "buffer.math(readingBuffer, unit, EXPR_SUBTRACT)",
                 "buffer.math(readingBuffer, unit, EXPR_MULTIPLY)",
+                "buffer.math(readingBuffer, unit, EXPR_EXPONENT)",
                 "buffer.math(readingBuffer, unit, EXPR_RECIPROCAL)",
                 "buffer.math(readingBuffer, unit, EXPR_POWER, constant0)"
             ],

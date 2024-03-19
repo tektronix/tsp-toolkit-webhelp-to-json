@@ -994,7 +994,7 @@
                     "name": "count",
                     "description": "The variable that is assigned the value of dataqueue.CAPACITY",
                     "enum": "dataqueue.CAPACITY nil",
-                    "type": "dataqueue.CAPACITY | integer",
+                    "type": "dataqueueCAPACITYcount | integer",
                     "range": ""
                 }
             ],
@@ -1031,7 +1031,7 @@
                     "name": "count",
                     "description": "The number of items in the data queue",
                     "enum": "",
-                    "type": "number",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -4242,7 +4242,7 @@
                     "name": "output",
                     "description": "Returns the name of one measure configuration list that is stored on the instrument",
                     "enum": "",
-                    "type": "any",
+                    "type": "string",
                     "range": ""
                 }
             ],
@@ -4297,7 +4297,7 @@
                     "name": "output",
                     "description": "Returns a list of TSP commands and parameter settings that are stored in the specified configuration index",
                     "enum": "",
-                    "type": "any",
+                    "type": "string[]",
                     "range": ""
                 }
             ],
@@ -5125,7 +5125,7 @@
         {
             "name": "tsplink.initialize()",
             "webhelpfile": "30551.htm",
-            "signature": "tsplink.initialize()",
+            "signature": "tsplink.initialize(expectedNodes)",
             "command_return": "nodesFound",
             "type": "Function",
             "default_value": "\u00a0\n",
@@ -5150,10 +5150,10 @@
             ],
             "usage": [
                 "nodesFound = tsplink.initialize()",
-                "tsplink.initialize(expectedNodes)"
+                "nodesFound = tsplink.initialize(expectedNodes)"
             ],
             "overloads": [
-                "tsplink.initialize(expectedNodes)"
+                "nodesFound = tsplink.initialize()"
             ],
             "examples": [
                 {
@@ -5419,7 +5419,7 @@
                     "name": "output",
                     "description": "Returns the count value of the trigger model counter block.",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -10878,7 +10878,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizedisplaydigitsfunction",
                     "range": ""
                 }
             ],
@@ -10914,7 +10914,7 @@
                     "name": "state",
                     "description": "To disable dry circuit, select dmm.OFF; available for all rangesTo enable dry circuit, select dmm.ON; available for the 1 \u03a9 to 10\u00a0k\u03a9 ranges",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmmeasuredrycircuitstate",
                     "range": ""
                 },
                 {
@@ -11082,7 +11082,7 @@
                     "name": "value",
                     "description": "Filter measurements setting",
                     "enum": "dmm.ON nil|dmm.OFF nil",
-                    "type": "any",
+                    "type": "dmmdigitizefilterenablevalue",
                     "range": ""
                 }
             ],
@@ -11116,7 +11116,7 @@
                     "name": "value",
                     "description": "The filter type to use when filtering is enabled; set to one of the following values",
                     "enum": "dmm.FILTER_REPEAT_AVG nil|dmm.FILTER_MOVING_AVG nil",
-                    "type": "any",
+                    "type": "dmmdigitizefiltertypevalue",
                     "range": ""
                 }
             ],
@@ -11683,7 +11683,7 @@
                     "name": "state",
                     "description": "The reference junction type",
                     "enum": "dmm.REFJUNCTION_SIMULATED nil|dmm.REFJUNCTION_INTERNAL nil|dmm.REFJUNCTION_EXTERNAL nil",
-                    "type": "any",
+                    "type": "dmmmeasurerefjunctionstate",
                     "range": ""
                 }
             ],
@@ -11717,7 +11717,7 @@
                     "name": "state",
                     "description": "Disable input divider",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmmeasureinputdividerstate",
                     "range": ""
                 }
             ],
@@ -11751,7 +11751,7 @@
                     "name": "value",
                     "description": "Disable input divider",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmdigitizeinputdividervalue",
                     "range": ""
                 }
             ],
@@ -11785,7 +11785,7 @@
                     "name": "value",
                     "description": "The auto clear setting",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "dmmmeasurelimitArrautoclearvalue",
+                    "type": "dmmmeasurelimitautoclearvalue",
                     "range": ""
                 },
                 {
@@ -11836,7 +11836,7 @@
                     "name": "state",
                     "description": "The auto clear setting",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "dmmdigitizelimitArrautoclearstate",
+                    "type": "dmmdigitizelimitautoclearstate",
                     "range": ""
                 },
                 {
@@ -11850,7 +11850,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimitautoclearfunction",
                     "range": ""
                 }
             ],
@@ -11955,7 +11955,7 @@
                     "name": "value",
                     "description": "The results of the limit test for limit Y",
                     "enum": "dmm.FAIL_NONE nil|dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_BOTH nil",
-                    "type": "dmmmeasurelimitArrfailvalue",
+                    "type": "dmmmeasurelimitfailvalue",
                     "range": ""
                 },
                 {
@@ -12011,7 +12011,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimitlowvaluefunction",
                     "range": ""
                 }
             ],
@@ -12051,7 +12051,7 @@
                     "name": "value",
                     "description": "The results of the limit test for limit Y",
                     "enum": "dmm.FAIL_NONE nil|dmm.FAIL_HIGH nil|dmm.FAIL_LOW nil|dmm.FAIL_BOTH nil",
-                    "type": "dmmdigitizelimitArrfailvalue",
+                    "type": "dmmdigitizelimitfailvalue",
                     "range": ""
                 },
                 {
@@ -12065,7 +12065,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimitfailfunction",
                     "range": ""
                 }
             ],
@@ -12099,7 +12099,7 @@
                     "name": "state",
                     "description": "Limit Y testing",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "dmmdigitizelimitArrenablestate",
+                    "type": "dmmdigitizelimitenablestate",
                     "range": ""
                 },
                 {
@@ -12113,7 +12113,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimitenablefunction",
                     "range": ""
                 }
             ],
@@ -12164,7 +12164,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimithighvaluefunction",
                     "range": ""
                 }
             ],
@@ -12308,7 +12308,7 @@
                     "name": "state",
                     "description": "Limit Y testing",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "dmmmeasurelimitArrenablestate",
+                    "type": "dmmmeasurelimitenablestate",
                     "range": ""
                 },
                 {
@@ -12500,7 +12500,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizemathenablefunction",
                     "range": ""
                 }
             ],
@@ -12543,7 +12543,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizemathformatfunction",
                     "range": ""
                 }
             ],
@@ -12771,7 +12771,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizemathmxbbfactorfunction",
                     "range": ""
                 }
             ],
@@ -12816,7 +12816,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizemathmxbmfactorfunction",
                     "range": ""
                 }
             ],
@@ -12861,7 +12861,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizemathpercentfunction",
                     "range": ""
                 }
             ],
@@ -12898,7 +12898,7 @@
                     "name": "state",
                     "description": "Set offset compensation to",
                     "enum": "dmm.OFF 4|dmm.ON nil|dmm.OCOMP_AUTO nil",
-                    "type": "any",
+                    "type": "dmmmeasureoffsetcompensationenablestate",
                     "range": ""
                 },
                 {
@@ -12941,7 +12941,7 @@
                     "name": "state",
                     "description": "Disable",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmmeasureoffsetcompensationdelayautostate",
                     "range": ""
                 }
             ],
@@ -13058,7 +13058,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeuserdelayfunction",
                     "range": ""
                 }
             ],
@@ -13256,7 +13256,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizerellevelfunction",
                     "range": ""
                 }
             ],
@@ -13300,7 +13300,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizerelenablefunction",
                     "range": ""
                 }
             ],
@@ -13522,7 +13522,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizecountfunction",
                     "range": ""
                 }
             ],
@@ -13605,7 +13605,7 @@
                     "name": "state",
                     "description": "Disable open lead detector",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmmeasureopendetectorstate",
                     "range": ""
                 },
                 {
@@ -13700,7 +13700,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizerangefunction",
                     "range": ""
                 }
             ],
@@ -13845,7 +13845,7 @@
                     "name": "detectedEdge",
                     "description": "The trigger edge value",
                     "enum": "trigger.EDGE_FALLING nil|trigger.EDGE_RISING nil|trigger.EDGE_EITHER nil",
-                    "type": "any",
+                    "type": "triggerextinedgedetectedEdge",
                     "range": ""
                 }
             ],
@@ -13986,7 +13986,7 @@
                     "name": "logicType",
                     "description": "The output logic of the trigger generator",
                     "enum": "trigger.LOGIC_POSITIVE nil|trigger.LOGIC_NEGATIVE nil",
-                    "type": "any",
+                    "type": "triggerextoutlogiclogicType",
                     "range": ""
                 }
             ],
@@ -14175,7 +14175,7 @@
                     "name": "couplingType",
                     "description": "The type of coupling",
                     "enum": "dmm.COUPLING_AC nil|dmm.COUPLING_DC nil",
-                    "type": "any",
+                    "type": "dmmdigitizecouplingtypecouplingType",
                     "range": ""
                 }
             ],
@@ -14213,14 +14213,14 @@
                     "name": "value",
                     "description": "The setting",
                     "enum": "dmm.CONDITION_GREATER nil|dmm.CONDITION_LESS nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulseconditionvalue",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulseconditionfunction",
                     "range": ""
                 }
             ],
@@ -14262,7 +14262,7 @@
                     "name": "value",
                     "description": "The setting",
                     "enum": "dmm.CONDITION_GREATER nil|dmm.CONDITION_LESS nil",
-                    "type": "any",
+                    "type": "dmmmeasureanalogtriggerpulseconditionvalue",
                     "range": ""
                 },
                 {
@@ -14361,7 +14361,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggermodefunction",
                     "range": ""
                 }
             ],
@@ -14405,7 +14405,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggeredgelevelfunction",
                     "range": ""
                 }
             ],
@@ -14445,7 +14445,7 @@
                     "name": "value",
                     "description": "dmm.EDGE_RISING or dmm.EDGE_FALLING",
                     "enum": "dmm.EDGE_RISING nil|dmm.EDGE_FALLING nil",
-                    "type": "any",
+                    "type": "dmmdigitizecomparatoredgevalue",
                     "range": ""
                 }
             ],
@@ -14487,7 +14487,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerwindowdirectionfunction",
                     "range": ""
                 }
             ],
@@ -14535,7 +14535,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulsewidthfunction",
                     "range": ""
                 }
             ],
@@ -14577,14 +14577,14 @@
                     "name": "value",
                     "description": "The setting",
                     "enum": "dmm.POLARITY_ABOVE nil|dmm.POLARITY_BELOW nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulsepolarityvalue",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulsepolarityfunction",
                     "range": ""
                 }
             ],
@@ -14681,7 +14681,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerwindowlevelhighfunction",
                     "range": ""
                 }
             ],
@@ -14862,7 +14862,7 @@
                     "name": "value",
                     "description": "The setting",
                     "enum": "dmm.POLARITY_ABOVE nil|dmm.POLARITY_BELOW nil",
-                    "type": "any",
+                    "type": "dmmmeasureanalogtriggerpulsepolarityvalue",
                     "range": ""
                 },
                 {
@@ -14917,7 +14917,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerpulselevelfunction",
                     "range": ""
                 }
             ],
@@ -14995,7 +14995,7 @@
                     "name": "value",
                     "description": "The digitize measurement function to make active",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil|dmm.FUNC_NONE nil",
-                    "type": "dmmdigitizefunc",
+                    "type": "dmmdigitizefuncvalue",
                     "range": ""
                 }
             ],
@@ -15030,7 +15030,7 @@
                     "name": "time",
                     "description": "The time of the aperture in seconds or automatic",
                     "enum": "dmm.APERTURE_AUTO nil",
-                    "type": "any",
+                    "type": "dmmdigitizeaperturetime",
                     "range": ""
                 }
             ],
@@ -15076,7 +15076,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizesampleratefunction",
                     "range": ""
                 }
             ],
@@ -15113,7 +15113,7 @@
                     "name": "value",
                     "description": "Enable autorange",
                     "enum": "dmm.ON nil|dmm.OFF nil",
-                    "type": "any",
+                    "type": "dmmmeasuresenseautorangevalue",
                     "range": ""
                 },
                 {
@@ -15404,7 +15404,7 @@
                     "name": "state",
                     "description": "When the beeper sounds",
                     "enum": "dmm.AUDIBLE_NONE nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_PASS nil",
-                    "type": "dmmmeasurelimitArraudiblestate",
+                    "type": "dmmmeasurelimitaudiblestate",
                     "range": ""
                 },
                 {
@@ -15455,7 +15455,7 @@
                     "name": "value",
                     "description": "When the beeper sounds",
                     "enum": "dmm.AUDIBLE_NONE nil|dmm.AUDIBLE_FAIL nil|dmm.AUDIBLE_PASS nil",
-                    "type": "dmmdigitizelimitArraudiblevalue",
+                    "type": "dmmdigitizelimitaudiblevalue",
                     "range": ""
                 },
                 {
@@ -15469,7 +15469,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizelimitaudiblefunction",
                     "range": ""
                 }
             ],
@@ -15598,7 +15598,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerwindowlevellowfunction",
                     "range": ""
                 }
             ],
@@ -15685,7 +15685,7 @@
                     "name": "type",
                     "description": "Type of AC coupling filter",
                     "enum": "dmm.AC_FILTER_SLOW nil|dmm.AC_FILTER_FAST nil",
-                    "type": "any",
+                    "type": "dmmdigitizecouplingacfiltertype",
                     "range": ""
                 }
             ],
@@ -15895,21 +15895,21 @@
                     "name": "action",
                     "description": "Determines when and if the instrument automatically runs autocalibration",
                     "enum": "acal.ACTION_RUN nil|acal.ACTION_NOTIFY nil|acal.ACTION_NONE nil",
-                    "type": "any",
+                    "type": "acalscheduleaction",
                     "range": ""
                 },
                 {
                     "name": "interval",
                     "description": "Determines how often autocalibration should be run or notification should occur",
                     "enum": "acal.INTERVAL_8HR nil|acal.INTERVAL_16HR nil|acal.INTERVAL_1DAY nil|acal.INTERVAL_7DAY nil|acal.INTERVAL_14DAY nil|acal.INTERVAL_30DAY nil|acal.INTERVAL_90DAY nil",
-                    "type": "any",
+                    "type": "acalscheduleinterval",
                     "range": ""
                 },
                 {
                     "name": "hour",
                     "description": "Specify when the autocalibration should occur; specify in 24-hour time format (0 to 23; default is 0); not available for the 8-hour or 16-hour interval",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": "(0 to 23; default is 0)"
                 }
             ],
@@ -16025,7 +16025,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggeredgeslopefunction",
                     "range": ""
                 }
             ],
@@ -16166,7 +16166,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeunitfunction",
                     "range": ""
                 }
             ],
@@ -16308,7 +16308,7 @@
                     "name": "setting",
                     "description": "0 \u00b5s",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmmeasureanalogtriggerhighfreqrejectsetting",
                     "range": ""
                 },
                 {
@@ -16352,14 +16352,14 @@
                     "name": "setting",
                     "description": "0 \u00b5s",
                     "enum": "dmm.OFF nil|dmm.ON nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerhighfreqrejectsetting",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "dmm.FUNC_DIGITIZE_CURRENT nil|dmm.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "dmmdigitizeanalogtriggerhighfreqrejectfunction",
                     "range": ""
                 }
             ],
@@ -16900,7 +16900,7 @@
                     "name": "arm1Bypass",
                     "description": "Bypass Arm 1",
                     "enum": "trigger.ON nil|trigger.OFF nil",
-                    "type": "any",
+                    "type": "triggermodelloadKeithley2001arm1Bypass",
                     "range": ""
                 },
                 {
@@ -16921,7 +16921,7 @@
                     "name": "arm2Bypass",
                     "description": "Bypass Arm 2",
                     "enum": "trigger.ON nil|trigger.OFF nil",
-                    "type": "any",
+                    "type": "triggermodelloadKeithley2001arm2Bypass",
                     "range": ""
                 },
                 {
@@ -16949,7 +16949,7 @@
                     "name": "trigBypass",
                     "description": "Bypass the trigger layer",
                     "enum": "trigger.ON nil|trigger.OFF nil",
-                    "type": "any",
+                    "type": "triggermodelloadKeithley2001trigBypass",
                     "range": ""
                 },
                 {
@@ -17405,7 +17405,7 @@
                     "name": "fanLevel",
                     "description": "The fan level",
                     "enum": "fan.LEVEL_NORMAL nil|fan.LEVEL_QUIET nil",
-                    "type": "any",
+                    "type": "fanlevelfanLevel",
                     "range": ""
                 }
             ],
@@ -17598,8 +17598,8 @@
                 "buffer.math(readingBuffer, unit, EXPR_SQROOT)",
                 "buffer.math(readingBuffer, unit, EXPR_DIVIDE)",
                 "buffer.math(readingBuffer, unit, EXPR_AVERAGE)",
-                "buffer.math(readingBuffer, unit, EXPR_MULTIPLY)",
                 "buffer.math(readingBuffer, unit, EXPR_SUBTRACT)",
+                "buffer.math(readingBuffer, unit, EXPR_MULTIPLY)",
                 "buffer.math(readingBuffer, unit, EXPR_EXPONENT)",
                 "buffer.math(readingBuffer, unit, EXPR_RECIPROCAL)",
                 "buffer.math(readingBuffer, unit, EXPR_POWER, constant0)"

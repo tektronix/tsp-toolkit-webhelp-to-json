@@ -318,12 +318,13 @@ value: any
 timeout: number
 
 dataqueue.CAPACITY
-count: dataqueue.CAPACITY | integer
+count: dataqueueCAPACITYcount | integer
+
 
 dataqueue.clear()
 
 dataqueue.count
-count: number
+count: integer
 
 dataqueue.next()
 value: any
@@ -406,28 +407,36 @@ dmm.digitize.filter.count
 range: integer
 
 dmm.digitize.analogtrigger.edge.level
+function: dmmdigitizeanalogtriggeredgelevelfunction
 value: number
 
 dmm.digitize.analogtrigger.edge.slope
+function: dmmdigitizeanalogtriggeredgeslopefunction
 value: dmmdigitizeanalogtriggeredgeslopevalue
 
 
 dmm.digitize.analogtrigger.mode
+function: dmmdigitizeanalogtriggermodefunction
 setting: dmmdigitizeanalogtriggermodesetting
 
 dmm.digitize.analogtrigger.window.direction
+function: dmmdigitizeanalogtriggerwindowdirectionfunction
 value: dmmdigitizeanalogtriggerwindowdirectionvalue
 
 dmm.digitize.analogtrigger.window.levelhigh
+function: dmmdigitizeanalogtriggerwindowlevelhighfunction
 value: number
 
 dmm.digitize.analogtrigger.window.levellow
+function: dmmdigitizeanalogtriggerwindowlevellowfunction
 value: number
 
 dmm.digitize.aperture
+time: dmmdigitizeaperturetime
 value: number
 
 dmm.digitize.count
+function: dmmdigitizecountfunction
 value: number
 
 dmm.digitize.dbreference
@@ -437,49 +446,62 @@ dmm.digitize.dbmreference
 value: number
 
 dmm.digitize.displaydigits
+function: dmmdigitizedisplaydigitsfunction
 value: dmmdigitizedisplaydigitsvalue
 
 dmm.digitize.func
-value: dmmdigitizefunc
+value: dmmdigitizefuncvalue
 
 dmm.digitize.inputimpedance
 setting: dmmdigitizeinputimpedancesetting
 
 dmm.digitize.limit[Y].audible
-value: dmmdigitizelimitArraudiblevalue
+function: dmmdigitizelimitaudiblefunction
+value: dmmdigitizelimitaudiblevalue
 
 dmm.digitize.limit[Y].autoclear
-state: dmmdigitizelimitArrautoclearstate
+function: dmmdigitizelimitautoclearfunction
+state: dmmdigitizelimitautoclearstate
 
 dmm.digitize.limit[Y].enable
-state: dmmdigitizelimitArrenablestate
+function: dmmdigitizelimitenablefunction
+state: dmmdigitizelimitenablestate
 
 
 dmm.digitize.limit[Y].fail
-value: dmmdigitizelimitArrfailvalue
+function: dmmdigitizelimitfailfunction
+value: dmmdigitizelimitfailvalue
 
 dmm.digitize.limit[Y].high.value
+function: dmmdigitizelimithighvaluefunction
 highLimit: number
 
 dmm.digitize.limit[Y].low.value
+function: dmmdigitizelimitlowvaluefunction
 lowLimit: number
 
 dmm.digitize.math.enable
+function: dmmdigitizemathenablefunction
 value: dmmdigitizemathenablevalue
 
 dmm.digitize.math.format
+function: dmmdigitizemathformatfunction
 operation: dmmdigitizemathformatoperation
 
 dmm.digitize.math.mxb.bfactor
+function: dmmdigitizemathmxbbfactorfunction
 offsetFactor: number
 
 dmm.digitize.math.mxb.mfactor
+function: dmmdigitizemathmxbmfactorfunction
 scaleFactor: number
 
 dmm.digitize.math.percent
+function: dmmdigitizemathpercentfunction
 value: number
 
 dmm.digitize.range
+function: dmmdigitizerangefunction
 value: number
 
 dmm.digitize.read()
@@ -493,18 +515,23 @@ fractional: number
 bufferName: bufferVar
 
 dmm.digitize.rel.enable
+function: dmmdigitizerelenablefunction
 state: dmmdigitizerelenablestate
 
 dmm.digitize.rel.level
+function: dmmdigitizerellevelfunction
 value: number
 
 dmm.digitize.samplerate
+function: dmmdigitizesampleratefunction
 readings: number
 
 dmm.digitize.unit
+function: dmmdigitizeunitfunction
 value: dmmdigitizeunitvalue
 
 dmm.digitize.userdelay[N]
+function: dmmdigitizeuserdelayfunction
 delayTime: number
 
 dmm.measure.analogtrigger.edge.level
@@ -541,6 +568,9 @@ state: dmmmeasureautorangestate
 dmm.measure.bias.level
 value: number
 
+dmm.measure.configlist.catalog()
+output: string
+
 dmm.measure.configlist.create()
 listName: string
 
@@ -552,6 +582,7 @@ dmm.measure.configlist.query()
 listName: string
 index: integer
 fieldSeparator: string
+output: string[]
 
 dmm.measure.configlist.recall()
 listName: string
@@ -612,16 +643,16 @@ dmm.measure.inputimpedance
 setting: dmmmeasureinputimpedancesetting
 
 dmm.measure.limit[Y].audible
-state: dmmmeasurelimitArraudiblestate
+state: dmmmeasurelimitaudiblestate
 
 dmm.measure.limit[Y].autoclear
-value: dmmmeasurelimitArrautoclearvalue
+value: dmmmeasurelimitautoclearvalue
 
 dmm.measure.limit[Y].enable
-state: dmmmeasurelimitArrenablestate
+state: dmmmeasurelimitenablestate
 
 dmm.measure.limit[Y].fail
-value: dmmmeasurelimitArrfailvalue
+value: dmmmeasurelimitfailvalue
 
 dmm.measure.limit[Y].high.value
 highLimit: number
@@ -664,6 +695,7 @@ fractional: number
 bufferName: bufferVar
 
 dmm.measure.refjunction
+state: dmmmeasurerefjunctionstate
 type: dmmmeasurerefjunctiontype
 
 dmm.measure.rel.enable
@@ -688,6 +720,7 @@ dmm.measure.rtdzero
 value: number
 
 dmm.measure.sense.autorange
+value: dmmmeasuresenseautorangevalue
 setting: dmmmeasurerelenablestate
 
 dmm.measure.sense.range
@@ -733,6 +766,7 @@ terminals: dmmterminalsterminals
 
 eventlog.getcount()
 eventType: eventloggetcounteventType
+count: integer
 
 eventlog.next()
 eventNumber: integer
@@ -1364,11 +1398,17 @@ LANevent: triggerEvents
 trigger.model.getblocklist()
 output: string
 
-trigger.model.getbranchcount()
-output: integer
+smu.contact.check()
+result: boolean
+
+smu.contact.checkall()
+high: boolean
+low: boolean
+guard: boolean
 
 trigger.model.getbranchcount()
 blockNumber: number
+output: integer
 
 trigger.model.load() - ConfigList
 ConfigList: loadFunConstParam
@@ -2943,9 +2983,11 @@ relEnable: smumeasurerelenablerelEnable
 
 smu.measure.rel.level
 function: smumeasurerellevelfunction
+relValue: number
 
 smu.measure.filter.count
 function: smumeasurefiltercountfunction
+filterCount: integer
 
 smu.measure.filter.type
 function: smumeasurefiltertypefunction
@@ -2965,6 +3007,7 @@ value: number
 
 smu.measure.math.percent
 function: smumeasuremathpercentfunction
+value: number
 
 smu.source.protect.tripped
 function: smusourceprotecttrippedfunction
@@ -2972,6 +3015,7 @@ value: smusourceprotecttrippedvalue
 
 smu.measure.count
 function: smumeasurecountfunction
+count: integer
 
 trigger.timer[N].start.generate
 state: triggertimerstartgeneratestate
@@ -3044,3 +3088,202 @@ state: smumeasureautorangereboundstate
 
 smu.interlock.enable
 state: smuinterlockenablestate
+
+
+dmm.measure.drycircuit
+state: dmmmeasuredrycircuitstate
+
+dmm.digitize.filter.enable
+value: dmmdigitizefilterenablevalue
+
+dmm.digitize.filter.type
+value: dmmdigitizefiltertypevalue
+
+dmm.measure.inputdivider
+state: dmmmeasureinputdividerstate
+
+dmm.digitize.inputdivider
+value: dmmdigitizeinputdividervalue
+
+dmm.measure.offsetcompensation.enable
+state: dmmmeasureoffsetcompensationenablestate
+
+dmm.measure.offsetcompensation.delay.auto
+state: dmmmeasureoffsetcompensationdelayautostate
+
+dmm.measure.opendetector
+state: dmmmeasureopendetectorstate
+
+trigger.extin.edge
+detectedEdge: triggerextinedgedetectedEdge
+
+trigger.extout.logic
+logicType: triggerextoutlogiclogicType
+
+dmm.digitize.coupling.type
+couplingType: dmmdigitizecouplingtypecouplingType
+
+acal.schedule()
+interval: acalscheduleinterval
+action: acalscheduleaction
+hour: integer
+
+fan.level
+fanLevel: fanlevelfanLevel
+
+dmm.measure.autozero.once()
+dmm.FUNC_TEMPERATURE: dmmmeasureautozerooncedmm.FUNC_TEMPERATURE
+dmm.FUNC_AC_CURRENT: dmmmeasureautozerooncedmm.FUNC_AC_CURRENT
+dmm.FUNC_DC_CURRENT: dmmmeasureautozerooncedmm.FUNC_DC_CURRENT
+dmm.FUNC_AC_VOLTAGE: dmmmeasureautozerooncedmm.FUNC_AC_VOLTAGE
+dmm.FUNC_DC_VOLTAGE: dmmmeasureautozerooncedmm.FUNC_DC_VOLTAGE
+
+dmm.measure.rel.acquire()
+dmm.FUNC_TEMPERATURE: dmmmeasurerelacquiredmm.FUNC_TEMPERATURE
+dmm.FUNC_AC_CURRENT: dmmmeasurerelacquiredmm.FUNC_AC_CURRENT
+dmm.FUNC_DC_CURRENT: dmmmeasurerelacquiredmm.FUNC_DC_CURRENT
+dmm.FUNC_AC_VOLTAGE: dmmmeasurerelacquiredmm.FUNC_AC_VOLTAGE
+dmm.FUNC_DC_VOLTAGE: dmmmeasurerelacquiredmm.FUNC_DC_VOLTAGE
+
+trigger.model.setblock() � trigger.BLOCK_DIGITIZE
+count: triggermodelsetblock�triggerBLOCK_DIGITIZEcount
+
+dmm.digitize.analogtrigger.pulse.condition
+function: dmmdigitizeanalogtriggerpulseconditionfunction
+value: dmmdigitizeanalogtriggerpulseconditionvalue
+
+dmm.measure.analogtrigger.pulse.condition
+value: dmmmeasureanalogtriggerpulseconditionvalue
+
+dmm.digitize.comparator.edge
+value: dmmdigitizecomparatoredgevalue
+
+dmm.digitize.analogtrigger.pulse.width
+function: dmmdigitizeanalogtriggerpulsewidthfunction
+
+dmm.digitize.analogtrigger.pulse.polarity
+function: dmmdigitizeanalogtriggerpulsepolarityfunction
+value: dmmdigitizeanalogtriggerpulsepolarityvalue
+
+dmm.measure.analogtrigger.pulse.polarity
+value: dmmmeasureanalogtriggerpulsepolarityvalue
+
+dmm.digitize.analogtrigger.pulse.level
+function: dmmdigitizeanalogtriggerpulselevelfunction
+
+dmm.digitize.coupling.acfilter
+type: dmmdigitizecouplingacfiltertype
+
+dmm.measure.analogtrigger.highfreqreject
+setting: dmmmeasureanalogtriggerhighfreqrejectsetting
+
+dmm.digitize.analogtrigger.highfreqreject
+function: dmmdigitizeanalogtriggerhighfreqrejectfunction
+setting: dmmdigitizeanalogtriggerhighfreqrejectsetting
+
+trigger.model.load() - Keithley2001
+trigBypass: triggermodelloadKeithley2001trigBypass
+arm2Bypass: triggermodelloadKeithley2001arm2Bypass
+arm1Bypass: triggermodelloadKeithley2001arm1Bypass
+
+smu.digitize.displaydigits
+function: smudigitizedisplaydigitsfunction
+value: smudigitizedisplaydigitsvalue
+
+smu.digitize.limit[Y].autoclear
+function: smudigitizelimitautoclearfunction
+state: smudigitizelimitautoclearstate
+
+smu.digitize.limit[Y].low.value
+function: smudigitizelimitlowvaluefunction
+
+smu.digitize.limit[Y].fail
+function: smudigitizelimitfailfunction
+value: smudigitizelimitfailvalue
+
+smu.digitize.limit[Y].enable
+function: smudigitizelimitenablefunction
+state: smudigitizelimitenablestate
+
+smu.digitize.limit[Y].high.value
+function: smudigitizelimithighvaluefunction
+
+smu.digitize.math.enable
+function: smudigitizemathenablefunction
+value: smudigitizemathenablevalue
+
+smu.digitize.math.format
+function: smudigitizemathformatfunction
+operation: smudigitizemathformatoperation
+
+smu.digitize.math.mxb.bfactor
+function: smudigitizemathmxbbfactorfunction
+
+smu.digitize.math.mxb.mfactor
+function: smudigitizemathmxbmfactorfunction
+
+smu.digitize.math.percent
+function: smudigitizemathpercentfunction
+
+smu.digitize.userdelay[N]
+function: smudigitizeuserdelayfunction
+
+smu.digitize.rel.level
+function: smudigitizerellevelfunction
+
+smu.digitize.rel.enable
+function: smudigitizerelenablefunction
+state: smudigitizerelenablestate
+
+smu.digitize.count
+function: smudigitizecountfunction
+
+smu.digitize.range
+function: smudigitizerangefunction
+
+trigger.model.setblock() � trigger.BLOCK_DIGITIZE
+count: triggermodelsetblock�triggerBLOCK_DIGITIZEcount
+
+smu.digitize.func
+value: smudigitizefuncvalue
+
+smu.digitize.aperture
+time: smudigitizeaperturetime
+
+smu.digitize.samplerate
+function: smudigitizesampleratefunction
+
+smu.digitize.limit[Y].audible
+function: smudigitizelimitaudiblefunction
+value: smudigitizelimitaudiblevalue
+
+smu.digitize.unit
+function: smudigitizeunitfunction
+value: smudigitizeunitvalue
+
+smu.digitize.sense
+function: smudigitizesensefunction
+sensing: smudigitizesensesensing
+
+smu.contact.enable
+function: smucontactenablefunction
+state: smucontactenablestate
+
+smu.contact.threshold
+function: smucontactthresholdfunction
+level: smucontactthresholdlevel
+
+smu.source.pulse.level
+function: smusourcepulselevelfunction
+
+trigger.model.setblock() - trigger.BLOCK_SOURCE_PULSE_OUTPUT
+state: triggermodelsetblocktriggerBLOCK_SOURCE_PULSE_OUTPUTstate
+
+smu.source.pulse.xlimit.level
+function: smusourcepulsexlimitlevelfunction
+
+smu.fastrangechange
+state: smufastrangechangestate
+
+smu.priorityvoltage
+state: smupriorityvoltagestate

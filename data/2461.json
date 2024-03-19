@@ -994,7 +994,7 @@
                     "name": "count",
                     "description": "The variable that is assigned the value of dataqueue.CAPACITY",
                     "enum": "dataqueue.CAPACITY nil",
-                    "type": "dataqueue.CAPACITY | integer",
+                    "type": "dataqueueCAPACITYcount | integer",
                     "range": ""
                 }
             ],
@@ -1031,7 +1031,7 @@
                     "name": "count",
                     "description": "The number of items in the data queue",
                     "enum": "",
-                    "type": "number",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -6038,7 +6038,7 @@
                     "name": "relValue",
                     "description": "Relative offset value for measurements",
                     "enum": "",
-                    "type": "any",
+                    "type": "number",
                     "range": ""
                 },
                 {
@@ -6082,7 +6082,7 @@
                     "name": "filterCount",
                     "description": "The number of readings required for each filtered measurement (1 to 100)",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": "(1 to 100)"
                 },
                 {
@@ -6302,7 +6302,7 @@
                     "name": "value",
                     "description": "The reference used when the math operation is set to percent; the range is -1e12 to +1e12",
                     "enum": "",
-                    "type": "any",
+                    "type": "number",
                     "range": ""
                 },
                 {
@@ -6666,7 +6666,7 @@
                     "name": "count",
                     "description": "Number of measurements (1 to 300,000 or buffer capacity)",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": "(1 to 300,000 or buffer capacity)"
                 },
                 {
@@ -7113,7 +7113,7 @@
             "name": "tsplink.initialize()",
             "webhelpfile": "30551.htm",
             "signature": "tsplink.initialize(expectedNodes)",
-            "command_return": "",
+            "command_return": "nodesFound",
             "type": "Function",
             "default_value": "\u00a0\n",
             "tsp_link": "No\n",
@@ -7137,7 +7137,7 @@
             ],
             "usage": [
                 "nodesFound = tsplink.initialize()",
-                "tsplink.initialize(expectedNodes)"
+                "nodesFound = tsplink.initialize(expectedNodes)"
             ],
             "overloads": [
                 "nodesFound = tsplink.initialize()"
@@ -7177,7 +7177,7 @@
                     "name": "count",
                     "description": "A count finds the number of unread events in the event log",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -7990,7 +7990,7 @@
                     "name": "output",
                     "description": "Returns the count value of the trigger model counter block.",
                     "enum": "",
-                    "type": "any",
+                    "type": "integer",
                     "range": ""
                 }
             ],
@@ -13424,14 +13424,14 @@
                     "name": "value",
                     "description": "6\u00bd display digits",
                     "enum": "smu.DIGITS_6_5 nil|smu.DIGITS_5_5 nil|smu.DIGITS_4_5 nil|smu.DIGITS_3_5 nil",
-                    "type": "any",
+                    "type": "smudigitizedisplaydigitsvalue",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizedisplaydigitsfunction",
                     "range": ""
                 }
             ],
@@ -13467,7 +13467,7 @@
                     "name": "state",
                     "description": "The auto clear setting",
                     "enum": "smu.OFF nil|smu.ON nil",
-                    "type": "any",
+                    "type": "smudigitizelimitautoclearstate",
                     "range": ""
                 },
                 {
@@ -13481,7 +13481,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimitautoclearfunction",
                     "range": ""
                 }
             ],
@@ -13566,7 +13566,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimitlowvaluefunction",
                     "range": ""
                 }
             ],
@@ -13606,7 +13606,7 @@
                     "name": "value",
                     "description": "The results of the limit test for limit Y",
                     "enum": "smu.FAIL_NONE nil|smu.FAIL_HIGH nil|smu.FAIL_LOW nil|smu.FAIL_BOTH nil",
-                    "type": "any",
+                    "type": "smudigitizelimitfailvalue",
                     "range": ""
                 },
                 {
@@ -13620,7 +13620,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimitfailfunction",
                     "range": ""
                 }
             ],
@@ -13654,7 +13654,7 @@
                     "name": "state",
                     "description": "Limit Y testing",
                     "enum": "smu.OFF nil|smu.ON nil",
-                    "type": "any",
+                    "type": "smudigitizelimitenablestate",
                     "range": ""
                 },
                 {
@@ -13668,7 +13668,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimitenablefunction",
                     "range": ""
                 }
             ],
@@ -13719,7 +13719,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimithighvaluefunction",
                     "range": ""
                 }
             ],
@@ -13798,14 +13798,14 @@
                     "name": "value",
                     "description": "The math enable setting",
                     "enum": "smu.OFF nil|smu.ON nil",
-                    "type": "any",
+                    "type": "smudigitizemathenablevalue",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizemathenablefunction",
                     "range": ""
                 }
             ],
@@ -13841,14 +13841,14 @@
                     "name": "operation",
                     "description": "Math operation to be performed on measurements",
                     "enum": "smu.MATH_MXB nil|smu.MATH_PERCENT nil|smu.MATH_RECIPROCAL nil",
-                    "type": "any",
+                    "type": "smudigitizemathformatoperation",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizemathformatfunction",
                     "range": ""
                 }
             ],
@@ -13891,7 +13891,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizemathmxbbfactorfunction",
                     "range": ""
                 }
             ],
@@ -13936,7 +13936,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizemathmxbmfactorfunction",
                     "range": ""
                 }
             ],
@@ -13981,7 +13981,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizemathpercentfunction",
                     "range": ""
                 }
             ],
@@ -14032,7 +14032,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizeuserdelayfunction",
                     "range": ""
                 }
             ],
@@ -14075,7 +14075,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizerellevelfunction",
                     "range": ""
                 }
             ],
@@ -14112,14 +14112,14 @@
                     "name": "state",
                     "description": "The setting",
                     "enum": "smu.ON nil|smu.OFF nil",
-                    "type": "any",
+                    "type": "smudigitizerelenablestate",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizerelenablefunction",
                     "range": ""
                 }
             ],
@@ -14163,7 +14163,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizecountfunction",
                     "range": ""
                 }
             ],
@@ -14208,7 +14208,7 @@
                     "name": "function",
                     "description": "The digitize function to which to assign this parameter",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizerangefunction",
                     "range": ""
                 }
             ],
@@ -14244,7 +14244,7 @@
                     "name": "value",
                     "description": "The digitize measurement function to make active",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil|smu.FUNC_NONE nil",
-                    "type": "any",
+                    "type": "smudigitizefuncvalue",
                     "range": ""
                 }
             ],
@@ -14279,7 +14279,7 @@
                     "name": "time",
                     "description": "The time of the aperture in seconds or automatic",
                     "enum": "smu.APERTURE_AUTO nil",
-                    "type": "any",
+                    "type": "smudigitizeaperturetime",
                     "range": ""
                 }
             ],
@@ -14324,7 +14324,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizesampleratefunction",
                     "range": ""
                 }
             ],
@@ -14470,7 +14470,7 @@
                     "name": "value",
                     "description": "When the beeper sounds",
                     "enum": "smu.AUDIBLE_NONE nil|smu.AUDIBLE_FAIL nil|smu.AUDIBLE_PASS nil",
-                    "type": "any",
+                    "type": "smudigitizelimitaudiblevalue",
                     "range": ""
                 },
                 {
@@ -14484,7 +14484,7 @@
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizelimitaudiblefunction",
                     "range": ""
                 }
             ],
@@ -14727,14 +14727,14 @@
                     "name": "value",
                     "description": "Units to display for the digitize voltage function",
                     "enum": "smu.UNIT_VOLT nil|smu.UNIT_OHM nil|smu.UNIT_WATT nil|smu.UNIT_AMP nil",
-                    "type": "any",
+                    "type": "smudigitizeunitvalue",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizeunitfunction",
                     "range": ""
                 }
             ],
@@ -15502,14 +15502,14 @@
                     "name": "sensing",
                     "description": "Two-wire sensing",
                     "enum": "smu.SENSE_2WIRE nil|smu.SENSE_4WIRE nil",
-                    "type": "any",
+                    "type": "smudigitizesensesensing",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The digitize function",
                     "enum": "smu.FUNC_DIGITIZE_CURRENT nil|smu.FUNC_DIGITIZE_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smudigitizesensefunction",
                     "range": ""
                 }
             ],
@@ -15545,14 +15545,14 @@
                     "name": "state",
                     "description": "Enable contact check",
                     "enum": "smu.ON nil|smu.OFF nil",
-                    "type": "any",
+                    "type": "smucontactenablestate",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The measurement function",
                     "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil|smu.FUNC_RESISTANCE nil",
-                    "type": "any",
+                    "type": "smucontactenablefunction",
                     "range": ""
                 }
             ],
@@ -15590,14 +15590,14 @@
                     "name": "level",
                     "description": "The level of threshold resistance above which the contact check functions indicate a failure",
                     "enum": "smu.THRESHOLD_2_OHM nil|smu.THRESHOLD_15_OHM nil|smu.THRESHOLD_50_OHM nil",
-                    "type": "any",
+                    "type": "smucontactthresholdlevel",
                     "range": ""
                 },
                 {
                     "name": "function",
                     "description": "The measurement function",
                     "enum": "smu.FUNC_DC_VOLTAGE nil|smu.FUNC_DC_CURRENT nil|smu.FUNC_RESISTANCE nil",
-                    "type": "any",
+                    "type": "smucontactthresholdfunction",
                     "range": ""
                 }
             ],
@@ -15635,7 +15635,7 @@
                     "name": "result",
                     "description": "The result of the contact check operation",
                     "enum": "",
-                    "type": "any",
+                    "type": "boolean",
                     "range": ""
                 }
             ],
@@ -15670,21 +15670,21 @@
                     "name": "high",
                     "description": "The result of the contact check operation for the high connection",
                     "enum": "",
-                    "type": "any",
+                    "type": "boolean",
                     "range": ""
                 },
                 {
                     "name": "low",
                     "description": "The result of the contact check operation for the low connection",
                     "enum": "",
-                    "type": "any",
+                    "type": "boolean",
                     "range": ""
                 },
                 {
                     "name": "guard",
                     "description": "The result of the contact check operation for the guard connection",
                     "enum": "",
-                    "type": "any",
+                    "type": "boolean",
                     "range": ""
                 }
             ],
@@ -15726,7 +15726,7 @@
                     "name": "function",
                     "description": "The source function",
                     "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smusourcepulselevelfunction",
                     "range": ""
                 }
             ],
@@ -16462,7 +16462,7 @@
                     "name": "state",
                     "description": "Turn the source pulse off",
                     "enum": "smu.OFF nil|smu.ON nil",
-                    "type": "any",
+                    "type": "triggermodelsetblocktriggerBLOCK_SOURCE_PULSE_OUTPUTstate",
                     "range": ""
                 }
             ],
@@ -16513,7 +16513,7 @@
                     "name": "function",
                     "description": "The source function",
                     "enum": "smu.FUNC_DC_CURRENT nil|smu.FUNC_DC_VOLTAGE nil",
-                    "type": "any",
+                    "type": "smusourcepulsexlimitlevelfunction",
                     "range": ""
                 }
             ],
@@ -17365,7 +17365,7 @@
                     "name": "state",
                     "description": "Select",
                     "enum": "smu.FASTRANGE_OFF nil|smu.FASTRANGE_ON nil|smu.FASTRANGE_PERSIST nil|smu.ON nil",
-                    "type": "any",
+                    "type": "smufastrangechangestate",
                     "range": ""
                 }
             ],
@@ -17399,7 +17399,7 @@
                     "name": "state",
                     "description": "smu.OFF",
                     "enum": "smu.OFF nil|smu.ON nil",
-                    "type": "any",
+                    "type": "smupriorityvoltagestate",
                     "range": ""
                 }
             ],
