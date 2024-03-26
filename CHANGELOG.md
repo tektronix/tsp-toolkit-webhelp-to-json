@@ -19,4 +19,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/TEK-Engineering/tsp-toolkit-webhelp-to-json/tree/dev
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/tree/dev
