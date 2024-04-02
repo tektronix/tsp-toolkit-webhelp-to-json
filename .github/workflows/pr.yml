@@ -18,7 +18,7 @@ jobs:
     - name: Install package from npm registry
       run: |
        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-       npm install web-help-documents@latest
+       npm install
 
     - name: Copy HTML file
       run: cp node_modules/your-package-name/input.html input.html
