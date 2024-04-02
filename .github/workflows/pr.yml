@@ -10,6 +10,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install package from npm registry
+      run: npm install web-help-documents@latest
+
+    - name: Copy HTML file
+      run: cp node_modules/your-package-name/input.html input.html
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
