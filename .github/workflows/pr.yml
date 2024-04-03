@@ -5,42 +5,42 @@ on: push
 jobs:
   generate-json-and-save-as-artifacts:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/tektronix/tsp-toolkit-build:latest
+      credentials:
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        
-    - name: Install package from npm registry
-      run: |
-       echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-       npm install
+      - name: Install package from npm registry
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          npm install
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-         python-version: '3.x'
- 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      
+      - run: pip install -r requirements.txt
 
-    - name: Copy HTML file
-      run: cp node_modules/@tektronix/web-help-documents web-help-documents
+      - name: Copy HTML file
+        run: cp node_modules/@tektronix/web-help-documents web-help-documents
 
-    - name: Run Python script to generate JSON
-      run: python main.py
+      - name: Run Python script to generate JSON
+        run: python main.py
 
-    - name: Create artifacts directory
-      run: mkdir artifacts
+      - name: Create artifacts directory
+        run: mkdir artifacts
 
-    - name: Copy generated JSON file to artifacts directory
-      run: cp generated.json artifacts/
+      - name: Copy generated JSON file to artifacts directory
+        run: cp generated.json artifacts/
 
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: generated-json
-        path: artifacts/
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-json
+          path: artifacts/
