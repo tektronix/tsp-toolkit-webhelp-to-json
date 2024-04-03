@@ -20,18 +20,18 @@ jobs:
        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
        npm install
 
-    - name: Copy HTML file
-      run: cp node_modules/your-package-name/input.html input.html
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
-
+         python-version: '3.x'
+ 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+         python -m pip install --upgrade pip
+         pip install -r requirements.txt
+
+    - name: Copy HTML file
+      run: cp node_modules/@tektronix/web-help-documents web-help-documents
 
     - name: Run Python script to generate JSON
       run: python main.py
