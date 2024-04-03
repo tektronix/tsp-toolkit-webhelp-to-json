@@ -5,21 +5,30 @@ on: push
 jobs:
   generate-json-and-save-as-artifacts:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/tektronix/tsp-toolkit-build:latest
-      credentials:
-        username: ${{github.actor}}
-        password: ${{secrets.GITHUB_TOKEN}}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com
 
       - name: Install package from npm registry
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           npm install
           
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: install requirements.txt
         run: pip install -r requirements.txt
 
