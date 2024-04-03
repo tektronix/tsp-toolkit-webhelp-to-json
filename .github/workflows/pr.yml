@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/tektronix/tsp-toolkit-build:latest
+      credentials:
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
 
     steps:
       - name: Checkout repository
@@ -17,7 +20,7 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           npm install
           
-      - name: install requirements
+      - name: install requirements.txt
         run: pip install -r requirements.txt
 
       - name: Copy HTML file
