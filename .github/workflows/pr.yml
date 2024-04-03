@@ -26,14 +26,11 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
       - name: install requirements.txt
         run: pip install -r requirements.txt
 
       - name: Copy HTML file
-        run: cp node_modules/@tektronix/web-help-documents web-help-documents
+        run: cp -r node_modules/@tektronix/web-help-documents web-help-documents
 
       - name: Run Python script to generate JSON
         run: python main.py
