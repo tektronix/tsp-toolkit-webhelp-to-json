@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import sys
 import Configuration
 from Configuration import CHANNELS, HELP_FILE_FOLDER_PATH, MODEL_NUMBER, OUTPUT_FOLDER_PATH
@@ -11,7 +12,7 @@ def parse_web_help_files(webHelpFoldersDir):
 
     output_folder = "data"
     if os.path.exists(output_folder):
-        os.removedirs(Configuration.OUTPUT_FOLDER_PATH)
+        shutil.rmtree(Configuration.OUTPUT_FOLDER_PATH)
         os.makedirs(output_folder)
 
     supported2600bInfo = {"2601B":["a"], 
