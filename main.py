@@ -1,6 +1,7 @@
 import os
 import json
 import sys
+import Configuration
 from Configuration import CHANNELS, HELP_FILE_FOLDER_PATH, MODEL_NUMBER, OUTPUT_FOLDER_PATH
 from ParserGeneric import HelperFunctions
 import copy
@@ -9,7 +10,8 @@ import copy
 def parse_web_help_files(webHelpFoldersDir):
 
     output_folder = "data"
-    if not os.path.exists(output_folder):
+    if os.path.exists(output_folder):
+        os.remove(Configuration.OUTPUT_FOLDER_PATH)
         os.makedirs(output_folder)
 
     supported2600bInfo = {"2601B":["a"], 
@@ -26,8 +28,8 @@ def parse_web_help_files(webHelpFoldersDir):
         try:
             folder = os.path.join(webHelpFoldersDir)
             if os.path.isdir(folder):
-                HELP_FILE_FOLDER_PATH = folder
-                MODEL_NUMBER = dir.split("_")[0]
+                Configuration.HELP_FILE_FOLDER_PATH = folder
+                Configuration.MODEL_NUMBER = dir.split("_")[0]
                 parse()
         except Exception as E:
             print(E)
