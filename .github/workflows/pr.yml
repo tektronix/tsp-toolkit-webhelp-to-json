@@ -33,16 +33,10 @@ jobs:
         run: cp -r node_modules/@tektronix/web-help-documents web-help-documents
 
       - name: Run Python script to generate JSON
-        run: python main.py
-
-      - name: Create artifacts directory
-        run: mkdir artifacts
-
-      - name: Copy generated JSON file to artifacts directory
-        run: cp generated.json artifacts/
+        run: python main.py web-help-documents
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           name: generated-json
-          path: artifacts/
+          path: data/
