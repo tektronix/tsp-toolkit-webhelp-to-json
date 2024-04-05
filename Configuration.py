@@ -11,5 +11,4 @@ MODEL_NUMBER = "DMM7510"
 CHANNELS = ['a']
 
 # folder path where generated json file will store
-
-OUTPUT_FOLDER_PATH = os.getcwd()+ "\\data"
+OUTPUT_FOLDER_PATH = os.path.join(os.getcwd(), "data")
