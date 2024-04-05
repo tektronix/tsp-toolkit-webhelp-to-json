@@ -2,8 +2,7 @@ import os
 import json
 import shutil
 import sys
-import Configuration
-from Configuration import CHANNELS, HELP_FILE_FOLDER_PATH, MODEL_NUMBER, OUTPUT_FOLDER_PATH
+from Configuration import Confiurations
 from ParserGeneric import HelperFunctions
 import copy
 
@@ -12,27 +11,29 @@ def parse_web_help_files(webHelpFoldersDir):
 
     output_folder = "data"
     if os.path.exists(output_folder):
-        shutil.rmtree(Configuration.OUTPUT_FOLDER_PATH)
+        shutil.rmtree(Confiurations.OUTPUT_FOLDER_PATH)
         os.makedirs(output_folder)
+    else:
+        os.makedirs(output_folder)
+        
 
-    supported2600bInfo = {"2601B":["a"], 
-                          "2611B":["a"],
-                          "2635B": ["a"],
-                          "2604B": ["a", "b"],
-                          "2614B": ["a", "b"],
-                          "2602B": ["a", "b"],
-                          "2612B": ["a", "b"],
-                          "2634B": ["a", "b"],
-                          "2636B": ["a", "b"]}
-    
     for dir in os.listdir(webHelpFoldersDir):
         try:
             folder = os.path.join(webHelpFoldersDir, dir)
             if os.path.isdir(folder):
-                print(folder)
-                Configuration.HELP_FILE_FOLDER_PATH = folder
-                Configuration.MODEL_NUMBER = dir.split("_")[0]
-                parse()
+                if dir.split("_")[1] in Confiurations.SUPPORTED_MODELS:
+                    Confiurations.HELP_FILE_FOLDER_PATH = folder
+                    if str(dir).find("Commands_26XX")!= -1:
+                        for model in Confiurations.MODEL_2600B_CHANNELS.keys():
+                            Confiurations.MODEL_NUMBER = model
+                            Confiurations.CHANNELS = Confiurations.MODEL_2600B_CHANNELS.get(model)
+                            parse()
+                    else:
+                        Confiurations.MODEL_NUMBER = dir.split("_")[1]
+                        parse()
+                else:
+                    print(dir.split("_")[1]+ " is not supported")
+
         except Exception as E:
             print(E)
         
@@ -40,10 +41,10 @@ def parse_web_help_files(webHelpFoldersDir):
 def parse():
     description_list = []
 
-    for filename in os.listdir(HELP_FILE_FOLDER_PATH):
+    for filename in os.listdir(Confiurations.HELP_FILE_FOLDER_PATH):
         if filename.endswith('.htm'):
         #if filename.endswith('.html'):                   # 70xB
-            fname = os.path.join(HELP_FILE_FOLDER_PATH,filename)
+            fname = os.path.join(Confiurations.HELP_FILE_FOLDER_PATH,filename)
             soup = HelperFunctions.Parser(fname)                    
             try:
                 #command= soup.find_all("h2").pop(0).get_text()
@@ -101,7 +102,7 @@ def parse():
                 channel = [""]
 
                 if "smuX" in command:
-                    channel = CHANNELS
+                    channel = Confiurations.CHANNELS
 
                 for ch in channel:
                     for x in range(0, 5):                
@@ -119,7 +120,7 @@ def parse():
             elif "smuX" in command and "Y" not in command:
                 explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(
                     command,soup)
-                for x in CHANNELS:
+                for x in Confiurations.CHANNELS:
                     name = command.replace("X", x)
                     usage1 = [sig.replace("X", x) for sig in usage]
                     parameter = copy.deepcopy(param_info)
@@ -147,7 +148,7 @@ def parse():
 
                 usage_orignal = copy.deepcopy(usage)
 
-                for x in CHANNELS:
+                for x in Confiurations.CHANNELS:
                     for y in y_param_details:
                         if "iv" in y:
                             usage = [sig for sig in usage_orignal if "iv" in sig]
@@ -192,7 +193,7 @@ def parse():
                         for parm in parameter:
                                 for key in parm:                                
                                     if "smuX" in parm[key]:
-                                        for x in CHANNELS:
+                                        for x in Confiurations.CHANNELS:
                                             parm[key] = parm[key].replace("X",x)
 
                         record = HelperFunctions.get_record(
@@ -208,9 +209,9 @@ def parse():
     description_list = {"commands": description_list}
     json_obj = json.dumps(description_list, indent=4)
     
-    with open(os.path.join(OUTPUT_FOLDER_PATH, MODEL_NUMBER+".json"), 'w', newline='') as file:
+    with open(os.path.join(Confiurations.OUTPUT_FOLDER_PATH, Confiurations.MODEL_NUMBER+".json"), 'w', newline='') as file:
         file.write(json_obj)
-    print(os.path.join(OUTPUT_FOLDER_PATH, MODEL_NUMBER+".json"), "is successfully created")
+    print(os.path.join(Confiurations.OUTPUT_FOLDER_PATH, Confiurations.MODEL_NUMBER+".json"), "is successfully created")
 
 
 if __name__ == "__main__":
