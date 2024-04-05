@@ -434,9 +434,9 @@ def get_param_type(cmd, param_name) -> str:
     if str(cmd).startswith("status.") and "*" in cmd:
         return "number"
     
-    file_path = "ParserGeneric\\tti-command_param_data_type.txt"
+    file_path = os.path.join("ParserGeneric","tti-command_param_data_type.txt")
     if(str(Confiurations.MODEL_NUMBER).find("26")!= -1):
-        file_path = "ParserGeneric\\26xx-command_param_data_type.txt"
+        file_path = os.path.join("ParserGeneric","26xx-command_param_data_type.txt")
 
     paramTypeDetails = cmd_param.getParamTypeDetails(
             os.path.abspath(file_path))
