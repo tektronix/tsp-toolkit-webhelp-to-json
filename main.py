@@ -11,7 +11,7 @@ def parse_web_help_files(webHelpFoldersDir):
 
     output_folder = "data"
     if os.path.exists(output_folder):
-        os.remove(Configuration.OUTPUT_FOLDER_PATH)
+        os.removedirs(Configuration.OUTPUT_FOLDER_PATH)
         os.makedirs(output_folder)
 
     supported2600bInfo = {"2601B":["a"], 
