@@ -27,8 +27,9 @@ def parse_web_help_files(webHelpFoldersDir):
     
     for dir in os.listdir(webHelpFoldersDir):
         try:
-            folder = os.path.join(webHelpFoldersDir)
+            folder = os.path.join(webHelpFoldersDir, dir)
             if os.path.isdir(folder):
+                print(folder)
                 Configuration.HELP_FILE_FOLDER_PATH = folder
                 Configuration.MODEL_NUMBER = dir.split("_")[0]
                 parse()
