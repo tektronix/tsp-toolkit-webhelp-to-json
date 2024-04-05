@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: install node
         uses: actions/setup-node@v4
@@ -22,7 +22,7 @@ jobs:
           npm install
           
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
@@ -36,7 +36,7 @@ jobs:
         run: python main.py web-help-documents
 
       - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: generated-json
           path: data/
