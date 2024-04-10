@@ -3,7 +3,7 @@ import os
 import re
 from bs4 import BeautifulSoup
 from ordered_set import OrderedSet
-from Configuration import MODEL_NUMBER
+from Configuration import Confiurations
 from helpers import cmd_param
 
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
@@ -109,7 +109,7 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
     record["usage"] = usage
     record["overloads"] = list(overloads)
     record["examples"] = example
-    if(str(MODEL_NUMBER).find("26")!= -1):
+    if(str(Confiurations.MODEL_NUMBER).find("26")!= -1):
         if flag == 1:
             record["supported_models"] = temp_c
         else:
@@ -269,7 +269,7 @@ def get_parameter_details(S, command_name):
             
             param_desc = "\n".join([item.get_text(separator='\n') for item in data[1:]]) #24xx, dmm, daq
             
-            if(str(MODEL_NUMBER).find("26")!= -1):
+            if(str(Confiurations.MODEL_NUMBER).find("26")!= -1):
                 param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
 
@@ -434,9 +434,9 @@ def get_param_type(cmd, param_name) -> str:
     if str(cmd).startswith("status.") and "*" in cmd:
         return "number"
     
-    file_path = "ParserGeneric\\tti-command_param_data_type.txt"
-    if(str(MODEL_NUMBER).find("26")!= -1):
-        file_path = "ParserGeneric\\26xx-command_param_data_type.txt"
+    file_path = os.path.join("ParserGeneric","tti-command_param_data_type.txt")
+    if(str(Confiurations.MODEL_NUMBER).find("26")!= -1):
+        file_path = os.path.join("ParserGeneric","26xx-command_param_data_type.txt")
 
     paramTypeDetails = cmd_param.getParamTypeDetails(
             os.path.abspath(file_path))

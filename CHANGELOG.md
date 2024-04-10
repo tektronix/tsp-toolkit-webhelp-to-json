@@ -16,7 +16,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
-## [Unreleased]
+## [0.15.1]
+
+### Changed
+- workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/tree/dev
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.15.1...HEAD
+[0.15.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.1
