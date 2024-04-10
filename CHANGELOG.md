@@ -19,7 +19,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.15.1]
 
 ### Changed
-- workflow has been added for generaing josn artificts.
+- workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
 [Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.15.1...HEAD
