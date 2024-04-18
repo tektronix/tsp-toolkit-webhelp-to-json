@@ -1,15 +1,7 @@
 name: Generate JSON and Save as Artifacts
 
 on:
-  pull_request:
-     types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
-  push:
-    tags:
-      - "*"
+  push
 
 jobs:
   build:
@@ -50,6 +42,31 @@ jobs:
         with:
           name: generated-json
           path: data/
+  
+  json-to-lua:
+    name: generate-json-and-save-as-artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '4.8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the project
+        run: dotnet build --configuration Release
+
+      - name: Run the binary with folder path
+        run: dotnet run --project jsonToLuaParser -- "$(folder_path)"
+        env:
+          folder_path: ""
+  
   release:
     name: Release
     runs-on: ubuntu-latest
