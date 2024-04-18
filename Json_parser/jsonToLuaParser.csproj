@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cp &quot;$(ProjectDir)StaticLuaDefinations&quot; &quot;$(TargetDir)StaticLuaDefinations&quot; /E /I /Y" />
+    <Exec Command="cp -r &quot;$(ProjectDir)StaticLuaDefinations&quot; &quot;$(TargetDir)StaticLuaDefinations&quot;" />
   </Target>
 
 </Project>
