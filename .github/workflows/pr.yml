@@ -60,7 +60,9 @@ jobs:
           dotnet restore
 
       - name: Build the project
-        run: dotnet build --configuration Release
+        run: |
+          cd Json_parser
+          dotnet build --configuration Release
 
       - name: Run the binary with folder path
         run: dotnet run --project jsonToLuaParser -- "$(folder_path)"
