@@ -2,3 +2,6 @@
 node_modules/
 .vscode/
 data/
+Json_parser/.vs/
+Json_parser/bin/
+Json_parser/obj/

@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="keithley_instrument_libraries\**" />
+    <EmbeddedResource Remove="keithley_instrument_libraries\**" />
+    <None Remove="keithley_instrument_libraries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="helperfunctions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="StaticLuaDefinations\2450\bufferCustomUnit.lua" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net5.0\2450.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="StaticLuaDefinations\2450\bufferCustomUnit.lua" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net5.0\2450.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)StaticLuaDefinations&quot; &quot;$(TargetDir)StaticLuaDefinations&quot; /E /I /Y" />
+  </Target>
+
+</Project>
