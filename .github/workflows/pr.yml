@@ -55,7 +55,9 @@ jobs:
         uses: actions/setup-dotnet@v4
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          cd Json_parser
+          dotnet restore
 
       - name: Build the project
         run: dotnet build --configuration Release
