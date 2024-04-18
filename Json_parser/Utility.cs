@@ -54,21 +54,6 @@ namespace jsonToLuaParser
             public string tsplink_supported { get; set; }
         }
 
-        public class TriggerEventIdInfo
-        {
-            public string event_id { get; set; }
-            public string event_desc { get; set; }
-        }
-
-        public static JObject ParseJSON(string file)
-        {
-            var str = File.ReadAllText(file);
-            JObject cmds = JObject.Parse(str);
-
-            return cmds;
-        }
-
-
         public static IList<string> get_return_type_and_default_value(CommandInfo cmd)
         {
             var lst = new List<string>();
@@ -131,21 +116,6 @@ namespace jsonToLuaParser
             return cmdList;
         }
 
-        public static bool arrayCheck(string[] arr, string str, string type_name, out string table)
-        {
-            table = "";
-            foreach (var item in arr)
-            {
-                if (str.Contains(item))
-                {
-                    table = str.Replace(item, type_name);
-                    return true;
-                }
-                else
-                    return false;
-            }
-            return false;
-        }
         public static void PrintFields(int depth, string file_name, ref Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, ref string outStr, ref string tsplinkStr, ref string[] arrList, string item)
         {
             string table_name = "";
@@ -663,37 +633,6 @@ namespace jsonToLuaParser
             return outPut;
         }
 
-        public static void append_nvbuffer_type(ref string outStr, string subString)
-        {
-            int index = outStr.IndexOf(subString);
-            if (index != -1)
-            {
-                string modifiedString = outStr.Insert(index, "\n---@type bufferVar\n");
-                outStr = modifiedString;
-            }
-        }
-
-        public static void append_defbuffer1_defbuffer2_defination(ref string outStr)
-        {
-            outStr += "\n" + @"---@type bufferVar
-defbuffer1 = {}
-
----@type bufferVar
-defbuffer2 = {}";
-        }
-
-        public static void append_setblock_signature(ref string outStr)
-        {
-            outStr += "\n" + @"
----This is generic function to define trigger model setblock.<br>
----Signature of this function depends on the BlockType.<br>
----For more details, please look at the manual by viewing hover help of blockType or opening command help
----@param blockNumber number
----@param blockType triggerBlockBranch
-function trigger.model.setblock(blockNumber, blockType,...) end";
-
-        }
-
         public static string get_command_header(CommandInfo cmd, string file_name)
         {
             var command_header = "\n---**" + cmd.name + "**\n"
@@ -733,20 +672,7 @@ function trigger.model.setblock(blockNumber, blockType,...) end";
 function buffer.math(readingBuffer, unit, mathExpression, ...) end";
         }
 
-        //public static string create_string_constant_alias_type(string alias_name, IList<string> alias_string_list)
-        //{
-        //    var alias_string = $"\n---@alias {alias_name}\n";
-
-        //    foreach (var typ in alias_string_list)
-        //    {
-        //        alias_string += string.Format("---| `\"{0}\"` \n", typ);
-
-        //    }
-
-        //    return alias_string;
-
-        //}
-
+      
         public static string create_enum_alias_type(ParamInfo param)
         {
             var command_help = "";
@@ -805,7 +731,7 @@ function buffer.math(readingBuffer, unit, mathExpression, ...) end";
             }
         }
 
-    public static void CopyStaticFiles(string model, string folder_path)
+        public static void CopyStaticFiles(string model, string folder_path)
         {
             // Specify the source folder path
             string sourceFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "StaticLuaDefinations", model);

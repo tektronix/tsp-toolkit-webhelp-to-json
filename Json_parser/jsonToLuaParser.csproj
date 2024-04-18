@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -20,24 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="StaticLuaDefinations\2450\bufferCustomUnit.lua" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="bin\Debug\net5.0\2450.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="StaticLuaDefinations\2450\bufferCustomUnit.lua" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\Debug\net5.0\2450.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
