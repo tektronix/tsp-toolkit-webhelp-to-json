@@ -70,7 +70,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: generated-json
-          path: data
 
       - name: Run the binary with folder path
         run: |
