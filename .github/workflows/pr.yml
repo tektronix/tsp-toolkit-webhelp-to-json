@@ -65,9 +65,9 @@ jobs:
           dotnet build --configuration Release
 
       - name: Run the binary with folder path
-        run: dotnet run --project jsonToLuaParser -- "$(folder_path)"
-        env:
-          folder_path: ""
+        run: |
+          cd Json_parser
+          dotnet run --project jsonToLuaParser
   
   release:
     name: Release
