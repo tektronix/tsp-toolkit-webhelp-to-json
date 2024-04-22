@@ -71,10 +71,13 @@ jobs:
         with:
           name: generated-json
 
+      - name: Unzip artifacts
+        run: unzip data/generated-json.zip -d data/
+
       - name: Run the binary with folder path
         run: |
           cd Json_parser
-          dotnet run -- "${{ github.workspace }}/data/"
+          dotnet run data/generated-json
   
   release:
     name: Release
