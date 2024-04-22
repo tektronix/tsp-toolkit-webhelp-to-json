@@ -77,21 +77,12 @@ jobs:
           cd Json_parser
           dotnet run $GITHUB_WORKSPACE/data/
 
-      - name: install node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://npm.pkg.github.com
-
-      - name: npm Package
-        run: |
-          cd keithley_instrument_libraries
-          npm pack
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: keithley_instrument_libraries
-          path: ./keithley_instrument_libraries/*.tgz
+          path: ./Json_parser/keithley_instrument_libraries
+      
   
   release:
     name: Release
