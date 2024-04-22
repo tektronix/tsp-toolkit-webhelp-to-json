@@ -72,13 +72,12 @@ jobs:
           name: generated-json
           path: data/
 
-      - name: Unzip artifacts
-        run: unzip $GITHUB_WORKSPACE/data/generated-json.zip -d data/
+      
 
       - name: Run the binary with folder path
         run: |
           cd Json_parser
-          dotnet run $GITHUB_WORKSPACE/data/generated-json
+          dotnet run $GITHUB_WORKSPACE/data/
   
   release:
     name: Release
