@@ -67,9 +67,7 @@ jobs:
           dotnet build --configuration Release
 
       - name: Get Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: generated-json
+        uses: actions/download-artifact@v4
 
       - name: Run the binary with folder path
         run: |
