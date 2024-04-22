@@ -70,6 +70,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: generated-json
+          path: data/
 
       - name: Unzip artifacts
         run: unzip data/generated-json.zip -d data/
