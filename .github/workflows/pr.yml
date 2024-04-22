@@ -44,8 +44,10 @@ jobs:
           path: data/
   
   json-to-lua:
-    name: generate-json-and-save-as-artifacts
+    name: generate lua form json
     runs-on: ubuntu-latest
+    needs:
+      - build
 
     steps:
       - name: Checkout repository
