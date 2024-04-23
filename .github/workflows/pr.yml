@@ -94,13 +94,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Tool Versions
-        run: npm --version
-      
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-node@v3
         with:
+          node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@tektronix'
+          scope: '@tektronix'      
       
       - name: Get Artifacts
         uses: actions/download-artifact@v4
