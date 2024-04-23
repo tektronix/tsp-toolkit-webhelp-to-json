@@ -1,6 +1,6 @@
 {
-  "name": "@tektronix/webhelp-to-josn",
-  "version": "0.15.0",
+  "name": "@tektronix/keithley_instrument_libraries",
+  "version": "0.15.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tektronix/tsp-toolkit-webhelp.git"
-},
+  },
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "keithley_instrument_libraries/*"
+  ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "@tektronix/web-help-documents": "0.15.0"
   }
 }

@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  build:
+  webhelp-to-josn:
     name: webhelp-to-josn
     runs-on: ubuntu-latest
 
@@ -44,10 +44,10 @@ jobs:
           path: data
   
   json-to-lua:
-    name: generate lua form json
+    name: json-to-lua
     runs-on: ubuntu-latest
     needs:
-      - build
+      - webhelp-to-josn
 
     steps:
       - name: Checkout repository
@@ -78,11 +78,42 @@ jobs:
           dotnet run $GITHUB_WORKSPACE/data/
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: keithley_instrument_libraries
           path: ./Json_parser/keithley_instrument_libraries
       
+  publish:
+    name: Publish
+    # if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
+    needs:
+      - webhelp-to-josn
+      - json-to-lua
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tool Versions
+        run: npm --version
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@tektronix'
+      
+      - name: Get Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: keithley_instrument_libraries
+          path: keithley_instrument_libraries/
+
+      - name: npm Package
+        run: npm pack
+
+      - name: publish package
+        run: |
+          npm publish *.tgz
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
   release:
     name: Release
