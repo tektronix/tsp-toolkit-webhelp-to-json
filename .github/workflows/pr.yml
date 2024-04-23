@@ -1,7 +1,6 @@
 name: Generate JSON and Save as Artifacts
 
-on:
-  push
+on: push
 
 jobs:
   webhelp-to-josn:
@@ -42,7 +41,7 @@ jobs:
         with:
           name: generated-json
           path: data
-  
+
   json-to-lua:
     name: json-to-lua
     runs-on: ubuntu-latest
@@ -82,7 +81,7 @@ jobs:
         with:
           name: keithley_instrument_libraries
           path: ./Json_parser/keithley_instrument_libraries
-      
+
   publish:
     name: Publish
     # if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
@@ -96,25 +95,22 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@tektronix'      
-      
+          node-version: "20.x"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@tektronix"
+
       - name: Get Artifacts
         uses: actions/download-artifact@v4
         with:
           name: keithley_instrument_libraries
           path: keithley_instrument_libraries/
 
-      - name: npm Package
-        run: npm pack
-
       - name: publish package
         run: |
           npm publish *.tgz
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  
+
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -168,7 +164,7 @@ jobs:
           echo "cl_version=${CL}" >> $GITHUB_OUTPUT
           echo "commit=${COMMIT}" >> $GITHUB_OUTPUT
 
-      - run: 'git tag --list ${V}*'
+      - run: "git tag --list ${V}*"
       - name: Get Artifacts
         uses: actions/download-artifact@v3
         with:
