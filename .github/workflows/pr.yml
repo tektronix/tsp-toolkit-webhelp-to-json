@@ -123,7 +123,8 @@ jobs:
       checks: write
       pull-requests: read
     needs:
-      - build
+      - webhelp-to-josn
+      - json-to-lua
     if: ${{ (endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/')) || github.event.pull_request.merged ) }}
     steps:
       - name: Checkout
