@@ -105,6 +105,9 @@ jobs:
           name: keithley_instrument_libraries
           path: keithley_instrument_libraries/
 
+      - name: npm Package
+        run: npm pack
+        
       - name: publish package
         run: |
           npm publish *.tgz
