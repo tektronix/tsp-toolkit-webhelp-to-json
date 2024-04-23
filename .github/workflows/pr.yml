@@ -91,12 +91,14 @@ jobs:
       - json-to-lua
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Tool Versions
         run: npm --version
       
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-dotnet@v4
         with:
-          node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@tektronix'
       
