@@ -7,7 +7,7 @@ name: Create Release
 on:
   pull_request:
     branches:
-      - 'release/**'
+      - "release/**"
     types:
       - closed
 
@@ -17,18 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && github.base_ref == 'main'
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            set-safe-directory: '*'
-        - name: Get Version
-          id: version
-          run: |
-            V="${GITHUB_REF#refs/heads/release/v}"
-            echo "version=${V}" >> $GITHUB_OUTPUT
-        - name: Create Tag
-          run: |
-            V="v${{steps.version.outputs.version}}"
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          set-safe-directory: "*"
+      - name: Get Version
+        id: version
+        run: |
+          V="${GITHUB_REF#refs/heads/release/v}"
+          echo "version=${V}" >> $GITHUB_OUTPUT
+      - name: Create Tag
+        run: |
+          V="v${{steps.version.outputs.version}}"
 
-            git tag "$V" -m "Release $V"
-            git push "$V"
+          git tag "$V" -m "Release $V"
+          git push "$V"
