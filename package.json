@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tektronix/tsp-toolkit-webhelp.git"
+    "url": "git+https://github.com/tektronix/tsp-toolkit-webhelp-to-json.git"
   },
   "typings": "index.d.ts",
   "files": [
     "index.d.ts",
     "index.js",
-    "keithley_instrument_libraries/**/*"
+    "keithley_instrument_libraries/*"
   ],
   "author": "",
   "license": "ISC",

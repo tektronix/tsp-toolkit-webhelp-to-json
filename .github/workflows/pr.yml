@@ -1,6 +1,15 @@
 name: Generate JSON and Save as Artifacts
 
-on: push
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+  push:
+    tags:
+      - '*'
 
 jobs:
   webhelp-to-josn:
@@ -84,7 +93,7 @@ jobs:
 
   publish:
     name: Publish
-    # if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
+    if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
     needs:
       - webhelp-to-josn
       - json-to-lua
@@ -166,13 +175,7 @@ jobs:
           echo "version=${V}" >> $GITHUB_OUTPUT
           echo "cl_version=${CL}" >> $GITHUB_OUTPUT
           echo "commit=${COMMIT}" >> $GITHUB_OUTPUT
-
       - run: "git tag --list ${V}*"
-      - name: Get Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: generated-json
-          path: data/
       - name: Get Changelog for this Tag
         id: changelog
         uses: coditory/changelog-parser@v1
