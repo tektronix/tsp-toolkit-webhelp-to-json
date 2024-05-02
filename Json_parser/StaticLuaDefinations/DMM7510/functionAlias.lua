@@ -1,0 +1,36 @@
+---@meta
+
+dmm.FUNC_DC_VOLTAGE= nil
+dmm.FUNC_AC_VOLTAGE= nil
+dmm.FUNC_DC_CURRENT= nil
+dmm.FUNC_AC_CURRENT= nil
+dmm.FUNC_TEMPERATURE= nil
+dmm.FUNC_RESISTANCE= nil
+dmm.FUNC_4W_RESISTANCE= nil
+dmm.FUNC_DIODE= nil
+dmm.FUNC_CAPACITANCE= nil
+dmm.FUNC_CONTINUITY= nil
+dmm.FUNC_ACV_FREQUENCY= nil
+dmm.FUNC_ACV_PERIOD= nil
+dmm.FUNC_DCV_RATIO= nil
+dmm.FUNC_DIGITIZE_CURRENT= nil
+dmm.FUNC_DIGITIZE_VOLTAGE= nil
+
+
+---@alias functions
+---| `dmm.FUNC_DC_VOLTAGE`
+---| `dmm.FUNC_AC_VOLTAGE`
+---| `dmm.FUNC_DC_CURRENT`
+---| `dmm.FUNC_AC_CURRENT`
+---| `dmm.FUNC_TEMPERATURE`
+---| `dmm.FUNC_RESISTANCE`
+---| `dmm.FUNC_4W_RESISTANCE`
+---| `dmm.FUNC_DIODE`
+---| `dmm.FUNC_CAPACITANCE`
+---| `dmm.FUNC_CONTINUITY`
+---| `dmm.FUNC_ACV_FREQUENCY`
+---| `dmm.FUNC_ACV_PERIOD`
+---| `dmm.FUNC_DCV_RATIO`
+---| `dmm.FUNC_DIGITIZE_CURRENT`
+---| `dmm.FUNC_DIGITIZE_VOLTAGE`
+

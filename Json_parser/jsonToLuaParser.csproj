@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="keithley_instrument_libraries\**" />
+    <EmbeddedResource Remove="keithley_instrument_libraries\**" />
+    <None Remove="keithley_instrument_libraries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="helperfunctions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cp -r &quot;$(ProjectDir)StaticLuaDefinations&quot; &quot;$(TargetDir)StaticLuaDefinations&quot;" />
+  </Target>
+
+</Project>
