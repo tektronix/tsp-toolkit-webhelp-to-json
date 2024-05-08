@@ -19,7 +19,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.15.3]
 
 ### Fixed
-- Fixing enums not found issue, form 24xx and 2600B series example scripts
+- Fixing enums not found issue, from 24xx and 2600B series example scripts
 
 ## [0.15.1]
 
