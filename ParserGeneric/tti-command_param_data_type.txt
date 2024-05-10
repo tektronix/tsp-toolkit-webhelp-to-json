@@ -1398,6 +1398,9 @@ LANevent: triggerEvents
 trigger.model.getblocklist()
 output: string
 
+smu.breakdownprotection
+setting: breakdownprotection
+
 smu.contact.check()
 result: boolean
 
