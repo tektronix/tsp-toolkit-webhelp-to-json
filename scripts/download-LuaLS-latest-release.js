@@ -5,7 +5,7 @@ const decompress = require("decompress");
 const { execFile } = require("child_process");
 require("dns");
 const path = require("path");
-const os = require("os")
+const os = require("os");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -19,6 +19,7 @@ async function downloadReleaseAssetAndUnzippedIt(owner, repo) {
       repo,
     });
     assetName = "";
+
     if (os.platform() === "win32")
       assetName = `lua-language-server-${latestRelease.data.tag_name}-win32-x64.zip`;
     else
@@ -67,11 +68,14 @@ async function unzipAndSave(assetName, dist) {
       console.log(
         assetName + " Successfully unzipped into " + dist + " folder."
       );
-      runExecutable(path.join(dist, "bin", "lua-language-server.exe"), [
+      exe = "lua-language-server";
+      if (os.platform() === "win32")
+        exe = "lua-language-server.exe"
+
+      runExecutable(path.join(dist, "bin", exe), [
         "--check",
         "C:/Users/rjha/source/repos/GitHub/tsp-toolkit-webhelp-to-json/Json_parser/bin/Debug/net48/keithley_instrument_libraries/2450",
       ]);
-      return true;
     })
     .catch((error) => {
       console.log(error);
