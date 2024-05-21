@@ -22,7 +22,7 @@ async function downloadReleaseAssetAndUnzippedIt(owner, repo) {
     if (os.platform() === "win32")
       assetName = `lua-language-server-${latestRelease.data.tag_name}-win32-x64.zip`;
     else
-      assetName = `lua-language-server-${latestRelease.data.tag_name}--linux-x64.tar.gz`;
+      assetName = `lua-language-server-${latestRelease.data.tag_name}-linux-x64.tar.gz`;
 
     // Find the asset by name
     const asset = latestRelease.data.assets.find((a) => a.name === assetName);
