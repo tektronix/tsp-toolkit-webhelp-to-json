@@ -168,9 +168,7 @@ function trigger.model.load(loadFunConst,...) end";
 
             nodeTable.Remove("node[N] = node[N]"); // for now removing this command from nodeTable because its creating problem in lua definitions
             nodeTable.Remove("slot[slot] = slot[slot]"); // for now removing this command from nodeTable because its creating problem in lua definition
-            var nodeTable_str = @"{" + string.Join(",\n ", nodeTable) + "\n}";
-            var nodeTableDetails = $"---@meta\n\n---@class model{file_name}\nmodel{file_name} = {nodeTable_str}" +
-                $"\n--#region node details\n--#endregion";
+            
 
 
             if (file_name.Contains("26"))
@@ -180,12 +178,18 @@ function trigger.model.load(loadFunConst,...) end";
 
             else if (file_name.Contains("37"))
             {
-
             }
             else // for tti models
             {
-                
+
+                nodeTable.Add("defbuffer1 = defbuffer1");
+                nodeTable.Add("defbuffer2 = defbuffer2");
+
             }
+
+            var nodeTable_str = @"{" + string.Join(",\n ", nodeTable) + "\n}";
+            var nodeTableDetails = $"---@meta\n\n---@class model{file_name}\nmodel{file_name} = {nodeTable_str}" +
+                $"\n--#region node details\n--#endregion";
 
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "tspLinkSupportedCommands"));

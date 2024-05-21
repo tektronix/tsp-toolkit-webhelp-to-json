@@ -16,11 +16,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
+## [0.15.3]
+
+### Fixed
+- Fixing enums not found issue, from 24xx and 2600B series example scripts
+
 ## [0.15.1]
 
 ### Changed
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.15.1...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.15.3...HEAD
+
+[0.15.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.3
 [0.15.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.1

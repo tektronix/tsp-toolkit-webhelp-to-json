@@ -265,7 +265,7 @@ scriptVar.name
 scriptName: string
 
 digio.trigger[N].mode
-triggerMode: triggerMode
+triggerMode: digioTriggerModes
 
 digio.trigger[N].overrun
 overrun: boolean
@@ -341,7 +341,7 @@ smuX.trigger.count
 triggerCount: integer
 
 tsplink.trigger[N].mode
-mode: triggerMode
+mode: tsplinkTriggerModes
 
 tsplink.trigger[N].overrun
 overrun: boolean
