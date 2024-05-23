@@ -1,6 +1,6 @@
 {
   "name": "@tektronix/keithley_instrument_libraries",
-  "version": "0.15.3",
+  "version": "0.16.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tektronix/web-help-documents": "0.15.0"
+    "@tektronix/web-help-documents": "0.15.3"
   }
 }
