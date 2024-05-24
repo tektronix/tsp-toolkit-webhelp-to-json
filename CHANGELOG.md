@@ -15,6 +15,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Fixed -- for any bug fixes.
     Security -- in case of vulnerabilities.
 -->
+## [0.16.0]
+
+### Fixed
+- **tsp-toolkit-webhelp:** display.input.option() command signature has been corrected for all tti models
 
 ## [0.15.3]
 
@@ -27,7 +31,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.15.3...HEAD
-
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.16.0
 [0.15.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.3
 [0.15.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.1
