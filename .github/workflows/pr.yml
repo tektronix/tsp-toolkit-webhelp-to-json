@@ -104,8 +104,14 @@ jobs:
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           npm install
+      - name: Get Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: keithley_instrument_libraries
+          path: generatedLuaDefinitions/
+          
       - name: test
-        run: npm run download-asset
+        run: npm run call-LuaLS-Diagnostics $GITHUB_WORKSPACE/generatedLuaDefinitions/
 
 
   publish:
