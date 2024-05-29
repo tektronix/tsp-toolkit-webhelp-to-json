@@ -113,6 +113,11 @@ jobs:
       - name: test
         run: npm run call-LuaLS-Diagnostics $GITHUB_WORKSPACE/generatedLuaDefinitions/
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics-reports
+          path: testResults
 
   publish:
     name: Publish
