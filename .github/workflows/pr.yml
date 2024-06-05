@@ -91,6 +91,110 @@ jobs:
           name: keithley_instrument_libraries
           path: ./Json_parser/keithley_instrument_libraries
 
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    needs:
+      - webhelp-to-json
+      - json-to-lua
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+
+      - name: Install package from npm registry
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          npm install
+      - name: Get Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: keithley_instrument_libraries
+          path: generatedLuaDefinitions/
+
+      - name: test
+        run: npm run call-LuaLS-Diagnostics $GITHUB_WORKSPACE/generatedLuaDefinitions/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics-reports
+          path: testResults
+
+      - name: Set up jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Verify jq installation
+        run: |
+          if ! command -v jq &> /dev/null
+          then
+              echo "jq could not be found"
+              exit 1
+          fi
+          jq --version
+
+      - name: Find and check JSON files
+        id: check_json
+        run: |
+          set -e
+          set -x
+          PARENT_DIR="$GITHUB_WORKSPACE/testResults"
+          FAILED_TESTS=0
+          PASSED_TESTS=0
+          RESULT=""
+
+          echo "Parent directory: $PARENT_DIR"
+
+          for SUBFOLDER in "$PARENT_DIR"/*/; do
+            echo "Checking subfolder: $SUBFOLDER"
+            if [ -d "$SUBFOLDER" ]; then
+              JSON_FILE="${SUBFOLDER}Diagnostics.json"
+              if [[ -f "$JSON_FILE" ]]; then
+                echo "Looking for file: $JSON_FILE"
+                if [[ $(jq 'length' $JSON_FILE) -ne 0 ]]; then
+                    RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
+                    FAILED_TESTS+=1
+                  else
+                    RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
+                    PASSED_TESTS+=1
+                fi
+              else
+                RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
+              fi
+            else
+              echo "Not a directory: $SUBFOLDER"
+            fi
+          done
+
+          echo "result=$RESULT" >> $GITHUB_ENV
+          echo "failed_tests=$FAILED_TESTS" >> $GITHUB_ENV
+          echo "passed_tests=$PASSED_TESTS" >> $GITHUB_ENV
+
+      - name: Create pull request comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const result = process.env.result;
+            const failedTests = process.env.failed_tests;
+            const passedTests = process.env.passed_tests;
+            const message = `## JSON File Check Results\n\n${result}\n**Total Failed Tests:** ${failedTests}\n**Total Passed Tests:** ${passedTests}`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
   publish:
     name: Publish
     if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}

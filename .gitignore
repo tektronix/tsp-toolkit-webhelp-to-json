@@ -6,3 +6,7 @@ Json_parser/.vs/
 Json_parser/bin/
 Json_parser/obj/
 Json_parser/keithley_instrument_libraries/
+release/
+*.zip
+workspaceDir/
+testResults/
