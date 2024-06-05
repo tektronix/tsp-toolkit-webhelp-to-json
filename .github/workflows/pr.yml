@@ -1,7 +1,15 @@
 name: Parser WebHelp and output npm package contains lua definitions file
 
 on:
-  push
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+  push:
+    tags:
+      - "*"
 
 jobs:
   webhelp-to-json:
@@ -118,6 +126,51 @@ jobs:
         with:
           name: diagnostics-reports
           path: testResults
+
+      - name: Set up jq
+        run: sudo apt-get install -y jq
+
+      - name: Find and check JSON files
+        id: check_json
+        run: |
+          PARENT_DIR= testResults
+          FAILED_TESTS=0
+          PASSED_TESTS=0
+          RESULT=""
+
+          for SUBFOLDER in "$PARENT_DIR"/*/; do
+            JSON_FILE="${SUBFOLDER}file.json"
+            if [[ -f "$JSON_FILE" ]]; then
+              if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
+                RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
+                ((FAILED_TESTS++))
+              else
+                RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
+                ((PASSED_TESTS++))
+              fi
+            fi
+          done
+
+          echo "result=$RESULT" >> $GITHUB_ENV
+          echo "failed_tests=$FAILED_TESTS" >> $GITHUB_ENV
+          echo "passed_tests=$PASSED_TESTS" >> $GITHUB_ENV
+
+      - name: Create pull request comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const result = process.env.RESULT;
+            const failedTests = process.env.FAILED_TESTS;
+            const passedTests = process.env.PASSED_TESTS;
+            const message = `## JSON File Check Results\n\n${result}\n**Total Failed Tests:** ${failedTests}\n**Total Passed Tests:** ${passedTests}`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
 
   publish:
     name: Publish
