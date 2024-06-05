@@ -144,6 +144,9 @@ jobs:
       - name: Find and check JSON files
         id: check_json
         run: |
+          set -e
+          set -x
+
           PARENT_DIR="$GITHUB_WORKSPACE/testResults"
           FAILED_TESTS=0
           PASSED_TESTS=0
@@ -153,24 +156,36 @@ jobs:
 
           for SUBFOLDER in "$PARENT_DIR"/*/; do
             echo "Checking subfolder: $SUBFOLDER"
-            if [ -d "$SUBFOLDER" ]; then
+            if [[ -d "$SUBFOLDER" ]]; then
               JSON_FILE="${SUBFOLDER}Diagnostics.json"
+              echo "Looking for file: $JSON_FILE"
               if [[ -f "$JSON_FILE" ]]; then
-                echo "Looking for file: $JSON_FILE"
-                if [[ $(jq 'length' $JSON_FILE) -ne 0 ]]; then
+                # Check if the JSON file is valid
+                if jq empty "$JSON_FILE" >/dev/null 2>&1; then
+                  # Check if the JSON file is not empty
+                  if [[ $(jq 'if type=="object" or type=="array" then length else 1 end' "$JSON_FILE") -ne 0 ]]; then
                     RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
                     ((FAILED_TESTS++))
                   else
                     RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
                     ((PASSED_TESTS++))
+                  fi
+                else
+                  echo "Invalid JSON file found in subfolder: ${SUBFOLDER}"
+                  RESULT+="Invalid JSON file found in subfolder: ${SUBFOLDER}\n"
+                  ((FAILED_TESTS++))
                 fi
               else
+                echo "No JSON file found in subfolder: ${SUBFOLDER}"
                 RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
               fi
             else
               echo "Not a directory: $SUBFOLDER"
             fi
           done
+
+          echo "Result summary:"
+          echo -e "$RESULT"
 
           echo "result=$RESULT" >> $GITHUB_ENV
           echo "failed_tests=$FAILED_TESTS" >> $GITHUB_ENV
