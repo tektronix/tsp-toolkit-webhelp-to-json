@@ -147,12 +147,17 @@ jobs:
               JSON_FILE="${SUBFOLDER}Diagnostics.json"
               echo "Looking for file: $JSON_FILE"
               if [[ -f "$JSON_FILE" ]]; then
-                if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
-                  RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
-                  ((FAILED_TESTS++))
+                if jq empty "$JSON_FILE" >/dev/null 2>&1; then
+                  if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
+                    RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
+                    ((FAILED_TESTS++))
+                  else
+                    RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
+                    ((PASSED_TESTS++))
+                  fi
                 else
-                  RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
-                  ((PASSED_TESTS++))
+                  RESULT+="Invalid JSON file found in subfolder: ${SUBFOLDER}\n"
+                  ((FAILED_TESTS++))
                 fi
               else
                 RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
