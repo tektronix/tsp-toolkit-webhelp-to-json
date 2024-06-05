@@ -155,8 +155,8 @@ jobs:
             echo "Checking subfolder: $SUBFOLDER"
             if [ -d "$SUBFOLDER" ]; then
               JSON_FILE="${SUBFOLDER}Diagnostics.json"
-              echo "Looking for file: $JSON_FILE"
               if [[ -f "$JSON_FILE" ]]; then
+                echo "Looking for file: $JSON_FILE"
                 if jq empty "$JSON_FILE" >/dev/null 2>&1; then
                   if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
                     RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
