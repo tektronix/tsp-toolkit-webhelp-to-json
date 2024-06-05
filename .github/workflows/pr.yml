@@ -128,7 +128,18 @@ jobs:
           path: testResults
 
       - name: Set up jq
-        run: sudo apt-get install -y jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          
+      - name: Verify jq installation
+        run: |
+          if ! command -v jq &> /dev/null
+          then
+              echo "jq could not be found"
+              exit 1
+          fi
+          jq --version
 
       - name: Find and check JSON files
         id: check_json
