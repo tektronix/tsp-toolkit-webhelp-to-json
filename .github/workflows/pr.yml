@@ -117,7 +117,7 @@ jobs:
         with:
           name: keithley_instrument_libraries
           path: generatedLuaDefinitions/
-          
+
       - name: test
         run: npm run call-LuaLS-Diagnostics $GITHUB_WORKSPACE/generatedLuaDefinitions/
 
@@ -131,7 +131,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
-          
+
       - name: Verify jq installation
         run: |
           if ! command -v jq &> /dev/null
@@ -150,15 +150,15 @@ jobs:
           RESULT=""
 
           echo "Parent directory: $PARENT_DIR"
-          
+
           for SUBFOLDER in "$PARENT_DIR"/*/; do
             echo "Checking subfolder: $SUBFOLDER"
             if [ -d "$SUBFOLDER" ]; then
               JSON_FILE="${SUBFOLDER}Diagnostics.json"
               if [[ -f "$JSON_FILE" ]]; then
                 echo "Looking for file: $JSON_FILE"
-                if jq empty "$JSON_FILE" >/dev/null 2>&1; then
-                  if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
+                if jq empty $JSON_FILE >/dev/null 2>&1; then
+                  if [[ $(jq 'length' $JSON_FILE) -ne 0 ]]; then
                     RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
                     ((FAILED_TESTS++))
                   else
@@ -190,13 +190,14 @@ jobs:
             const failedTests = process.env.failed_tests;
             const passedTests = process.env.passed_tests;
             const message = `## JSON File Check Results\n\n${result}\n**Total Failed Tests:** ${failedTests}\n**Total Passed Tests:** ${passedTests}`;
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: message
             });
+  
   publish:
     name: Publish
     if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
