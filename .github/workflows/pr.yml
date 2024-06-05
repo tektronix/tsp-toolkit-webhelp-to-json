@@ -161,10 +161,10 @@ jobs:
                 echo "Looking for file: $JSON_FILE"
                 if [[ $(jq 'length' $JSON_FILE) -ne 0 ]]; then
                     RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
-                    ((FAILED_TESTS++))
+                    FAILED_TESTS+=1
                   else
                     RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
-                    ((PASSED_TESTS++))
+                    PASSED_TESTS+=1
                 fi
               else
                 RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
