@@ -133,7 +133,6 @@ jobs:
       - name: Find and check JSON files
         id: check_json
         run: |
-          set -e
           PARENT_DIR="$GITHUB_WORKSPACE/testResults"
           FAILED_TESTS=0
           PASSED_TESTS=0
