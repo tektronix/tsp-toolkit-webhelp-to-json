@@ -372,10 +372,6 @@ namespace jsonToLuaParser
 
                         command_help += param.Name + " " + param.Description + "\n";
                     }
-                    else if (cmd.name == "display.input.option()")
-                    {
-                        command_help += "---@return displayInputOption displayOption";
-                    }
                     /* else if(cmd.name == "eventlog.suppress()")
                     {
                         outStr += "---@param eventType eventlogsuppresseventType\n";

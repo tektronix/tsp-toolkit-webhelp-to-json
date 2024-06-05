@@ -8,7 +8,7 @@ digio.TRIG_SYNCHRONOUSM = nil
 digio.TRIG_RISINGA = nil
 digio.TRIG_RISINGM = nil
 
----@alias triggerMode
+---@alias digioTriggerModes
 ---| `digio.TRIG_BYPASS`
 ---| `digio.TRIG_FALLING`
 ---| `digio.TRIG_RISING`

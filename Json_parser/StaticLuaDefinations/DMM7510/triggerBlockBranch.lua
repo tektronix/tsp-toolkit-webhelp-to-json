@@ -38,8 +38,10 @@ trigger.BLOCK_WAIT= nil
 ---| `trigger.BLOCK_CONFIG_RECALL`
 ---| `trigger.BLOCK_DELAY_CONSTANT`
 ---| `trigger.BLOCK_DELAY_DYNAMIC`
+---| `trigger.BLOCK_DIGITIZE`
 ---| `trigger.BLOCK_DIGITAL_IO`
 ---| `trigger.BLOCK_LOG_EVENT`
+---| `trigger.BLOCK_MEASURE`
 ---| `trigger.BLOCK_MEASURE_DIGITIZE`
 ---| `trigger.BLOCK_NOP`
 ---| `trigger.BLOCK_NOTIFY`

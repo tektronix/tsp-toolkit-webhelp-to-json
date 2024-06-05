@@ -365,7 +365,7 @@ minimumValue: number
 maximumValue: number
 
 display.input.option()
-n: display_BUTTON_OPTIONs | nil 
+BUTTON_OPTIONn: display_BUTTON_OPTIONs | nil 
 dialogTitle: string
 buttonTitle1: string
 ...: string
@@ -1397,6 +1397,9 @@ LANevent: triggerEvents
 
 trigger.model.getblocklist()
 output: string
+
+smu.breakdownprotection
+setting: breakdownprotection
 
 smu.contact.check()
 result: boolean
