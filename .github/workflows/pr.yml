@@ -133,21 +133,32 @@ jobs:
       - name: Find and check JSON files
         id: check_json
         run: |
-          PARENT_DIR= $GITHUB_WORKSPACE/testResults
+          set -e
+          PARENT_DIR="$GITHUB_WORKSPACE/testResults"
           FAILED_TESTS=0
           PASSED_TESTS=0
           RESULT=""
 
+          echo "Parent directory: $PARENT_DIR"
+          
           for SUBFOLDER in "$PARENT_DIR"/*/; do
-            JSON_FILE="${SUBFOLDER}Diagnostics.json"
-            if [[ -f "$JSON_FILE" ]]; then
-              if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
-                RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
-                ((FAILED_TESTS++))
+            echo "Checking subfolder: $SUBFOLDER"
+            if [ -d "$SUBFOLDER" ]; then
+              JSON_FILE="${SUBFOLDER}Diagnostics.json"
+              echo "Looking for file: $JSON_FILE"
+              if [[ -f "$JSON_FILE" ]]; then
+                if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
+                  RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
+                  ((FAILED_TESTS++))
+                else
+                  RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
+                  ((PASSED_TESTS++))
+                fi
               else
-                RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
-                ((PASSED_TESTS++))
+                RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
               fi
+            else
+              echo "Not a directory: $SUBFOLDER"
             fi
           done
 
@@ -160,9 +171,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = process.env.RESULT;
-            const failedTests = process.env.FAILED_TESTS;
-            const passedTests = process.env.PASSED_TESTS;
+            const result = process.env.result;
+            const failedTests = process.env.failed_tests;
+            const passedTests = process.env.passed_tests;
             const message = `## JSON File Check Results\n\n${result}\n**Total Failed Tests:** ${failedTests}\n**Total Passed Tests:** ${passedTests}`;
             
             github.rest.issues.createComment({
@@ -171,7 +182,6 @@ jobs:
               repo: context.repo.repo,
               body: message
             });
-
   publish:
     name: Publish
     if: ${{ endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/') || github.event.pull_request.merged) }}
