@@ -139,7 +139,7 @@ jobs:
           RESULT=""
 
           for SUBFOLDER in "$PARENT_DIR"/*/; do
-            JSON_FILE="${SUBFOLDER}file.json"
+            JSON_FILE="${SUBFOLDER}Diagnostics.json"
             if [[ -f "$JSON_FILE" ]]; then
               if [[ $(jq 'length' "$JSON_FILE") -ne 0 ]]; then
                 RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
