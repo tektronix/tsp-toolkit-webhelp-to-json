@@ -6,14 +6,18 @@ const { execFile } = require("child_process");
 const path = require("path");
 const os = require("os");
 const { promisify } = require("util");
-
 const octokit = new Octokit();
 
 async function downloadReleaseAssetAndUnzipIt(owner, repo) {
   try {
-    const latestRelease = await octokit.rest.repos.getLatestRelease({ owner, repo });
+    const latestRelease = await octokit.rest.repos.getLatestRelease({
+      owner,
+      repo,
+    });
     const platform = os.platform();
-    const assetName = `lua-language-server-${latestRelease.data.tag_name}-${platform === 'win32' ? 'win32-x64.zip' : 'linux-x64.tar.gz'}`;
+    const assetName = `lua-language-server-${latestRelease.data.tag_name}-${
+      platform === "win32" ? "win32-x64.zip" : "linux-x64.tar.gz"
+    }`;
     const asset = latestRelease.data.assets.find((a) => a.name === assetName);
 
     if (!asset) {
@@ -22,15 +26,15 @@ async function downloadReleaseAssetAndUnzipIt(owner, repo) {
 
     const response = await axios({
       url: asset.browser_download_url,
-      method: 'GET',
-      responseType: 'stream',
+      method: "GET",
+      responseType: "stream",
     });
 
     const writer = fs.createWriteStream(assetName);
     await new Promise((resolve, reject) => {
       response.data.pipe(writer);
-      writer.on('finish', resolve);
-      writer.on('error', reject);
+      writer.on("finish", resolve);
+      writer.on("error", reject);
     });
 
     console.log(`Downloaded ${assetName}`);
@@ -83,8 +87,14 @@ async function testGeneratedLuaDefinitionsFiles(generatedLuaPath, luaLsPath) {
       deleteDirectory(workspaceDir);
       fs.mkdirSync(workspaceDir);
 
-      copyDirectory(path.join(generatedLuaPath, folder, "AllTspCommands"), workspaceDir);
-      copyDirectory(path.join(generatedLuaPath, folder, "Helper"), workspaceDir);
+      copyDirectory(
+        path.join(generatedLuaPath, folder, "AllTspCommands"),
+        workspaceDir
+      );
+      copyDirectory(
+        path.join(generatedLuaPath, folder, "Helper"),
+        workspaceDir
+      );
       fs.copyFileSync(".luarc.json", path.join(workspaceDir, ".luarc.json"));
 
       try {
@@ -96,7 +106,10 @@ async function testGeneratedLuaDefinitionsFiles(generatedLuaPath, luaLsPath) {
       await runExecutable(luaLsPath, ["--check", workspaceDir]);
 
       try {
-        fs.copyFileSync(path.join("release", "log", "check.json"), path.join(testResultDir, "Diagnostics.json"));
+        fs.copyFileSync(
+          path.join("release", "log", "check.json"),
+          path.join(testResultDir, "Diagnostics.json")
+        );
       } catch (err) {
         console.error(`Error processing folder ${folder}.`, err);
       }
@@ -127,7 +140,9 @@ async function main() {
   const generatedLuaPath = process.argv[2];
 
   if (!generatedLuaPath) {
-    console.error('Please provide the path to the generated Lua definition folder.');
+    console.error(
+      "Please provide the path to the generated Lua definition folder."
+    );
     process.exit(1);
   }
 
@@ -138,11 +153,13 @@ async function main() {
     const assetName = await downloadReleaseAssetAndUnzipIt(owner, repo);
     await unzipAndSave(assetName, "release");
 
-    const luaLSPath = os.platform() === "win32" 
-      ? path.join("release", "bin", "lua-language-server.exe") 
-      : path.join("release", "bin", "lua-language-server");
+    const luaLSPath =
+      os.platform() === "win32"
+        ? path.join("release", "bin", "lua-language-server.exe")
+        : path.join("release", "bin", "lua-language-server");
 
     await testGeneratedLuaDefinitionsFiles(generatedLuaPath, luaLSPath);
+    deleteDirectory(assetName);
   } catch (error) {
     console.error(`Error in download and unzip process: ${error.message}`);
   }
