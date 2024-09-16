@@ -18,8 +18,14 @@ class Confiurations:
                         "2461",
                         "2470",
                         "DMM7510",
-                        "26XX"
+                        "26XX",
+                        "2651A",
+                        "2657A",
                         ]
+    
+    MODEL_2650A_CHANNELS= {"2651A":["a"], 
+                          "2657A":["a"],
+    }
     
     MODEL_2600B_CHANNELS= {"2601B":["a"], 
                           "2611B":["a"],

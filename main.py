@@ -28,6 +28,11 @@ def parse_web_help_files(webHelpFoldersDir):
                             Confiurations.MODEL_NUMBER = model
                             Confiurations.CHANNELS = Confiurations.MODEL_2600B_CHANNELS.get(model)
                             parse()
+
+                    elif str(dir).find("Commands_2651A")!= -1 or str(dir).find("Commands_2657A")!= -1:
+                        Confiurations.CHANNELS = Confiurations.MODEL_2650A_CHANNELS.get(dir.split("_")[1])
+                        Confiurations.MODEL_NUMBER = dir.split("_")[1]
+                        parse()
                     else:
                         Confiurations.MODEL_NUMBER = dir.split("_")[1]
                         parse()
@@ -42,7 +47,7 @@ def parse():
     description_list = []
 
     for filename in os.listdir(Confiurations.HELP_FILE_FOLDER_PATH):
-        if filename.endswith('.htm'):
+        if filename.endswith('.htm') or filename.endswith('.html'):
         #if filename.endswith('.html'):                   # 70xB
             fname = os.path.join(Confiurations.HELP_FILE_FOLDER_PATH,filename)
             soup = HelperFunctions.Parser(fname)                    
