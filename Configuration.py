@@ -2,13 +2,13 @@
 import os
 
 class Confiurations:
-    HELP_FILE_FOLDER_PATH = "C:\\Users\\rjha\\source\\repos\\GitHub\\tsp-toolkit-webhelp\\WebHelpDocs\\Commands_DMM7510\\"
+    HELP_FILE_FOLDER_PATH = ""
 
     # model number
-    MODEL_NUMBER = "DMM7510"
+    MODEL_NUMBER = ""
 
     # Currently ist only get used for 26xx models
-    CHANNELS = ['a']
+    CHANNELS = []
 
     # folder path where generated json file will store
     OUTPUT_FOLDER_PATH = os.path.join(os.getcwd(), "data")
@@ -18,7 +18,7 @@ class Confiurations:
                         "2461",
                         "2470",
                         "DMM7510",
-                        "26XX",
+                        "2600B",
                         "2651A",
                         "2657A",
                         ]
