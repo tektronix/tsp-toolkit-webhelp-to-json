@@ -266,25 +266,7 @@ namespace jsonToLuaParser
             command_help += "\n";
             #endregion            
 
-            var helpFilePath = $@"{(file_name.Contains("26") ? "Commands_26XX" : "Commands_" + file_name)}/{cmd.webhelpfile}";
-            command_help += "\n--- **" + cmd.description + "**\n---\n"
-            + "--- *Type:*  " + cmd.command_type + "\n---\n"
-            + "--- *Details:*<br>\n--- " + cmd.details + "\n---\n"
-            + "---[command help](command:kic.viewHelpDocument?[\"" + helpFilePath + "\"])" + "\n---\n"
-            + "---<br>*Examples:*<br>\n"
-            + "--- ```lua\n";
-
-            foreach (var x in cmd.example_info)
-            {
-                var exmp = x.example.Split(';');
-                foreach (var item in exmp)
-                {
-                    command_help += "--- " + item + "\n";
-                }
-                //outStr += "--- " + x.example + "\n"
-                command_help += "--- --" + x.description;
-            }
-            command_help += "--- ```\n";
+            command_help += get_command_header(cmd, file_name) + "\n";
 
             if (cmd.name.Contains("trigger.BLOCK_"))
             {
@@ -634,7 +616,7 @@ namespace jsonToLuaParser
             var command_header = "\n---**" + cmd.name + "**\n"
                 + "----";
 
-            var helpFilePath = $@"{(file_name.Contains("26") ? "Commands_26XX" : "Commands_" + file_name)}/{cmd.webhelpfile}";
+            var helpFilePath = $@"{file_name}/{cmd.webhelpfile}";
             command_header += "\n--- **" + cmd.description + "**\n---\n"
             + "--- *Type:*  " + cmd.command_type + "\n---\n"
             + "--- *Details:*<br>\n--- " + cmd.details + "\n---\n"
