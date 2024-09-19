@@ -21,18 +21,24 @@ def parse_web_help_files(webHelpFoldersDir):
         try:
             folder = os.path.join(webHelpFoldersDir, dir)
             if os.path.isdir(folder):
-                if dir.split("_")[1] in Confiurations.SUPPORTED_MODELS:
+                if dir in Confiurations.SUPPORTED_MODELS:
                     Confiurations.HELP_FILE_FOLDER_PATH = folder
-                    if str(dir).find("Commands_26XX")!= -1:
+                    if str(dir).find("2600B")!= -1:
                         for model in Confiurations.MODEL_2600B_CHANNELS.keys():
                             Confiurations.MODEL_NUMBER = model
                             Confiurations.CHANNELS = Confiurations.MODEL_2600B_CHANNELS.get(model)
                             parse()
+
+                    elif str(dir).find("2651A")!= -1 or str(dir).find("2657A")!= -1:
+                        Confiurations.CHANNELS = Confiurations.MODEL_2650A_CHANNELS.get(dir)
+                        Confiurations.MODEL_NUMBER = dir
+                        parse()
+                    
                     else:
-                        Confiurations.MODEL_NUMBER = dir.split("_")[1]
+                        Confiurations.MODEL_NUMBER = dir
                         parse()
                 else:
-                    print(dir.split("_")[1]+ " is not supported")
+                    print(dir+ " is not supported")
 
         except Exception as E:
             print(E)
@@ -42,7 +48,7 @@ def parse():
     description_list = []
 
     for filename in os.listdir(Confiurations.HELP_FILE_FOLDER_PATH):
-        if filename.endswith('.htm'):
+        if filename.endswith('.htm') or filename.endswith('.html'):
         #if filename.endswith('.html'):                   # 70xB
             fname = os.path.join(Confiurations.HELP_FILE_FOLDER_PATH,filename)
             soup = HelperFunctions.Parser(fname)                    
