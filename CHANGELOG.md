@@ -15,6 +15,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Fixed -- for any bug fixes.
     Security -- in case of vulnerabilities.
 -->
+## [0.18.0]
+
+### Added
+- Added language feature support for 2651A and 2657A models
+- **tsp-toolkit-webhelp:** Added webhelp documents for 2651A and 2657A models
+
 ## [0.16.0]
 
 ### Fixed
