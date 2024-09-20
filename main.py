@@ -24,17 +24,13 @@ def parse_web_help_files(webHelpFoldersDir):
                 if dir in Confiurations.SUPPORTED_MODELS:
                     Confiurations.HELP_FILE_FOLDER_PATH = folder
                     if str(dir).find("2600B")!= -1:
-                        for model in Confiurations.MODEL_2600B_CHANNELS.keys():
+                        for model in Confiurations.MODEL_2600B_MODELS:
                             Confiurations.MODEL_NUMBER = model
-                            Confiurations.CHANNELS = Confiurations.MODEL_2600B_CHANNELS.get(model)
+                            Confiurations.CHANNELS = Confiurations.MODEL_CHANNELS.get(model)
                             parse()
-
-                    elif str(dir).find("2651A")!= -1 or str(dir).find("2657A")!= -1:
-                        Confiurations.CHANNELS = Confiurations.MODEL_2650A_CHANNELS.get(dir)
-                        Confiurations.MODEL_NUMBER = dir
-                        parse()
-                    
+                            
                     else:
+                        Confiurations.CHANNELS = Confiurations.MODEL_CHANNELS.get(dir)
                         Confiurations.MODEL_NUMBER = dir
                         parse()
                 else:
@@ -57,6 +53,12 @@ def parse():
                 command= soup.find_all("h2","heading2-icl").pop(0).get_text().strip()
             except:
                 command= ""
+
+            # for 2601B-PULSE the commands are already having smua.
+            # Making this to similar to other 2600 models
+            if Confiurations.MODEL_NUMBER == "2601B-PULSE" and command.startswith('smua.'):
+                command = command.replace("smua", "smuX")
+
 
             if command == "*CLS" or command == "*ESR?" or command == "*OPC" or command == "*OPC?" or command == "*ESE" or  command == "*ESE?" or command == "*IDN?" or command == "*LANG?" or command == "*LANG" or command == "*RST" or  command == "*SRE?" or  command == "*SRE" or  command == "*STB?" or  command == "*TRG" or  command == "*TST?" or  command == "*WAI":
                 continue
