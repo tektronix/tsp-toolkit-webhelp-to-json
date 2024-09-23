@@ -9,6 +9,19 @@ namespace jsonToLuaParser
     class Utility
     {
 
+        private static readonly List<string> MODEL_2600B_MODELS = new List<string>
+        {
+            "2601B",
+            "2611B",
+            "2635B",
+            "2604B",
+            "2614B",
+            "2602B",
+            "2612B",
+            "2634B",
+            "2636B"
+        };
+
         public class Example_Info
         {
             public string example { get; set; }
@@ -616,7 +629,7 @@ namespace jsonToLuaParser
             var command_header = "\n---**" + cmd.name + "**\n"
                 + "----";
 
-            var helpFilePath = $@"{file_name}/{cmd.webhelpfile}";
+            var helpFilePath = $@"{(MODEL_2600B_MODELS.Contains(file_name)?"2600B": file_name )}/{cmd.webhelpfile}";
             command_header += "\n--- **" + cmd.description + "**\n---\n"
             + "--- *Type:*  " + cmd.command_type + "\n---\n"
             + "--- *Details:*<br>\n--- " + cmd.details + "\n---\n"
