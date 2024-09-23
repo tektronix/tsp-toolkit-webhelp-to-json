@@ -251,6 +251,7 @@ bits: number
 
 setup.poweron
 id: integer
+N: integer
 
 tsplink.writeprotect
 mask: number
@@ -330,6 +331,9 @@ sourceRangeLow: number
 
 smuX.source.offlimitY
 sourceLimit: number
+
+smuX.source.protectv
+limit: number
 
 smuX.source.rangeY
 rangeValue: number
@@ -868,6 +872,7 @@ model: string
 
 localnode.password
 password: string
+passWord: string
 
 localnode.prompts
 prompting: localnodepromptsprompting
@@ -2729,11 +2734,32 @@ adjustDate: number
 smuX.cal.date
 calDate: number
 
-smua.cal.due
+smuX.cal.due
 calDue: number
 
 smuX.cal.unlock()
 password: string
+
+smuX.interlock.enable
+interlockState: interlockState
+
+smuX.pulser.enable
+enable: pulserState
+
+smuX.pulser.protect.sensev
+level: number
+
+smuX.pulser.protect.tripped
+tripped: boolean
+
+smuX.pulser.protect.sourcev
+level: number
+
+smuX.pulser.measure.aperture
+aperture: number
+
+smuX.pulser.measure.delay
+delay: number
 
 smuX.contact.calibratehi()
 cp1Measured: number
@@ -2760,6 +2786,9 @@ bufferSize: integer
 
 smuX.nvbufferY
 bufferVar: bufferVar
+
+smuX.measure.adc
+adc: adcConverter
 
 smuX.measure.calibrateY()
 range: number
@@ -2833,6 +2862,9 @@ smuX.trigger.measure.Y()
 rbuffer: bufferVar
 ibuffer: bufferVar
 vbuffer: bufferVar
+
+smuX.trigger.source.pulsewidth
+pulsewidth: number
 
 smuX.trigger.source.linearY()
 startValue: number

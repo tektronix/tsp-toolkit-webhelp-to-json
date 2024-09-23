@@ -15,6 +15,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Fixed -- for any bug fixes.
     Security -- in case of vulnerabilities.
 -->
+
+## [0.18.1]
+
+### Fixed
+- Fixed any type issue for few commands 
+- Fixing command help link is broken for 2600B models
+
 ## [0.18.0]
 
 ### Added
@@ -37,7 +44,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.16.0...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.1...HEAD
+[0.18.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.1
+[0.18.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.0
 [0.16.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.16.0
 [0.15.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.3
 [0.15.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.15.1
