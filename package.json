@@ -1,6 +1,6 @@
 {
   "name": "@tektronix/keithley_instrument_libraries",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "",
   "main": "index.js",
   "scripts": {

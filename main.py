@@ -56,7 +56,7 @@ def parse():
 
             # for 2601B-PULSE the commands are already having smua.
             # Making this to similar to other 2600 models
-            if Confiurations.MODEL_NUMBER == "2601B-PULSE" and command.startswith('smua.'):
+            if Confiurations.MODEL_NUMBER == "2601B-PULSE" and command.find('smua.')!=-1:
                 command = command.replace("smua", "smuX")
 
 
