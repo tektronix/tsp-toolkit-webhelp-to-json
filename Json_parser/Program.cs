@@ -33,7 +33,11 @@ namespace jsonToLuaParser
             {
                 parse_commands_josn(base_lib_dir, file);
             }
-            
+
+            // Copy tsp-lua-5.0 definations
+            Directory.CreateDirectory(Path.Combine(base_lib_dir, "tsp-lua-5.0"));
+            var lua_definations_file_path = Path.Combine(base_lib_dir, "tsp-lua-5.0");
+            CopyStaticFiles("tsp-lua-5.0", lua_definations_file_path);
         }
 
        static void parse_commands_josn(string base_lib_dir, string json_file_path)
