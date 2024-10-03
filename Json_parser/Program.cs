@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 //using static jsonToLuaParser.Utility;
 using static jsonToLuaParser.Utility;
 namespace jsonToLuaParser
@@ -192,7 +193,8 @@ function trigger.model.load(loadFunConst,...) end";
             }
 
             var nodeTable_str = @"{" + string.Join(",\n ", nodeTable) + "\n}";
-            var nodeTableDetails = $"---@meta\n\n---@class model{file_name}\nmodel{file_name} = {nodeTable_str}" +
+            var node_class_name = Regex.Replace(file_name, @"[^a-zA-Z0-9_]", "");
+            var nodeTableDetails = $"---@meta\n\n---@class model{node_class_name}\nmodel{node_class_name} = {nodeTable_str}" +
                 $"\n--#region node details\n--#endregion";
 
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model));
