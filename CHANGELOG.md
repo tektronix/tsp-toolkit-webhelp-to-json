@@ -16,6 +16,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
+## [0.18.2]
+
+### Added
+- Added Lua 5.0 definitions
+
 ## [0.18.1]
 
 ### Fixed
@@ -44,7 +49,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.1...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.2...HEAD
+[0.18.2]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.2
 [0.18.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.1
 [0.18.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.0
 [0.16.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.16.0
