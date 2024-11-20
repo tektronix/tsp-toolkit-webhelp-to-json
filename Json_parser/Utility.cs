@@ -22,6 +22,9 @@ namespace jsonToLuaParser
             "2636B"
         };
 
+        public static string NODE_STR = "";
+        public static string NODE_ALIAS_STR = "";
+
         public class Example_Info
         {
             public string example { get; set; }
@@ -129,198 +132,111 @@ namespace jsonToLuaParser
             return cmdList;
         }
 
-        public static void PrintFields(int depth, string file_name, ref Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, ref string outStr, ref string tsplinkStr, ref string[] arrList, string item)
+        public static string PrintFields(int depth, string file_name, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, bool forTspLink)
         {
+            var outStr = "";
+            if (forTspLink) // for tsplink node string needs to append in tables
+            {
+                NODE_STR = "node[2].";
+                NODE_ALIAS_STR = "node2_";
+                outStr += "node = {}\nnode[2] = {}\n";
+
+            }
+            else
+            {
+                NODE_STR = "";
+                NODE_ALIAS_STR = "";
+            }
+                
+
             string table_name = "";
             string type_name = "";
+            string[] arrList = { };
             for (int i = 0; i < depth; i++)
             {
                 foreach (var keyValuePair in instrTable[i])
                 {
                     string class_data = "";
-                    if (item != "null")
+                    // Handling Arrays in commands
+                    string[] arrayMarkers = { "[N]", "[Y]", "[slot]", "[1]", "[X]" };
+                    var is_array = false;
+                    
+                    foreach (var marker in arrayMarkers)
                     {
-                        foreach (var keyvalue in keyValuePair.Value)
+                        if (keyValuePair.Key.Contains(marker))
                         {
-                            bool a = keyvalue.Value.supportedModels.Contains(item);
-                            if (a == true && !item.Contains("-L") && (item.Contains("2604B") || item.Contains("2614B") || item.Contains("2634B")))
+                            table_name = keyValuePair.Key.Replace(marker, "");
+                            type_name = keyValuePair.Key.Replace(marker, "|").Split('|')[0].Replace(".", "") + "Arr";
+                            if (!arrList.Contains(type_name))
                             {
-                                return;
+                                arrList = arrList.Append(type_name).ToArray();
+                                class_data += $"---@class {type_name}\n";
+                                class_data += $"local {type_name} = {{}}\n\n";
+                                class_data += $"---@type {type_name}[]\n";
+                                class_data += $"{NODE_STR}{table_name} = {{}}\n";
+                                table_name = $"{type_name}";
                             }
-                            continue;
-                        }
-                    }
-
-                    if (keyValuePair.Key.Contains("localnode.settimme()"))
-                        continue;
-                    //Handling Arrays in commands
-                    if (keyValuePair.Key.Contains("[N]") || keyValuePair.Key.Contains("[Y]") || keyValuePair.Key.Contains("[slot]") || keyValuePair.Key.Contains("[1]") || keyValuePair.Key.Contains("[X]"))
-                    {
-                        if (keyValuePair.Key.Contains("[N]"))
-                        {
-                            table_name = keyValuePair.Key.Replace("[N]", "");
-                            type_name = keyValuePair.Key.Replace("[N]", "|").Split('|')[0].Replace(".", "") + "Arr";
-                        }
-                        else if (keyValuePair.Key.Contains("[Y]"))
-                        {
-                            table_name = keyValuePair.Key.Replace("[Y]", "");
-                            type_name = keyValuePair.Key.Replace("[Y]", "|").Split('|')[0].Replace(".", "") + "Arr";
-                        }
-                        else if (keyValuePair.Key.Contains("[1]"))
-                        {
-                            table_name = keyValuePair.Key.Replace("[1]", "");
-                            type_name = keyValuePair.Key.Replace("[1]", "|").Split('|')[0].Replace(".", "") + "Arr";
-                        }
-                        else if (keyValuePair.Key.Contains("[slot]"))
-                        {
-                            table_name = keyValuePair.Key.Replace("[slot]", "");
-                            type_name = keyValuePair.Key.Replace("[slot]", "|").Split('|')[0].Replace(".", "") + "Arr";
-                        }
-                        else
-                        {
-                            table_name = keyValuePair.Key.Replace("[X]", "");
-                            type_name = keyValuePair.Key.Replace("[X]", "|").Split('|')[0].Replace(".", "") + "Arr";
-                        }
-
-                        if (!arrList.Contains(type_name))
-                        {
-                            arrList = arrList.Append(type_name).ToArray();
-                            class_data += "---@class " + type_name + "\n";
-                            class_data += "local " + type_name + " = {}\n\n";
-
-                            class_data += "---@type " + type_name + "[]\n";
-                            class_data += table_name + " = {}\n";
-                        }
-                        else
-                        {
-                            class_data += "---@type " + type_name + "[]\n";
-                            string rem = "";
-                            if (keyValuePair.Key.Contains("[N]"))
-                                rem = keyValuePair.Key.Replace("[N]", "|").Split('|')[1];
-                            else if (keyValuePair.Key.Contains("[Y]"))
-                                rem = keyValuePair.Key.Replace("[Y]", "|").Split('|')[1];
-                            else if (keyValuePair.Key.Contains("[1]"))
-                                rem = keyValuePair.Key.Replace("[1]", "|").Split('|')[1];
-                            else if (keyValuePair.Key.Contains("[X]"))
-                                rem = keyValuePair.Key.Replace("[X]", "|").Split('|')[1];
                             else
-                                rem = keyValuePair.Key.Replace("[slot]", "|").Split('|')[1];
-                            class_data += type_name + rem + " = {}\n";
+                            {
+                                string rem = keyValuePair.Key.Replace(marker, "|").Split('|')[1];
+                                class_data += type_name + rem + " = {}\n";
+                                table_name = $"{type_name}{rem}";
+                            }
+                            is_array = true;
+                            break;
                         }
+                    }
 
-                    }
-                    else
+                    if (!is_array)
                     {
-                        //table_name = keyValuePair.Key.Replace("[1]",""); //DMM6500 slot[1]
-                        table_name = keyValuePair.Key;
-                        if (!table_name.Contains("bufferVar") && !table_name.Contains("scriptVar") && !table_name.Contains(".setblock()"))
-                        {
-                            class_data += "---@class " + table_name + "\n";
-                            if (i == 0)
-                                class_data += table_name + " = {}\n";
-                            else
-                                class_data += table_name + " = {}\n";
-                        }
+                        table_name = NODE_STR + keyValuePair.Key;
+                        class_data += "---@class " + keyValuePair.Key + "\n";
+                        class_data += table_name + " = {}\n";
                     }
+
                     outStr += class_data;
                     outStr += "\n\n";
-
-                    bool class_data_populated = false;
-                    foreach (var keyvalue in keyValuePair.Value)
+                    foreach (var cmd in keyValuePair.Value)
                     {
-                        HelpContent(keyvalue.Value, file_name, ref outStr, ref tsplinkStr, class_data, class_data_populated, keyValuePair.Key, keyvalue.Key, false);
-                        class_data_populated = true;
+                        if (forTspLink)
+                        {
+                            if (cmd.Value.tsplink_supported.Contains("Yes"))
+                            {
+                                outStr += HelpContent_for_nodes(cmd, file_name, table_name);
+                            }
+                                
+                        }
+
+                        else
+                        {
+                            outStr += HelpContent_for_nodes(cmd, file_name, table_name);
+
+                        }
+                                
                     }
                 }
             }
+            return outStr;
         }
 
-        public static void HelpContent(CommandInfo cmd, string file_name, ref string outStr, ref string tsplinkStr, string class_data, bool class_data_populated, string table, string attr, bool directCall)
+        public static string HelpContent_for_nodes(KeyValuePair<string, CommandInfo> command, string file_name, string table)
         {
-            string command_help = "";
-            if (cmd.name.Contains("node[N].execute()"))
-                System.Console.WriteLine(cmd.name);
+            var command_help = "";
 
-            string[] example = new string[] { };
-            string[] enum_class = new string[] { };
-
-            #region Enum_Population
-            foreach (var param in cmd.param_info)
-            {
-                if (cmd.usage.Length == 0)
-                    continue;
-                else if ((cmd.command_type == CommandType.Attribute_RW) && (cmd.usage.Length == 1) && (!cmd.usage[0].Contains(param.Name)))
-                    continue;
-                else if ((cmd.command_type == CommandType.Attribute_RW) && (cmd.usage.Length > 1) && (!cmd.usage[0].Contains(param.Name) || !cmd.usage[1].Contains(param.Name)))
-                    continue;
-                else if ((cmd.command_type == CommandType.Attribute_RO) && (!cmd.usage[0].Contains(param.Name)))
-                    continue;
-                else if ((cmd.command_type == CommandType.Function) && ((!cmd.signature.Contains(param.Name) && !cmd.command_return.Contains(param.Name))) && cmd.name != "eventlog.suppress()")
-                    continue;
-                else if (param.enums != "")
-                {
-                    var aliasName = param.Type.Contains('|') ? param.Type.Split('|')[0].Trim() : param.Type;
-
-                    string[] enum_data = param.enums.Split('|');
-                    command_help += "\n";
-                    foreach (var data in enum_data)
-                    {
-                        command_help += data.Split(' ')[0] + " = " + data.Split(' ')[1] + "\n";
-                    }
-                    command_help += "\n---@alias " + aliasName + "\n";
-                    foreach (var data in enum_data)
-                    {
-                        command_help += "---|`" + data.Split(' ')[0] + "`\n";
-                    }
-                    command_help += "\n";
-                }
-            }
-            //}
-            command_help += "\n";
-            #endregion            
-
-            command_help += get_command_header(cmd, file_name) + "\n";
-
-            if (cmd.name.Contains("trigger.BLOCK_"))
-            {
-                command_help += "--- Additional paramteres are:\n";
-                foreach (var param in cmd.param_info)
-                {
-                    if (param.Name != "blockNumber" && param.Name != cmd.name)
-                    {
-                        command_help += "--- - *" + param.Name + "*: " + param.Description + "<br>\n";
-                        if (param.enums != "")
-                        {
-                            string[] enum_data = param.enums.Split('|');
-                            //command_help += "---\n--- This has a paraamter **" + param.Name + "** , that accepets following enum inputs:\n";
-                            foreach (var data in enum_data)
-                            {
-                                command_help += "---    ```" + data.Split(' ')[0] + "```<br>\n";
-                            }
-                        }
-                    }
-                }
-            }
-
-            /* if (table.Contains("bufferVar"))
-            {
-                if (cmd.signature.Contains("[N]"))
-                {
-                    outStr += "---@type integer[]\n";
-                    outStr += "bufferVar." + attr + "= {}\n";
-                }
-                else
-                {
-                    if (cmd.command_type == CommandType.Function)
-                        outStr += "function bufferVar." + attr + "end \n";
-                    else
-                        outStr += "bufferVar." + attr + "= 0\n";
-                }
-                return;
-            } */
-
+            var cmd = command.Value;
             if (cmd.command_type == CommandType.Function)
             {
+                // implement function here
+                foreach (var param in cmd.param_info)
+                {
+                    if (param.enums != "")
+                    {
+                        command_help += create_tspLinkNode_enum_alias_type(param);
+                    }
+                }
+
+                command_help += get_command_header(cmd, file_name) + "\n";
+
                 List<string> command_returns = cmd.command_return.ToUpper().Split(',')
                                           .Select(st => st.Trim())
                                           .ToList();
@@ -338,177 +254,44 @@ namespace jsonToLuaParser
                 }
                 foreach (var param in cmd.param_info)
                 {
-                    
+
                     if (s.Contains(param.Name.ToUpper()))
                     {
-                        string temp = "\"" + param.Name + "\"";
-                        command_help += "---@param " + param.Name;
+                        if (param.enums != "")
+                            command_help += $"---@param {param.Name} {NODE_ALIAS_STR}{param.Type} {param.Description}\n";
+                        else
+                            command_help += $"---@param {param.Name} {param.Type} {param.Description}\n";
 
-                        if (s.Contains(temp))
-                            command_help += " " + param.Type + " ";
-                        //else
-                        command_help += " " + param.Type + " ";
-                        command_help += param.Description + "\n";
                     }
                     else if (command_returns.Contains(param.Name.ToUpper()))
                     {
-                        command_help += "---@return ";
-
-                        if (param.Name.Contains("fileNumber"))
-                            command_help += "file_object ";
-                        else if (param.Name.Contains("scriptVar"))
-                            command_help += "scriptVar ";
-                        else if (param.Name.Contains("bufferName") || param.Name.Contains("bufferVar"))
-                            command_help += "bufferVar ";
-                        else if (param.Name.Contains("connectionID"))
-                            command_help += "tspnetConnectionID ";
+                        if (param.enums != "")
+                            command_help += $"---@return {NODE_ALIAS_STR}{param.Type} {param.Name} {param.Description}";
                         else
-                            command_help += param.Type + " ";
+                            command_help += $"---@return {param.Type} {param.Name} {param.Description}";
 
-                        command_help += param.Name + " " + param.Description + "\n";
+                        //if (param.Name.Contains("fileNumber"))
+                        //    command_help += "file_object ";
+                        //else if (param.Name.Contains("scriptVar"))
+                        //    command_help += "scriptVar ";
+                        //else if (param.Name.Contains("bufferName") || param.Name.Contains("bufferVar"))
+                        //    command_help += "bufferVar ";
+                        //else if (param.Name.Contains("connectionID"))
+                        //    command_help += "tspnetConnectionID ";
+                        //else
+                        //    command_help += param.Type + " ";
+
+                        //command_help += param.Name + " " + param.Description + "\n";
                     }
-                    /* else if(cmd.name == "eventlog.suppress()")
-                    {
-                        outStr += "---@param eventType eventlogsuppresseventType\n";
-                    } */
                 }
                 cmd.signature = cmd.signature.Replace("\"", "");
-            }
 
-            if (cmd.command_type != CommandType.Function && !cmd.name.Contains("trigger.BLOCK_")) // for attributes
-            {
-                //foreach (var parm in cmd.param_info)
-                //{
-                //    if (parm.enums != "" && !table.Contains("bufferVar"))
-                //    {
-                //        if (cmd.usage[0].Contains(parm.Name))// || cmd.usage[1].Contains(parm.Name))
-                //            command_help += "---@type " + parm.Type + "\n";
-                //    }
-                //}
-
-                var lst = get_return_type_and_default_value(cmd);
-
-                if (table.Contains("[N]") || table.Contains("[Y]") || table.Contains("[slot]") || table.Contains("[1]") || table.Contains("[X]"))
-                {
-                    string[] a = table.Split('[');
-                    string type_name = a[0].Replace(".", "") + "Arr";
-                    if (table.Contains("[N]"))
-                    {
-                        a[1] = a[1].Replace("N]", "");
-                    }
-                    if (table.Contains("[Y]"))
-                    {
-                        a[1] = a[1].Replace("Y]", "");
-                    }
-                    if (table.Contains("[slot]"))
-                    {
-                        a[1] = a[1].Replace("slot]", "");
-                    }
-                    if (table.Contains("[1]"))
-                    {
-                        a[1] = a[1].Replace("1]", "");
-                    }
-                    if (table.Contains("[X]"))
-                    {
-                        a[1] = a[1].Replace("X]", "");
-                    }
-
-                    if (a[1] != "")
-                    {
-                        if (attr.Contains("stimulus") && !attr.Contains("["))
-                        {
-                            command_help += $"---@type {lst[0]}\n";
-                            command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
-                        }
-                        else
-                        {
-                            command_help += $"---@type {lst[0]}\n";
-                            command_help += type_name + a[1] + "." + attr + "= 0\n\n";
-
-                        }
-
-                    }
-                    else
-                    {
-                        if (attr.Contains("stimulus["))
-                        {
-                            command_help += $"---@type {lst[0]}\n";
-                            attr = attr.Remove(attr.Length - 3, 3);
-                            command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
-                        }
-                        else if (attr.Contains("stimulus") && !attr.Contains("["))
-                        {
-                            command_help += $"---@type {lst[0]}\n";
-                            command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
-                        }
-                        else
-                        {
-                            command_help += $"---@type {lst[0]}\n";
-                            command_help += $"{type_name}.{attr} = {lst[1]}\n";
-
-                        }
-
-                    }
-
-                }
-                else if (table.Contains("bufferVar") || table.Contains("bufferName"))
-                {
-                    command_help += $"---@type {lst[0]}\n";
-                    command_help += $"bufferVar.{attr} = {lst[1]}\n";
-
-                }
-                else if (table.Contains("scriptVar"))
-                {
-                    command_help += $"---@type {lst[0]}\n";
-                    command_help += $"scriptVar.{attr} = {lst[1]}\n";
-                }
-                else if (attr.Contains("address[N]"))
-                {
-                    command_help += "---@type integer[]\n";
-                    attr = attr.Replace("[N]", "");
-                    command_help += table + "." + attr + " = 0\n\n";
-                }
-                else if (attr.Contains("stimulus"))
-                {
-                    command_help += "---@type triggerEvents|0\n";
-                    command_help += table + "." + attr + "= 0\n\n";
-                }
-                else if (attr.Contains("[N]"))//TODOD need to check this can be removed
-                {
-                    attr = attr.Remove(attr.Length - 3, 3);
-                    command_help += $"---@type {lst[0]}\n";
-                    command_help += $"{table}.{attr} = {lst[1]}\n";
-
-                }
-
-                else if (attr.Contains("EVENT_ID"))
-                {
-                    command_help += "---@type eventID\n";
-                    command_help += table + "." + attr + "= nil\n";
-                }
-                else
-                {
-                    if (directCall)
-                    {
-                        cmd.name = cmd.name.Replace("*", "star_");
-                        command_help += cmd.name + "= 0\n\n";
-                    }
-                    else
-                    {
-                        command_help += $"---@type {lst[0]}\n";
-                        command_help += $"{table}.{attr} = {lst[1]}\n";
-
-                    }
-                }
-            }
-            else if (cmd.command_type == CommandType.Function || (cmd.command_type == CommandType.Attribute_WO && cmd.name.Contains(" trigger.BLOCK_")))
-            {
-                if (cmd.overloads.Length > 0 && !cmd.name.Contains("trigger.BLOCK_"))
+                if (cmd.overloads.Length > 0)
                 {
                     // System.Console.WriteLine(cmd.signature);
                     foreach (var sig in cmd.overloads)
                     {
-                        System.Console.WriteLine(sig);
+                        
                         int startIndex = sig.IndexOf("(") + 1;
                         int endIndex = sig.IndexOf(")", startIndex);
                         var overlad_params = sig.Substring(startIndex, endIndex - startIndex).Split(',').Select(str => str.Trim()).ToList();
@@ -517,106 +300,398 @@ namespace jsonToLuaParser
                         foreach (var param in cmd.param_info)
                         {
                             if (cmd.command_return.Contains(param.Name))
-                                overload_return_type.Add($"{param.Name}:{param.Type}");
+                                if (param.enums != "")
+                                    overload_return_type.Add($"{param.Name}:{NODE_ALIAS_STR}{param.Type}");
+                                else
+                                    overload_return_type.Add($"{param.Name}:{param.Type}");
                             if (overlad_params.Contains(param.Name))
                             {
-                                overload_sig_and_type.Add($"{param.Name}:{param.Type}");
+                                if (param.enums != "")
+                                    overload_sig_and_type.Add($"{param.Name}:{NODE_ALIAS_STR}{param.Type}");
+                                else
+                                    overload_sig_and_type.Add($"{param.Name}:{param.Type}");
                             }
                         }
 
                         command_help += getOverloadDoc($"({string.Join(",", overload_sig_and_type)}){(overload_return_type.Count > 0 ? ":" : "")}{string.Join(", ", overload_return_type)}") + "\n";
                     }
                 }
-                else
-                {
-                    if (cmd.name.Contains("trigger.BLOCK_") && cmd.overloads.Length > 0)
-                        command_help += "--\n--- Overloads are:\n";
-                    foreach (var sig in cmd.overloads)
-                    {
-                        command_help += "--- - " + sig + "\n";
-                    }
-                }
 
-                if (table.Contains("[N]") || table.Contains("[Y]") || table.Contains("[slot]") || table.Contains("[X]"))
-                {
-                    string[] a = cmd.signature.Split('[');
-                    //string[] a = table.Split('[');
-                    string type_name = a[0].Replace(".", "") + "Arr";
-                    if (table.Contains("[N]"))
-                    {
-                        a[1] = a[1].Replace("N]", "");
-                    }
-                    if (table.Contains("[Y]"))
-                    {
-                        a[1] = a[1].Replace("Y]", "");
-                    }
-                    if (table.Contains("[slot]"))
-                    {
-                        a[1] = a[1].Replace("slot]", "");
-                    }
-                    if (table.Contains("[X]"))
-                    {
-                        a[1] = a[1].Replace("X]", "");
-                    }
 
-                    command_help += "function " + type_name + a[1] + " end\n\n";
-                }
-                else if (cmd.signature.Contains("scriptVar"))
+                var function_name = command.Key.Replace("(", "").Replace(")", "");
+                command_help  += $"function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
+                command_help += $"{table}.{function_name} = { function_name}\n";
+            }
+
+            else // attributes
+            {
+
+                var attr = command.Key.Replace("[M]", "").Replace("[N]", ""); //some attributes are having [N] or [M] at the end , which is alredy handled in its type
+                var prm = cmd.param_info.Where(param => param.Name.ToUpper() == cmd.command_return.ToUpper()).ToList();
+                var lst = get_return_type_and_default_value(cmd);
+                if (prm[0].enums != "")
                 {
-                    string sig = cmd.signature.Replace("scriptVar", "scriptVar");
-                    command_help += "function " + sig + " end\n";
-                }
-                else if (cmd.signature.Contains("fileVar"))
-                {
-                    string sig = cmd.signature.Replace("fileVar", "file_object");
-                    command_help += "function " + sig + " end\n";
-                }
-                else if (cmd.signature.Contains(".catalog()"))
-                {
-                    try
-                    {
-                        if (cmd.signature.Contains("display.loadmenu"))
-                            cmd.signature = cmd.signature.Split(' ')[4];
-                        else
-                            cmd.signature = cmd.signature.Split(' ')[3];
-                        command_help += "function " + cmd.signature + " end\n";
-                    }
-                    catch
-                    {
-                        command_help += "function " + cmd.signature + " end\n";
-                    }
-                }
-                else if (cmd.signature.Contains("bufferName."))
-                {
-                    string sig = cmd.signature.Replace("bufferName.", "bufferVar.");
-                    command_help += "function " + sig + " end\n";
-                }
-                else if (cmd.signature.Contains("bufferVar."))
-                {
-                    string sig = cmd.signature.Replace("bufferVar.", "bufferVar.");
-                    command_help += "function " + sig + " end\n";
+                    command_help += create_tspLinkNode_enum_alias_type(prm[0]);
+                    command_help += get_command_header(cmd, file_name) + "\n";
+
+                    command_help += $"---@type {NODE_ALIAS_STR}{lst[0]}\n";
+                    command_help += $"{table}.{attr} = {NODE_STR}{lst[1]}\n";
                 }
                 else
                 {
-                    if (cmd.command_type == CommandType.Function)
-                        command_help += "function " + cmd.signature + " end\n";
-                    else
-                        command_help += table + "." + attr + " = 0\n\n";
+                    command_help += get_command_header(cmd, file_name) + "\n";
+
+                    command_help += $"---@type {lst[0]}\n";
+                    command_help += $"{table}.{attr} = {lst[1]}\n";
                 }
             }
+            return command_help;
 
-            if (cmd.tsplink_supported.Contains("Yes"))
-            {
-                if (class_data_populated == false)
-                    tsplinkStr += class_data;
-                outStr += command_help;
-                tsplinkStr += command_help;
+
+
+
+
+            //string command_help = "";
+
+            //string[] example = new string[] { };
+            //string[] enum_class = new string[] { };
+
+            //#region Enum_Population
+            //foreach (var param in cmd.param_info)
+            //{
+            //    if (cmd.usage.Length == 0)
+            //        continue;
+            //    else if ((cmd.command_type == CommandType.Attribute_RW) && (cmd.usage.Length == 1) && (!cmd.usage[0].Contains(param.Name)))
+            //        continue;
+            //    else if ((cmd.command_type == CommandType.Attribute_RW) && (cmd.usage.Length > 1) && (!cmd.usage[0].Contains(param.Name) || !cmd.usage[1].Contains(param.Name)))
+            //        continue;
+            //    else if ((cmd.command_type == CommandType.Attribute_RO) && (!cmd.usage[0].Contains(param.Name)))
+            //        continue;
+            //    else if ((cmd.command_type == CommandType.Function) && ((!cmd.signature.Contains(param.Name) && !cmd.command_return.Contains(param.Name))) && cmd.name != "eventlog.suppress()")
+            //        continue;
+            //    else if (param.enums != "")
+            //    {
+            //        command_help += create_enum_alias_type(param);
+            //    }
+            //}
+            ////}
+            //command_help += "\n";
+            //#endregion            
+
+            //command_help += get_command_header(cmd, file_name) + "\n";
+
+            //if (cmd.name.Contains("trigger.BLOCK_"))
+            //{
+            //    command_help += "--- Additional paramteres are:\n";
+            //    foreach (var param in cmd.param_info)
+            //    {
+            //        if (param.Name != "blockNumber" && param.Name != cmd.name)
+            //        {
+            //            command_help += "--- - *" + param.Name + "*: " + param.Description + "<br>\n";
+            //            if (param.enums != "")
+            //            {
+            //                string[] enum_data = param.enums.Split('|');
+            //                //command_help += "---\n--- This has a paraamter **" + param.Name + "** , that accepets following enum inputs:\n";
+            //                foreach (var data in enum_data)
+            //                {
+            //                    command_help += "---    ```" + data.Split(' ')[0] + "```<br>\n";
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+
+            //if (cmd.command_type == CommandType.Function)
+            //{
+            //    List<string> command_returns = cmd.command_return.ToUpper().Split(',')
+            //                              .Select(st => st.Trim())
+            //                              .ToList();
+
+            //    int start = cmd.signature.IndexOf("(") + 1;
+            //    int end = cmd.signature.IndexOf(")", start);
+            //    string[] s;
+            //    try
+            //    {
+            //        s = cmd.signature.ToUpper().Substring(start, end - start).Replace(" ", "").Split(',');
+            //    }
+            //    catch (System.Exception)
+            //    {
+            //        s = new string[] { };
+            //    }
+            //    foreach (var param in cmd.param_info)
+            //    {
+
+            //        if (s.Contains(param.Name.ToUpper()))
+            //        {
+            //            string temp = "\"" + param.Name + "\"";
+            //            command_help += "---@param " + param.Name;
+
+            //            if (s.Contains(temp))
+            //                command_help += " " + param.Type + " ";
+            //            //else
+            //            command_help += " " + param.Type + " ";
+            //            command_help += param.Description + "\n";
+            //        }
+            //        else if (command_returns.Contains(param.Name.ToUpper()))
+            //        {
+            //            command_help += "---@return ";
+
+            //            if (param.Name.Contains("fileNumber"))
+            //                command_help += "file_object ";
+            //            else if (param.Name.Contains("scriptVar"))
+            //                command_help += "scriptVar ";
+            //            else if (param.Name.Contains("bufferName") || param.Name.Contains("bufferVar"))
+            //                command_help += "bufferVar ";
+            //            else if (param.Name.Contains("connectionID"))
+            //                command_help += "tspnetConnectionID ";
+            //            else
+            //                command_help += param.Type + " ";
+
+            //            command_help += param.Name + " " + param.Description + "\n";
+            //        }
+            //        /* else if(cmd.name == "eventlog.suppress()")
+            //        {
+            //            outStr += "---@param eventType eventlogsuppresseventType\n";
+            //        } */
+            //    }
+            //    cmd.signature = cmd.signature.Replace("\"", "");
+            //}
+
+            //if (cmd.command_type != CommandType.Function && !cmd.name.Contains("trigger.BLOCK_")) // for attributes
+            //{
+
+            //    var lst = get_return_type_and_default_value(cmd);
+
+            //    if (table.Contains("[N]") || table.Contains("[Y]") || table.Contains("[slot]") || table.Contains("[1]") || table.Contains("[X]"))
+            //    {
+            //        string[] a = table.Split('[');
+            //        string type_name = a[0].Replace(".", "") + "Arr";
+            //        if (table.Contains("[N]"))
+            //        {
+            //            a[1] = a[1].Replace("N]", "");
+            //        }
+            //        if (table.Contains("[Y]"))
+            //        {
+            //            a[1] = a[1].Replace("Y]", "");
+            //        }
+            //        if (table.Contains("[slot]"))
+            //        {
+            //            a[1] = a[1].Replace("slot]", "");
+            //        }
+            //        if (table.Contains("[1]"))
+            //        {
+            //            a[1] = a[1].Replace("1]", "");
+            //        }
+            //        if (table.Contains("[X]"))
+            //        {
+            //            a[1] = a[1].Replace("X]", "");
+            //        }
+
+            //        if (a[1] != "")
+            //        {
+            //            if (attr.Contains("stimulus") && !attr.Contains("["))
+            //            {
+            //                command_help += $"---@type {lst[0]}\n";
+            //                command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
+            //            }
+            //            else
+            //            {
+            //                command_help += $"---@type {lst[0]}\n";
+            //                command_help += type_name + a[1] + "." + attr + "= 0\n\n";
+
+            //            }
+
+            //        }
+            //        else
+            //        {
+            //            if (attr.Contains("stimulus["))
+            //            {
+            //                command_help += $"---@type {lst[0]}\n";
+            //                attr = attr.Remove(attr.Length - 3, 3);
+            //                command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
+            //            }
+            //            else if (attr.Contains("stimulus") && !attr.Contains("["))
+            //            {
+            //                command_help += $"---@type {lst[0]}\n";
+            //                command_help += type_name + a[1] + "." + attr + "= trigger.EVENT_NONE\n\n";
+            //            }
+            //            else
+            //            {
+            //                command_help += $"---@type {lst[0]}\n";
+            //                command_help += $"{type_name}.{attr} = {lst[1]}\n";
+
+            //            }
+
+            //        }
+
+            //    }
+            //    else if (table.Contains("bufferVar") || table.Contains("bufferName"))
+            //    {
+            //        command_help += $"---@type {lst[0]}\n";
+            //        command_help += $"bufferVar.{attr} = {lst[1]}\n";
+
+            //    }
+            //    else if (table.Contains("scriptVar"))
+            //    {
+            //        command_help += $"---@type {lst[0]}\n";
+            //        command_help += $"scriptVar.{attr} = {lst[1]}\n";
+            //    }
+            //    else if (attr.Contains("address[N]"))
+            //    {
+            //        command_help += "---@type integer[]\n";
+            //        attr = attr.Replace("[N]", "");
+            //        command_help += table + "." + attr + " = 0\n\n";
+            //    }
+            //    else if (attr.Contains("stimulus"))
+            //    {
+            //        command_help += "---@type triggerEvents|0\n";
+            //        command_help += table + "." + attr + "= 0\n\n";
+            //    }
+            //    else if (attr.Contains("[N]"))//TODOD need to check this can be removed
+            //    {
+            //        attr = attr.Remove(attr.Length - 3, 3);
+            //        command_help += $"---@type {lst[0]}\n";
+            //        command_help += $"{table}.{attr} = {lst[1]}\n";
+
+            //    }
+
+            //    else if (attr.Contains("EVENT_ID"))
+            //    {
+            //        command_help += "---@type eventID\n";
+            //        command_help += table + "." + attr + "= nil\n";
+            //    }
+            //    else
+            //    {
+            //        if (directCall)
+            //        {
+            //            cmd.name = cmd.name.Replace("*", "star_");
+            //            command_help += cmd.name + "= 0\n\n";
+            //        }
+            //        else
+            //        {
+            //            command_help += $"---@type {lst[0]}\n";
+            //            command_help += $"{table}.{attr} = {lst[1]}\n";
+
+            //        }
+            //    }
+            //}
+            //else if (cmd.command_type == CommandType.Function || (cmd.command_type == CommandType.Attribute_WO && cmd.name.Contains(" trigger.BLOCK_")))
+            //{
+            //    if (cmd.overloads.Length > 0 && !cmd.name.Contains("trigger.BLOCK_"))
+            //    {
+            //        // System.Console.WriteLine(cmd.signature);
+            //        foreach (var sig in cmd.overloads)
+            //        {
+            //            System.Console.WriteLine(sig);
+            //            int startIndex = sig.IndexOf("(") + 1;
+            //            int endIndex = sig.IndexOf(")", startIndex);
+            //            var overlad_params = sig.Substring(startIndex, endIndex - startIndex).Split(',').Select(str => str.Trim()).ToList();
+            //            IList<string> overload_sig_and_type = new List<string>();
+            //            IList<string> overload_return_type = new List<string>();
+            //            foreach (var param in cmd.param_info)
+            //            {
+            //                if (cmd.command_return.Contains(param.Name))
+            //                    overload_return_type.Add($"{param.Name}:{param.Type}");
+            //                if (overlad_params.Contains(param.Name))
+            //                {
+            //                    overload_sig_and_type.Add($"{param.Name}:{param.Type}");
+            //                }
+            //            }
+
+            //            command_help += getOverloadDoc($"({string.Join(",", overload_sig_and_type)}){(overload_return_type.Count > 0 ? ":" : "")}{string.Join(", ", overload_return_type)}") + "\n";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (cmd.name.Contains("trigger.BLOCK_") && cmd.overloads.Length > 0)
+            //            command_help += "--\n--- Overloads are:\n";
+            //        foreach (var sig in cmd.overloads)
+            //        {
+            //            command_help += "--- - " + sig + "\n";
+            //        }
+            //    }
+
+            //    if (table.Contains("[N]") || table.Contains("[Y]") || table.Contains("[slot]") || table.Contains("[X]"))
+            //    {
+            //        string[] a = cmd.signature.Split('[');
+            //        //string[] a = table.Split('[');
+            //        string type_name = a[0].Replace(".", "") + "Arr";
+            //        if (table.Contains("[N]"))
+            //        {
+            //            a[1] = a[1].Replace("N]", "");
+            //        }
+            //        if (table.Contains("[Y]"))
+            //        {
+            //            a[1] = a[1].Replace("Y]", "");
+            //        }
+            //        if (table.Contains("[slot]"))
+            //        {
+            //            a[1] = a[1].Replace("slot]", "");
+            //        }
+            //        if (table.Contains("[X]"))
+            //        {
+            //            a[1] = a[1].Replace("X]", "");
+            //        }
+
+            //        command_help += "function " + type_name + a[1] + " end\n\n";
+            //    }
+            //    else if (cmd.signature.Contains("scriptVar"))
+            //    {
+            //        string sig = cmd.signature.Replace("scriptVar", "scriptVar");
+            //        command_help += "function " + sig + " end\n";
+            //    }
+            //    else if (cmd.signature.Contains("fileVar"))
+            //    {
+            //        string sig = cmd.signature.Replace("fileVar", "file_object");
+            //        command_help += "function " + sig + " end\n";
+            //    }
+            //    else if (cmd.signature.Contains(".catalog()"))
+            //    {
+            //        try
+            //        {
+            //            if (cmd.signature.Contains("display.loadmenu"))
+            //                cmd.signature = cmd.signature.Split(' ')[4];
+            //            else
+            //                cmd.signature = cmd.signature.Split(' ')[3];
+            //            command_help += "function " + cmd.signature + " end\n";
+            //        }
+            //        catch
+            //        {
+            //            command_help += "function " + cmd.signature + " end\n";
+            //        }
+            //    }
+            //    else if (cmd.signature.Contains("bufferName."))
+            //    {
+            //        string sig = cmd.signature.Replace("bufferName.", "bufferVar.");
+            //        command_help += "function " + sig + " end\n";
+            //    }
+            //    else if (cmd.signature.Contains("bufferVar."))
+            //    {
+            //        string sig = cmd.signature.Replace("bufferVar.", "bufferVar.");
+            //        command_help += "function " + sig + " end\n";
+            //    }
+            //    else
+            //    {
+            //        if (cmd.command_type == CommandType.Function)
+            //            command_help += "function " + cmd.signature + " end\n";
+            //        else
+            //            command_help += table + "." + attr + " = 0\n\n";
+            //    }
+                //}[''[''/.;.
+
+                //if (cmd.tsplink_supported.Contains("Yes"))
+                //{
+                //    if (class_data_populated == false)
+                //        tsplinkStr += class_data;
+                //    outStr += command_help;
+                //    tsplinkStr += command_help;
+                //}
+                //if (cmd.tsplink_supported.Contains("No"))
+                //{
+                //    outStr += command_help;
+                //}
             }
-            if (cmd.tsplink_supported.Contains("No"))
-            {
-                outStr += command_help;
-            }
-        }
 
         public static string getOverloadDoc(string signature)
         {
@@ -680,6 +755,29 @@ function buffer.math(readingBuffer, unit, mathExpression, ...) end";
             foreach (var data in enum_data)
             {
                 command_help += "---|`" + data.Split(' ')[0] + "`\n";
+            }
+            command_help += "\n";
+
+            return command_help;
+
+        }
+
+        public static string create_tspLinkNode_enum_alias_type(ParamInfo param)
+        {
+            var command_help = "";
+
+            var aliasName = param.Type.Contains('|') ? param.Type.Split('|')[0].Trim() : param.Type;
+
+            string[] enum_data = param.enums.Split('|');
+            command_help += "\n";
+            foreach (var data in enum_data)
+            {
+                command_help += $"{NODE_STR}{data.Split(' ')[0]} = {data.Split(' ')[1]}\n";
+            }
+            command_help += $"\n---@alias {NODE_ALIAS_STR}{aliasName}\n";
+            foreach (var data in enum_data)
+            {
+                command_help += $"---|`{NODE_STR}{data.Split(' ')[0]}`\n ";
             }
             command_help += "\n";
 

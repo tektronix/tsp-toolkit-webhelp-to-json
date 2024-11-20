@@ -73,6 +73,8 @@ namespace jsonToLuaParser
 
             var bufferMathCommand = cmdList.Where(cmd => cmd.name.Contains("buffer.math()")).ToList();
 
+            var triggerBlockConstenets = cmdList.Where(cmd => cmd.name.Contains("trigger.BLOCK_")).ToList();
+            cmdList = cmdList.Except(triggerBlockConstenets).ToList();
 
 
             cmdList = cmdList.Except(directFunctioncommands).ToList(); // remove all directFunctioncommands commands and handle it speratley
@@ -124,12 +126,12 @@ namespace jsonToLuaParser
             outStr += "---@class digio\n digio = {}\n\n---@class tsplink\n tsplink = {}\n\n---@class lan\n  lan = {}\n\n---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
             var tsplinkStr = "";
-            string[] arrlist = { };
             tsplinkStr = outStr;
-            Utility.PrintFields(MAX_DEPT, file_name, ref instrTable, ref outStr, ref tsplinkStr, ref arrlist, "null");
+            tsplinkStr += Utility.PrintFields(MAX_DEPT, file_name, instrTable, true);
+            outStr += Utility.PrintFields(MAX_DEPT, file_name, instrTable, false);
             foreach (var cmd in directFunctioncommands)
             {
-                Utility.HelpContent(cmd, file_name, ref outStr, ref tsplinkStr, "", true, "", "", true);
+                //Utility.HelpContent(cmd, file_name, bool direct_function);
             }
 
             if (triggerModelLoadCommands.Count > 0)
@@ -138,18 +140,13 @@ namespace jsonToLuaParser
                 outStr += defStr;
                 tsplinkStr += defStr;
 
-                // IList<string> aliasTypes = new List<string>();
-
                 foreach (var cmd in triggerModelLoadCommands)
                 {
-                    // aliasTypes.Add(cmd.name.Split('-')[1].Trim());
                     var header = Utility.get_command_header(cmd, file_name);
                     outStr += header;
                     tsplinkStr += header;
                 }
 
-                //outStr+= Utility.create_alias_type("loadFunConstParam", aliasTypes);
-                //tsplinkStr += Utility.create_alias_type("loadFunConstParam", aliasTypes);
                 var sig = "\n" + @"---@param loadFunConst loadFunConstParam
 function trigger.model.load(loadFunConst,...) end";
                 outStr += sig;
@@ -160,7 +157,7 @@ function trigger.model.load(loadFunConst,...) end";
 
             if (bufferMathCommand.Count > 0)
             {
-                var alias = Utility.create_enum_alias_type(bufferMathCommand[0].param_info[1]);
+                var alias = Utility.create_tspLinkNode_enum_alias_type(bufferMathCommand[0].param_info[1]);
                 var header = Utility.get_command_header(bufferMathCommand[0], file_name);
 
                 outStr += alias + header;
