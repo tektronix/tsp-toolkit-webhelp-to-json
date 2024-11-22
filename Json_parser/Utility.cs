@@ -137,9 +137,9 @@ namespace jsonToLuaParser
             var outStr = "";
             if (forTspLink) // for tsplink node string needs to append in tables
             {
-                NODE_STR = "node[2].";
-                NODE_ALIAS_STR = "node2_";
-                outStr += "node = {}\nnode[2] = {}\n";
+                NODE_STR = "node[$node_number$].";
+                NODE_ALIAS_STR = "node$node_number$_";
+                outStr += "node = {}\nnode[$node_number$] = {}\n";
 
             }
             else
@@ -179,7 +179,7 @@ namespace jsonToLuaParser
                             else
                             {
                                 string rem = keyValuePair.Key.Replace(marker, "|").Split('|')[1];
-                                class_data += type_name + rem + " = {}\n";
+                                class_data += $"{type_name}{rem} = {{}}\n";
                                 table_name = $"{type_name}{rem}";
                             }
                             is_array = true;
@@ -191,7 +191,7 @@ namespace jsonToLuaParser
                     {
                         table_name = NODE_STR + keyValuePair.Key;
                         class_data += "---@class " + keyValuePair.Key + "\n";
-                        class_data += table_name + " = {}\n";
+                        class_data += $"{table_name} = {{}}\n";
                     }
 
                     outStr += class_data;
@@ -319,7 +319,7 @@ namespace jsonToLuaParser
 
 
                 var function_name = command.Key.Replace("(", "").Replace(")", "");
-                command_help  += $"function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
+                command_help  += $"local function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
                 command_help += $"{table}.{function_name} = { function_name}\n";
             }
 
@@ -777,7 +777,7 @@ function buffer.math(readingBuffer, unit, mathExpression, ...) end";
             command_help += $"\n---@alias {NODE_ALIAS_STR}{aliasName}\n";
             foreach (var data in enum_data)
             {
-                command_help += $"---|`{NODE_STR}{data.Split(' ')[0]}`\n ";
+                command_help += $"---|`{NODE_STR}{data.Split(' ')[0]}`\n";
             }
             command_help += "\n";
 
