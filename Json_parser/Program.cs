@@ -70,8 +70,6 @@ namespace jsonToLuaParser
 
             var triggerModelLoadCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.load()")).ToList(); // get trigger.model.load() commands
 
-            var bufferMathCommand = cmdList.Where(cmd => cmd.name.Contains("buffer.math()")).ToList();
-
             var triggerBlockConstenets = cmdList.Where(cmd => cmd.name.Contains("trigger.BLOCK_")).ToList();
             cmdList = cmdList.Except(triggerBlockConstenets).ToList();
 
@@ -80,8 +78,7 @@ namespace jsonToLuaParser
 
             cmdList = cmdList.Except(triggerModelLoadCommands).ToList(); // remove all trigger.model.load() commands and handle it speratley
 
-            cmdList = cmdList.Except(bufferMathCommand).ToList(); // remove "buffer.math()" commands and handle it speratley
-
+           
             foreach (var cmd in cmdList)
             {
                 string s = cmd.name;
@@ -116,7 +113,8 @@ namespace jsonToLuaParser
             outStr += Utility.PrintFields(MAX_DEPT, file_name, instrTable, false);
             foreach (var cmd in directFunctioncommands)
             {
-                //Utility.HelpContent(cmd, file_name, bool direct_function);
+                var cmd_info = new KeyValuePair<string, CommandInfo>(cmd.name, cmd);
+                outStr += Utility.HelpContent(cmd_info, file_name, "", true);
             }
 
             if (triggerModelLoadCommands.Count > 0)
@@ -140,19 +138,6 @@ function trigger.model.load(loadFunConst,...) end";
 
             }
 
-            if (bufferMathCommand.Count > 0)
-            {
-                var alias = Utility.create_tspLinkNode_enum_alias_type(bufferMathCommand[0].param_info[1]);
-                var header = Utility.get_command_header(bufferMathCommand[0], file_name);
-
-                outStr += alias + header;
-                tsplinkStr += alias + header;
-
-                Utility.append_buffermath_signature(ref outStr);
-                Utility.append_buffermath_signature(ref tsplinkStr);
-
-            }
-
           
             if (file_name.Contains("26"))
             {
@@ -168,16 +153,13 @@ function trigger.model.load(loadFunConst,...) end";
 
             }
 
-
-            var node_class_name = Regex.Replace(file_name, @"[^a-zA-Z0-9_]", "");
-            
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "tspLinkSupportedCommands"));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "AllTspCommands"));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "Helper"));
 
 
-               var AllTspCommandsFilePath = $"{base_lib_dir}/{model}/AllTspCommands/definitions.lua";
+            var AllTspCommandsFilePath = $"{base_lib_dir}/{model}/AllTspCommands/definitions.lua";
             var tspLinkSupportedCommandsFilePath = $"{base_lib_dir}/{model}/tspLinkSupportedCommands/definitions.txt";
 
             var static_folder_Path = Path.Combine(base_lib_dir, model, "Helper");
