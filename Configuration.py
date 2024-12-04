@@ -1,8 +1,11 @@
 # Folder path of webhelp file
 import os
 
-class Confiurations:
+class Configuration:
     HELP_FILE_FOLDER_PATH = ""
+
+    MANUALLY_EXTRACTED_COMMANDS = {}
+    PARAMS_TYPES_DETAILS = {}
 
     # model number
     MODEL_NUMBER = ""
