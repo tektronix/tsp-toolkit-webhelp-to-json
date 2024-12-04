@@ -70,8 +70,8 @@ namespace jsonToLuaParser
 
             var triggerModelLoadCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.load()")).ToList(); // get trigger.model.load() commands
 
-            var triggerBlockConstenets = cmdList.Where(cmd => cmd.name.Contains("trigger.BLOCK_")).ToList();
-            cmdList = cmdList.Except(triggerBlockConstenets).ToList();
+            var triggerBlockConstants = cmdList.Where(cmd => cmd.name.Contains("trigger.BLOCK_")).ToList();
+            cmdList = cmdList.Except(triggerBlockConstants).ToList();
 
 
             cmdList = cmdList.Except(directFunctioncommands).ToList(); // remove all directFunctioncommands commands and handle it speratley
