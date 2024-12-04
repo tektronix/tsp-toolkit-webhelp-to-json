@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "jsonToLuaParser": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\rjha\\source\\repos\\GitHub\\tsp-toolkit-webhelp-to-json\\data"
+    }
+  }
+}
