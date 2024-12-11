@@ -15,6 +15,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Fixed -- for any bug fixes.
     Security -- in case of vulnerabilities.
 -->
+
+## [0.18.4]
+
+### Added
+- handling dynamically creating enums for trigger.model.setblock() command parameter
+
+### Fixed
+- making sure that node[N].execute(), node[N].getglobal() and node[N].setglobal() only visible in TSP-Link systems.
+
 ## [0.18.3]
 
 ### Added
@@ -53,7 +62,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.3...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.4...HEAD
+[0.18.4]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.4
 [0.18.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.3
 [0.18.2]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.2
 [0.18.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.1
