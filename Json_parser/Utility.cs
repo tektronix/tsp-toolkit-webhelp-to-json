@@ -203,9 +203,14 @@ namespace jsonToLuaParser
                     if (!is_array)
                     {
                         table_name = NODE_STR + keyValuePair.Key;
+                        if (keyValuePair.Key.Contains("bufferVar")) // handle bufferVar type
+                            table_name = keyValuePair.Key;
+                            
                         class_data += "---@class " + keyValuePair.Key + "\n";
                         class_data += $"{table_name} = {{}}\n";
                     }
+
+                    
 
                     outStr += class_data;
                     outStr += "\n\n";
@@ -232,7 +237,7 @@ namespace jsonToLuaParser
             return outStr;
         }
 
-        public static string HelpContent(KeyValuePair<string, CommandInfo> command, string file_name, string table, bool is_dircet_function = false)
+        public static string HelpContent(KeyValuePair<string, CommandInfo> command, string file_name, string table, bool is_dircet_function = false, bool is_direct_node_function = false)
         {
             var command_help = "";
 
@@ -243,6 +248,13 @@ namespace jsonToLuaParser
                 NODE_STR = "";
                 NODE_ALIAS_STR = "";
             }
+
+            if (is_direct_node_function) // direct commands are not available with node
+            {
+                NODE_STR = "node[$node_number$].";
+                NODE_ALIAS_STR = "node$node_number$_";
+            }
+
             if (cmd.command_type == CommandType.Function)
             {
                 // implement function here
@@ -342,6 +354,11 @@ namespace jsonToLuaParser
                 {
                     command_help += $"function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
                 }
+                else if (is_direct_node_function)
+                {
+                    command_help += $"local function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
+                    command_help += $"{NODE_STR}{function_name} = { function_name}\n";
+                }
                 else
                 {
                     command_help += $"local function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
@@ -438,6 +455,124 @@ namespace jsonToLuaParser
             File.WriteAllText(file_path, content);
         }
 
+        public static string get_trigger_load_cmd_signature(bool forTspLink = false)
+        {
+            if (forTspLink)
+            {
+                return @"---@param loadFunConst loadFunConstParam
+local function load(loadFunConst,...) end
+node[$node_number$].trigger.model.load = load";
+            }
+            else
+            {
+                return @"---@param loadFunConst loadFunConstParam
+function trigger.model.load(loadFunConst,...) end";
+            }
+        }
+
+        public static string get_trigger_model_setBlock_cmd_signature(bool forTspLink = false)
+        {
+            if (forTspLink)
+            {
+                return @"
+---@param blockNumber integer The sequence of the block in the trigger model
+---@param blockType node$node_number$_triggerBlockBranch
+function setblock(blockNumber, blockType,...) end;
+node[$node_number$].trigger.model.setblock = setblock
+";
+            }
+            else
+            {
+                return @"
+---@param blockNumber integer The sequence of the block in the trigger model
+---@param blockType triggerBlockBranch
+function trigger.model.setblock(blockNumber, blockType,...) end;
+";
+            }
+        }
+
+        public static string get_BlockType_alias(bool for_tspLink = false)
+        {
+            if (for_tspLink)
+            {
+                NODE_STR = "node[$node_number$].";
+                NODE_ALIAS_STR = "node$node_number$_";
+            }
+            else
+            {
+                NODE_STR = "";
+                NODE_ALIAS_STR = "";
+            }
+            return $@"
+{NODE_STR}trigger.BLOCK_BRANCH_ALWAYS= nil
+{NODE_STR}trigger.BLOCK_BRANCH_COUNTER= nil
+{NODE_STR}trigger.BLOCK_BRANCH_DELTA= nil
+{NODE_STR}trigger.BLOCK_BRANCH_LIMIT_CONSTANT= nil
+{NODE_STR}trigger.BLOCK_BRANCH_LIMIT_DYNAMIC= nil
+{NODE_STR}trigger.BLOCK_BRANCH_ON_EVENT= nil
+{NODE_STR}trigger.BLOCK_BRANCH_ONCE= nil
+{NODE_STR}trigger.BLOCK_BRANCH_ONCE_EXCLUDED= nil
+{NODE_STR}trigger.BLOCK_BUFFER_CLEAR= nil
+{NODE_STR}trigger.BLOCK_CONFIG_NEXT= nil
+{NODE_STR}trigger.BLOCK_CONFIG_PREV= nil
+{NODE_STR}trigger.BLOCK_CONFIG_RECALL= nil
+{NODE_STR}trigger.BLOCK_DELAY_CONSTANT= nil
+{NODE_STR}trigger.BLOCK_DELAY_DYNAMIC= nil
+{NODE_STR}trigger.BLOCK_DIGITAL_IO= nil
+{NODE_STR}trigger.BLOCK_LOG_EVENT= nil
+{NODE_STR}trigger.BLOCK_MEASURE_DIGITIZE= nil
+{NODE_STR}trigger.BLOCK_NOP= nil
+{NODE_STR}trigger.BLOCK_NOTIFY= nil
+{NODE_STR}trigger.BLOCK_RESET_BRANCH_COUNT= nil
+{NODE_STR}trigger.BLOCK_WAIT= nil
+
+
+---@alias {NODE_ALIAS_STR}triggerBlockBranch
+---| `{NODE_STR}trigger.BLOCK_BRANCH_ALWAYS`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_COUNTER`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_DELTA`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_LIMIT_CONSTANT`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_LIMIT_DYNAMIC`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_ON_EVENT`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_ONCE`
+---| `{NODE_STR}trigger.BLOCK_BRANCH_ONCE_EXCLUDED`
+---| `{NODE_STR}trigger.BLOCK_BUFFER_CLEAR`
+---| `{NODE_STR}trigger.BLOCK_CONFIG_NEXT`
+---| `{NODE_STR}trigger.BLOCK_CONFIG_PREV`
+---| `{NODE_STR}trigger.BLOCK_CONFIG_RECALL`
+---| `{NODE_STR}trigger.BLOCK_DELAY_CONSTANT`
+---| `{NODE_STR}trigger.BLOCK_DELAY_DYNAMIC`
+---| `{NODE_STR}trigger.BLOCK_DIGITAL_IO`
+---| `{NODE_STR}trigger.BLOCK_LOG_EVENT`
+---| `{NODE_STR}trigger.BLOCK_MEASURE_DIGITIZE`
+---| `{NODE_STR}trigger.BLOCK_NOP`
+---| `{NODE_STR}trigger.BLOCK_NOTIFY`
+---| `{NODE_STR}trigger.BLOCK_RESET_BRANCH_COUNT`
+---| `{NODE_STR}trigger.BLOCK_SOURCE_OUTPUT`
+---| `{NODE_STR}trigger.BLOCK_WAIT`
+";
+        }
+
+        public static string get_def_buffer_definations(bool for_tspLink = false)
+        {
+            if (for_tspLink)
+            {
+                NODE_STR = "node[$node_number$].";
+                NODE_ALIAS_STR = "node$node_number$_";
+            }
+            else
+            {
+                NODE_STR = "";
+                NODE_ALIAS_STR = "";
+            }
+            return $@"
+---@type bufferVar
+{NODE_STR}defbuffer1 = {{}}
+
+---@type bufferVar
+{NODE_STR}defbuffer2 = {{}}
+";
+        }
         public static void SetFileReadOnly(string file_path)
         {
             try

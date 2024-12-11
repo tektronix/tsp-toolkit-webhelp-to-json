@@ -89,13 +89,6 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
         supportedInstrumentsList.remove('2614B')
         supportedInstrumentsList.remove('2634B') """
 
-    #rough
-    if "trigger.model.setblock" in name:
-        name = name.split("-")[1] #strip any white spaces
-        #signature = "NILL"
-        cmd_type = "Attribute (WO)\n"
-        #overloads = []
-    #rough ends here
 
     record["name"] = name
     record["webhelpfile"] = webhelpfile
