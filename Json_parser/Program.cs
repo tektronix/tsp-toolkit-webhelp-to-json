@@ -63,20 +63,24 @@ namespace jsonToLuaParser
             }
 
             var factoryScriptCommands = cmdList.Where(cmd => cmd.description.Contains("factory script")).ToList(); // get factoryScriptCommands and remove it, its there for 26xx models
-
             cmdList = cmdList.Except(factoryScriptCommands).ToList(); // remove all factoryScriptCommands commands
 
             var directFunctioncommands = cmdList.Where(cmd => !cmd.name.Contains('.')).ToList();
-
-            var triggerModelLoadCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.load()")).ToList(); // get trigger.model.load() commands
-
-            var triggerBlockConstants = cmdList.Where(cmd => cmd.name.Contains("trigger.BLOCK_")).ToList();
-            cmdList = cmdList.Except(triggerBlockConstants).ToList();
-
-
             cmdList = cmdList.Except(directFunctioncommands).ToList(); // remove all directFunctioncommands commands and handle it speratley
 
+
+            var triggerModelLoadCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.load()")).ToList(); // get trigger.model.load() commands
             cmdList = cmdList.Except(triggerModelLoadCommands).ToList(); // remove all trigger.model.load() commands and handle it speratley
+
+            var triggerModelSetblockCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.setblock()")).ToList();
+            cmdList = cmdList.Except(triggerModelSetblockCommands).ToList();
+
+            var commad_only_for_tspLinkNodes = cmdList.Where(cmd => cmd.name.Contains("node[N].")).ToList();
+            cmdList = cmdList.Except(commad_only_for_tspLinkNodes).ToList();
+
+
+           
+            
 
            
             foreach (var cmd in cmdList)
@@ -129,35 +133,60 @@ namespace jsonToLuaParser
                     outStr += header;
                     tsplinkStr += header;
                 }
-
-                var sig = "\n" + @"---@param loadFunConst loadFunConstParam
-function trigger.model.load(loadFunConst,...) end";
-                outStr += sig;
-                tsplinkStr += sig;
-
-
+                outStr += "\n" + get_trigger_load_cmd_signature();
+                tsplinkStr += "\n" + get_trigger_load_cmd_signature(true);
             }
 
-          
+            if (triggerModelSetblockCommands.Count > 0)
+            {
+                var defStr = @"
+---This is generic function to define trigger model setblock.
+---Signature of this function depends on the BlockType.
+---For more details, please keep scrolling to find the required function signature for specific BlockType
+---";
+                outStr += $"{get_BlockType_alias()}"+defStr;
+                tsplinkStr += $"{get_BlockType_alias(true)}" + defStr;
+
+                foreach (var cmd in triggerModelSetblockCommands)
+                {
+                    var header = Utility.get_command_header(cmd, file_name);
+                    outStr += header;
+                    tsplinkStr += header;
+                }
+
+
+                outStr += get_trigger_model_setBlock_cmd_signature();
+                tsplinkStr += get_trigger_model_setBlock_cmd_signature(true);
+            }
+
+            if (commad_only_for_tspLinkNodes.Count > 0)
+            {
+                foreach (var cmd in commad_only_for_tspLinkNodes)
+                {
+                    var cmd_info = new KeyValuePair<string, CommandInfo>(cmd.name.Split('.')[1], cmd);
+                    tsplinkStr += Utility.HelpContent(cmd_info, file_name, "", false, true);
+                }
+            }
+
+
             if (file_name.Contains("26"))
             {
-
+                // Add specific handling for 26 models if needed
             }
-
             else if (file_name.Contains("37"))
             {
+                // Add specific handling for 37 models if needed
             }
             else // for tti models
             {
-
-
+                outStr += get_def_buffer_definations();
+                tsplinkStr += get_def_buffer_definations(true);
             }
 
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "tspLinkSupportedCommands"));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "AllTspCommands"));
             Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "Helper"));
-
 
             var AllTspCommandsFilePath = $"{base_lib_dir}/{model}/AllTspCommands/definitions.lua";
             var tspLinkSupportedCommandsFilePath = $"{base_lib_dir}/{model}/tspLinkSupportedCommands/definitions.txt";
