@@ -192,7 +192,7 @@ value: number
 width: number
 
 createconfigscript() 
-scriptName: string
+scriptNamedigio.: string
 
 dataqueue.add()
 result: boolean
@@ -214,7 +214,7 @@ timeout: number
 delay()
 seconds: number
 
-digio.line[N].mode
+line[N].mode
 lineMode: digiolineArrmodelineMode
 N: number
 
