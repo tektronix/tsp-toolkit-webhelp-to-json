@@ -256,15 +256,12 @@ jobs:
           fi
 
           CL=${V#v}
-          CL=${CL%-*}
 
           echo "version=${V}" >> $GITHUB_OUTPUT
-          echo "cl_version=${CL}" >> $GITHUB_OUTPUT
-          echo "commit=${COMMIT}" >> $GITHUB_OUTPUT
 
       - name: publish package
         run: |
-          npm publish *.tgz --tag ${{steps.lasttag.outputs.cl_version}}
+          npm publish *.tgz --tag ${{steps.lasttag.outputs.version}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
