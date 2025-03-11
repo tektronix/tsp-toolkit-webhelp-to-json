@@ -224,7 +224,6 @@ jobs:
           path: keithley_instrument_libraries/
 
       - name: Get RC Version
-        id: lasttag
         run: |
           COMMIT="${{github.sha}}"
           if ${{contains(github.head_ref, 'release/')}}; then
@@ -258,41 +257,9 @@ jobs:
       - name: npm Package
         run: npm pack
 
-      - name: Get RC Version
-        id: lasttag
-        run: |
-          COMMIT="${{github.sha}}"
-          if ${{contains(github.head_ref, 'release/')}}; then
-            V="${{github.head_ref}}"
-            V="${V#release/}"
-          else
-            V="$(npm pkg get version)"
-            echo "Extracted Version: $V"
-            V="$(echo v"$V" | sed 's/\"//g')"
-            echo "Cleaned up Version: $V"
-          fi
-
-          # Check to see if the version tag already exists
-          # If it does, print a message and exit with an error code
-          if [ $(git tag --list "$V") ]; then
-            echo "Version tag already exists. Did you bump the version number?"
-            exit 1
-          fi
-
-          # Create an RC release if
-          # 1) This PR is a release branch that hasn't been merged to main.
-          # 2) This is a feature branch being merged into the main branch.
-          if ${{(! github.event.pull_request.merged && contains(github.head_ref, 'release/')) || (github.event.pull_request.merged && !contains(github.head_ref, 'release/'))}}; then
-            V="${V}-$(git tag --list ${V}* | wc -l)"
-            echo "RC Version: $V"
-            V="rc-${V#v}"
-          fi
-
-          echo "version=${V}" >> $GITHUB_OUTPUT
-
       - name: publish package
         run: |
-          npm publish *.tgz --tag ${{steps.lasttag.outputs.version}}
+          npm publish *.tgz
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
