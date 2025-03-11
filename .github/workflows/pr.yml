@@ -255,9 +255,7 @@ jobs:
             echo "RC Version: $V"
           fi
 
-          CL=${V#v}
-
-          echo "version=${V}" >> $GITHUB_OUTPUT
+          echo "version=${V#v}" >> $GITHUB_OUTPUT
 
       - name: publish package
         run: |
