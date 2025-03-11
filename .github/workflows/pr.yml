@@ -264,7 +264,7 @@ jobs:
 
       - name: publish package
         run: |
-          npm publish *.tgz --tag ${{steps.lasttag.outputs.version}}
+          npm publish *.tgz --tag ${{steps.lasttag.outputs.cl_version}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
