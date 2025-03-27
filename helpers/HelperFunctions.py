@@ -9,6 +9,10 @@ import json
 
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
 
+# Constant strings
+
+FUNCTION = "Function"
+ATTRIBUTE = "Attribute"
 
 def Parser(path):
     file_obj = open(path, "r", encoding="utf-8", errors="ignore")
@@ -19,10 +23,7 @@ def Parser(path):
 
 
 def fetch_details(command_name,soup):
-    try:
-        description = soup.find_all("p", "bodyzero").pop(0).get_text()
-    except:
-        return    
+    description = soup.find_all("p", "bodyzero").pop(0).get_text()
     details = get_details(soup)
     usage = usage_func(soup, command_name)
     param_info = get_parameter_details(soup, command_name)
@@ -34,48 +35,12 @@ def fetch_details(command_name,soup):
 
 def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param_info: list, usage, example, related_commands, tsp_link):
     record = {}
-    overloads = list(get_overloads(usage, name, cmd_type))
-    return_str = ""
-    signature = ""
+    overloads = list(get_overloads(usage, name, cmd_type)) if FUNCTION in cmd_type else []
+    signature = get_signature(overloads[-1]) if FUNCTION in cmd_type else ""
+    return_str = get_return_str_function(overloads[-1]) if FUNCTION in cmd_type else get_return_str_attr(usage)
 
-    if "localnode.settime()" in name:
-        signature = "localnode.settime(year, month, day, hour, minute, second)"
-    elif overloads:
-        return_populated = False
-        signature = overloads[-1]
-        if "=" in overloads[-1]:
-            temp = overloads[-1].split("=")
-            for x in temp:
-                if ("(" in x and "Function" in cmd_type):
-                    signature = x.strip()
-                elif ("(" not in x and return_populated == False and x.strip() != name):
-                    return_str = x.strip()
-                    return_populated = True
-            """ signature = overloads[-1].split("=")[1]
-            return_str = overloads[-1].split("=")[0] """
-
-        # removing signature from this so that it will not repeat in overloads
-        overloads.remove(overloads[-1])
-    else:
-        return_populated = False        
-        if len(usage) != 0:
-            # signature = usage[0]
-            if "=" in usage[0]:
-                temp = usage[0].split("=")
-                for x in temp:
-                    if ("(" in x and "Function" in cmd_type):
-                        signature = x.strip()
-                        
-                    if ("bufferVar." in x):
-                        signature = x.strip()
-
-                    elif ("(" not in x and return_populated == False and x.strip() != name):
-                        return_str = x.strip()
-                        return_populated = True
-                """ signature = usage[0].split("=")[1].replace(" ", "")
-                return_str = usage[0].split("=")[0].replace(" ", "") """
-            else:
-                signature = usage[0]
+    # removing signature from this so that it will not repeat in overloads
+    overloads.remove(overloads[-1]) if len(overloads)>0 else ""
     
     #Only 2600
     temp_c = ""
@@ -91,10 +56,10 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
 
 
     record["name"] = name
+    record["type"] = cmd_type
     record["webhelpfile"] = webhelpfile
     record["signature"] = signature
     record["command_return"] = return_str
-    record["type"] = cmd_type
     record["default_value"] = default_value
     record["tsp_link"] = tsp_link
     record["description"] = descr
@@ -111,6 +76,25 @@ def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param
     record["related_commands"] = related_commands
 
     return record
+
+
+def get_signature(signature_str):
+    signature = signature_str
+    if "=" in signature_str:
+        signature = signature_str.split("=")[1].strip()
+    return signature
+
+def get_return_str_attr(usage):
+    parts = usage[0].split("=")
+    return_str = parts[0].strip() if "." not in parts[0] else parts[1].strip()
+    return return_str            
+    
+
+def get_return_str_function(signature_str):
+    return_str = ""
+    if "=" in signature_str:
+        return_str = signature_str.split("=")[0].strip()
+    return return_str
 
 
 def get_details(S):
@@ -272,7 +256,7 @@ def get_parameter_details(S, command_name):
             
             mini_dict["name"] = param                        
 
-            x = list(OrderedSet(re.findall("[a-z]+[X]?\.[A-Z_0-9]+", param_desc)))
+            x = list(OrderedSet(re.findall(r'\b(?:[a-z]+|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', param_desc)))
             y = re.findall("or\\s(\\d)", param_desc)
             param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
@@ -311,7 +295,7 @@ def get_parameter_details(S, command_name):
             param_info.append(mini_dict)
             
 
-    except Exception as e:
+    except Exception as e: # some command does not have parameter table, this exception should catch that
         print(command_name, e)
     return param_info
 
@@ -418,13 +402,12 @@ def get_signature_details(S, command_name):
 
 
 def get_overloads(usage, command_name, command_type):
-    oveloads = set()    
-    if "Function" in command_type and len(usage) > 1:
-        for sig in usage:
-            # print(command_name)
-            if command_name.split("(")[0]+"(" in sig:
-                oveloads.add(sig)
+    oveloads = set()
+    for sig in usage:
+        if command_name.split("(")[0]+"(" in sig:
+            oveloads.add(sig)
         oveloads = sorted(oveloads, key=len)
+        
     return oveloads
 
 def get_Y_param_options(command,param_details, cmd_type, usage):
@@ -437,23 +420,19 @@ def get_Y_param_options(command,param_details, cmd_type, usage):
         if param.get("name") == "Y":
             index = i
             break
+    y_param_details = param_details[index].get("description")
 
-    try:
-        y_param_details = param_details[index].get("description")
+    if y_param_details:
+        param_str = y_param_details.split('(')[1].split(')')[0]
+        params = [p.strip() for p in param_str.split(',')]
+        # create a list of i,v,p,r names
+        y_options = [p.split('=')[0].strip() for p in params]
+    else:
+        print("command without 'Y' parameter ", param_details)
 
-        if y_param_details:
-            param_str = y_param_details.split('(')[1].split(')')[0]
-            params = [p.strip() for p in param_str.split(',')]
-            # create a list of i,v,p,r names
-            y_options = [p.split('=')[0].strip() for p in params]
-        else:
-            print("command without 'Y' parameter ", param_details)
-
-        if "Function" in cmd_type:
-            if any("iv" in string for string in usage):
-                y_options.append("iv")
-    except:
-        print("Index out of range")
+    if "Function" in cmd_type:
+        if any("iv" in string for string in usage):
+            y_options.append("iv")
 
     return y_options
 

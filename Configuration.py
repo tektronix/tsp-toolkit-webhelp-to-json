@@ -25,7 +25,8 @@ class Configuration:
                         "2651A",
                         "2657A",
                         "2601B-PULSE",
-                        "MP5103"
+                        "MP5103",
+                        "MSMU60-2"
                         ]
     
     MODEL_2600B_MODELS = [
@@ -52,5 +53,6 @@ class Configuration:
 
                           "2651A":["a"], 
                           "2657A":["a"],
-                          "2601B-PULSE": ["a"]
+                          "2601B-PULSE": ["a"],
+                          "MSMU60-2":["1", "2"]
                           }

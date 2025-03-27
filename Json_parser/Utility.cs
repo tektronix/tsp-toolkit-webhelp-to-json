@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace jsonToLuaParser
 {
@@ -21,6 +22,9 @@ namespace jsonToLuaParser
             "2634B",
             "2636B"
         };
+
+        public static readonly string MODULE_MSMU60_2 = "MSMU60-2";
+        public static readonly string MODULE_MP5103 = "MP5103";
 
         public static string NODE_STR = "";
         public static string NODE_ALIAS_STR = "";
@@ -55,6 +59,14 @@ namespace jsonToLuaParser
             Attribute_WO,
             Attribute_RW,
             Constant
+        }
+
+        public enum DefinationsType
+        {
+            Node,
+            Slot,
+            NodeSlot,
+            Normal
         }
 
         public class CommandInfo
@@ -145,22 +157,17 @@ namespace jsonToLuaParser
             return cmdList;
         }
 
+        public static string[] GetValidArrays(string file_name)
+        {
+            if (file_name.Contains(MODULE_MSMU60_2))
+                return new string[] {};
+            else
+                return new string[] { "[N]", "[Y]", "[slot]", "[1]", "[X]" };
+        }
+
         public static string PrintFields(int depth, string file_name, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, bool forTspLink)
         {
             var outStr = "";
-            if (forTspLink) // for tsplink node string needs to append in tables
-            {
-                NODE_STR = "node[$node_number$].";
-                NODE_ALIAS_STR = "node$node_number$_";
-                outStr += "node = {}\nnode[$node_number$] = {}\n";
-
-            }
-            else
-            {
-                NODE_STR = "";
-                NODE_ALIAS_STR = "";
-            }
-                
 
             string table_name = "";
             string type_name = "";
@@ -171,7 +178,7 @@ namespace jsonToLuaParser
                 {
                     string class_data = "";
                     // Handling Arrays in commands
-                    string[] arrayMarkers = { "[N]", "[Y]", "[slot]", "[1]", "[X]" };
+                    string[] arrayMarkers = GetValidArrays(file_name);
                     var is_array = false;
                     
                     foreach (var marker in arrayMarkers)
@@ -237,159 +244,155 @@ namespace jsonToLuaParser
             return outStr;
         }
 
-        public static string HelpContent(KeyValuePair<string, CommandInfo> command, string file_name, string table, bool is_dircet_function = false, bool is_direct_node_function = false)
+        public static string HelpContent(KeyValuePair<string, CommandInfo> command, string file_name, string table)
         {
-            var command_help = "";
-
+            var command_help = new StringBuilder();
             var cmd = command.Value;
-
-            if (is_dircet_function) // direct commands are not available with node
-            {
-                NODE_STR = "";
-                NODE_ALIAS_STR = "";
-            }
-
-            if (is_direct_node_function) // direct commands are not available with node
-            {
-                NODE_STR = "node[$node_number$].";
-                NODE_ALIAS_STR = "node$node_number$_";
-            }
 
             if (cmd.command_type == CommandType.Function)
             {
-                // implement function here
-                foreach (var param in cmd.param_info)
-                {
-                    if (param.enums.Length>0)
-                    {
-                        command_help += create_enum_alias_type(param);
-                    }
-                }
-
-                command_help += get_command_header(cmd, file_name) + "\n";
-
-                List<string> command_returns = cmd.command_return.ToUpper().Split(',')
-                                          .Select(st => st.Trim())
-                                          .ToList();
-
-                int start = cmd.signature.IndexOf("(") + 1;
-                int end = cmd.signature.IndexOf(")", start);
-                string[] s;
-                try
-                {
-                    s = cmd.signature.ToUpper().Substring(start, end - start).Replace(" ", "").Split(',');
-                }
-                catch (System.Exception)
-                {
-                    s = new string[] { };
-                }
-                foreach (var param in cmd.param_info)
-                {
-
-                    if (s.Contains(param.Name.ToUpper()))
-                    {
-                        if (param.enums.Length>0)
-                            command_help += $"---@param {param.Name} {NODE_ALIAS_STR}{param.Type} {param.Description}\n";
-                        else
-                            command_help += $"---@param {param.Name} {param.Type} {param.Description}\n";
-
-                    }
-                    else if (command_returns.Contains(param.Name.ToUpper()))
-                    {
-                        if (param.enums.Length>0)
-                            command_help += $"---@return {NODE_ALIAS_STR}{param.Type} {param.Name} {param.Description}\n";
-                        else
-                            command_help += $"---@return {param.Type} {param.Name} {param.Description}\n";
-
-                        //if (param.Name.Contains("fileNumber"))
-                        //    command_help += "file_object ";
-                        //else if (param.Name.Contains("scriptVar"))
-                        //    command_help += "scriptVar ";
-                        //else if (param.Name.Contains("bufferName") || param.Name.Contains("bufferVar"))
-                        //    command_help += "bufferVar ";
-                        //else if (param.Name.Contains("connectionID"))
-                        //    command_help += "tspnetConnectionID ";
-                        //else
-                        //    command_help += param.Type + " ";
-
-                        //command_help += param.Name + " " + param.Description + "\n";
-                    }
-                }
-                cmd.signature = cmd.signature.Replace("\"", "");
-
-                if (cmd.overloads.Length > 0)
-                {
-                    // System.Console.WriteLine(cmd.signature);
-                    foreach (var sig in cmd.overloads)
-                    {
-                        
-                        int startIndex = sig.IndexOf("(") + 1;
-                        int endIndex = sig.IndexOf(")", startIndex);
-                        var overlad_params = sig.Substring(startIndex, endIndex - startIndex).Split(',').Select(str => str.Trim()).ToList();
-                        IList<string> overload_sig_and_type = new List<string>();
-                        IList<string> overload_return_type = new List<string>();
-                        foreach (var param in cmd.param_info)
-                        {
-                            if (cmd.command_return.Contains(param.Name))
-                                if (param.enums.Length>0)
-                                    overload_return_type.Add($"{param.Name}:{NODE_ALIAS_STR}{param.Type}");
-                                else
-                                    overload_return_type.Add($"{param.Name}:{param.Type}");
-                            if (overlad_params.Contains(param.Name))
-                            {
-                                if (param.enums.Length>0)
-                                    overload_sig_and_type.Add($"{param.Name}:{NODE_ALIAS_STR}{param.Type}");
-                                else
-                                    overload_sig_and_type.Add($"{param.Name}:{param.Type}");
-                            }
-                        }
-
-                        command_help += getOverloadDoc($"({string.Join(",", overload_sig_and_type)}){(overload_return_type.Count > 0 ? ":" : "")}{string.Join(", ", overload_return_type)}") + "\n";
-                    }
-                }
-
-
-                var function_name = command.Key.Replace("(", "").Replace(")", "");
-                if (is_dircet_function)
-                {
-                    command_help += $"function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
-                }
-                else if (is_direct_node_function)
-                {
-                    command_help += $"local function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
-                    command_help += $"{NODE_STR}{function_name} = { function_name}\n";
-                }
-                else
-                {
-                    command_help += $"local function {function_name}({cmd.signature.Substring(start, end - start)}) end\n";
-                    command_help += $"{table}.{function_name} = { function_name}\n";
-                }
-                
+                ProcessFunctionCommand(command, file_name, table, command_help);
             }
-
             else // attributes
             {
+                ProcessAttributeCommand(command, file_name, table, command_help);
+            }
 
-                var attr = command.Key.Replace("[M]", "").Replace("[N]", ""); //some attributes are having [N] or [M] at the end , which is alredy handled in its type
-                var prm = cmd.param_info.Where(param => param.Name.ToUpper() == cmd.command_return.ToUpper()).ToList();
-                var lst = get_return_type_and_default_value(cmd);
-                if (prm[0].enums.Length>0)
+            return command_help.ToString();
+        }
+
+        private static void ProcessFunctionCommand(KeyValuePair<string, CommandInfo> command, string file_name, string table, StringBuilder command_help)
+        {
+            var cmd = command.Value;
+            foreach (var param in cmd.param_info)
+            {
+                if (param.enums.Length > 0)
                 {
-                    command_help += create_enum_alias_type(prm[0]);
-                    command_help += get_command_header(cmd, file_name) + "\n";
-
-                    command_help += $"---@type {NODE_ALIAS_STR}{lst[0]}\n";
-                    command_help += $"{table}.{attr} = {NODE_STR}{lst[1]}\n";
-                }
-                else
-                {
-                    command_help += get_command_header(cmd, file_name) + "\n";
-
-                    command_help += $"---@type {lst[0]}\n";
-                    command_help += $"{table}.{attr} = {lst[1]}\n";
+                    command_help.Append(create_enum_alias_type(param));
                 }
             }
-            return command_help;
+
+            command_help.Append(get_command_header(cmd, file_name)).Append("\n");
+
+            var command_returns = cmd.command_return.ToUpper().Split(',')
+                                              .Select(st => st.Trim())
+                                              .ToList();
+
+            var parameters = ExtractParametersFromSignature(cmd.signature);
+            foreach (var param in cmd.param_info)
+            {
+                if (parameters.Contains(param.Name.ToUpper()))
+                {
+                    command_help.Append(FormatParamAnnotation(param));
+                }
+                else if (command_returns.Contains(param.Name.ToUpper()))
+                {
+                    command_help.Append(FormatReturnAnnotation(param));
+                }
+            }
+
+            cmd.signature = cmd.signature.Replace("\"", "");
+
+            if (cmd.overloads.Length > 0)
+            {
+                foreach (var sig in cmd.overloads)
+                {
+                    command_help.Append(FormatOverloadDoc(sig, cmd.param_info, cmd.command_return));
+                }
+            }
+
+            var function_name = command.Key.Replace("(", "").Replace(")", "");
+            command_help.Append(FormatFunctionDefinition(function_name, cmd.signature, table));
+        }
+
+        private static void ProcessAttributeCommand(KeyValuePair<string, CommandInfo> command, string file_name, string table, StringBuilder command_help)
+        {
+            var attr = command.Key.Replace("[M]", "").Replace("[N]", "");
+            var cmd = command.Value;
+            var prm = cmd.param_info.FirstOrDefault(param => param.Name.ToUpper() == cmd.command_return.ToUpper());
+            var lst = get_return_type_and_default_value(cmd);
+
+            if (prm?.enums.Length > 0)
+            {
+                command_help.Append(create_enum_alias_type(prm)).Append(get_command_header(cmd, file_name)).Append("\n")
+                        .Append($"---@type {NODE_ALIAS_STR}{lst[0]}\n")
+                        .Append($"{table}.{attr} = {NODE_STR}{lst[1]}\n"); ;
+            }
+            else
+            {
+
+                command_help.Append(get_command_header(cmd, file_name)).Append("\n")
+                        .Append($"---@type {lst[0]}\n")
+                        .Append($"{table}.{attr} = {lst[1]}\n");
+
+            }
+
+            
+        }
+
+        private static string[] ExtractParametersFromSignature(string signature)
+        {
+            int start = signature.IndexOf("(") + 1;
+            int end = signature.IndexOf(")", start);
+            try
+            {
+                return signature.ToUpper().Substring(start, end - start).Replace(" ", "").Split(',');
+            }
+            catch (Exception)
+            {
+                return new string[] { };
+            }
+        }
+
+        private static string FormatParamAnnotation(ParamInfo param)
+        {
+            return param.enums.Length > 0
+                ? $"---@param {param.Name} {NODE_ALIAS_STR}{param.Type} {param.Description}\n"
+                : $"---@param {param.Name} {param.Type} {param.Description}\n";
+        }
+
+        private static string FormatReturnAnnotation(ParamInfo param)
+        {
+            return param.enums.Length > 0
+                ? $"---@return {NODE_ALIAS_STR}{param.Type} {param.Name} {param.Description}\n"
+                : $"---@return {param.Type} {param.Name} {param.Description}\n";
+        }
+
+        private static string FormatOverloadDoc(string sig, ParamInfo[] param_info, string command_return)
+        {
+            int startIndex = sig.IndexOf("(") + 1;
+            int endIndex = sig.IndexOf(")", startIndex);
+            var overload_params = sig.Substring(startIndex, endIndex - startIndex).Split(',').Select(str => str.Trim()).ToList();
+            var overload_sig_and_type = new List<string>();
+            var overload_return_type = new List<string>();
+
+            foreach (var param in param_info)
+            {
+                if (command_return.Contains(param.Name))
+                {
+                    overload_return_type.Add(param.enums.Length > 0
+                        ? $"{param.Name}:{NODE_ALIAS_STR}{param.Type}"
+                        : $"{param.Name}:{param.Type}");
+                }
+                if (overload_params.Contains(param.Name))
+                {
+                    overload_sig_and_type.Add(param.enums.Length > 0
+                        ? $"{param.Name}:{NODE_ALIAS_STR}{param.Type}"
+                        : $"{param.Name}:{param.Type}");
+                }
+            }
+
+            return getOverloadDoc($"({string.Join(",", overload_sig_and_type)}){(overload_return_type.Count > 0 ? ":" : "")}{string.Join(", ", overload_return_type)}") + "\n";
+        }
+
+        private static string FormatFunctionDefinition(string function_name, string signature, string table)
+        {
+            int start = signature.IndexOf("(") + 1;
+            int end = signature.IndexOf(")", start);
+            var parameters = signature.Substring(start, end - start);
+
+            return $"local function {function_name}({parameters}) end\n{table}.{function_name} = {function_name}\n";
+            
         }
 
         public static string getOverloadDoc(string signature)
@@ -457,52 +460,29 @@ namespace jsonToLuaParser
 
         public static string get_trigger_load_cmd_signature(bool forTspLink = false)
         {
-            if (forTspLink)
-            {
-                return @"---@param loadFunConst loadFunConstParam
+           
+                return $@"---@param loadFunConst loadFunConstParam
 local function load(loadFunConst,...) end
-node[$node_number$].trigger.model.load = load";
-            }
-            else
-            {
-                return @"---@param loadFunConst loadFunConstParam
-function trigger.model.load(loadFunConst,...) end";
-            }
+{NODE_STR}trigger.model.load = load";
+           
+          
         }
 
         public static string get_trigger_model_setBlock_cmd_signature(bool forTspLink = false)
         {
-            if (forTspLink)
-            {
-                return @"
+           
+                return $@"
 ---@param blockNumber integer The sequence of the block in the trigger model
 ---@param blockType node$node_number$_triggerBlockBranch
 function setblock(blockNumber, blockType,...) end;
-node[$node_number$].trigger.model.setblock = setblock
+{NODE_STR}trigger.model.setblock = setblock
 ";
-            }
-            else
-            {
-                return @"
----@param blockNumber integer The sequence of the block in the trigger model
----@param blockType triggerBlockBranch
-function trigger.model.setblock(blockNumber, blockType,...) end;
-";
-            }
+            
+            
         }
 
-        public static string get_BlockType_alias(bool for_tspLink = false)
+        public static string get_BlockType_alias()
         {
-            if (for_tspLink)
-            {
-                NODE_STR = "node[$node_number$].";
-                NODE_ALIAS_STR = "node$node_number$_";
-            }
-            else
-            {
-                NODE_STR = "";
-                NODE_ALIAS_STR = "";
-            }
             return $@"
 {NODE_STR}trigger.BLOCK_BRANCH_ALWAYS= nil
 {NODE_STR}trigger.BLOCK_BRANCH_COUNTER= nil
@@ -555,16 +535,6 @@ function trigger.model.setblock(blockNumber, blockType,...) end;
 
         public static string get_def_buffer_definations(bool for_tspLink = false)
         {
-            if (for_tspLink)
-            {
-                NODE_STR = "node[$node_number$].";
-                NODE_ALIAS_STR = "node$node_number$_";
-            }
-            else
-            {
-                NODE_STR = "";
-                NODE_ALIAS_STR = "";
-            }
             return $@"
 ---@type bufferVar
 {NODE_STR}defbuffer1 = {{}}
@@ -635,5 +605,61 @@ function trigger.model.setblock(blockNumber, blockType,...) end;
             }
         }
 
+        public static void SetStaticVariablesString(DefinationsType type )
+        {
+            switch (type)
+            {
+            case DefinationsType.Node:
+                    Utility.NODE_STR = "node[$node_number$].";
+                    Utility.NODE_ALIAS_STR = "node$node_number$_";
+                    break;
+            case DefinationsType.Slot:
+                    Utility.NODE_STR = "slot[$slot_number$].";
+                    Utility.NODE_ALIAS_STR = "slot$slot_number$_";
+                    break;
+            case DefinationsType.NodeSlot:
+                    Utility.NODE_STR = "node[$node_number$].slot[$slot_number$].";
+                    Utility.NODE_ALIAS_STR = "node$node_number$_slot$slot_number$_";
+                    break;
+            case DefinationsType.Normal:
+                    Utility.NODE_STR = "";
+                    Utility.NODE_ALIAS_STR = "";
+                    break;
+            default:
+                break;
+            }
+        }
+
+        public static string GetStaticLuaTableDefination(DefinationsType type)
+        {
+            var outStr = "";
+
+            switch (type)
+            {
+                case DefinationsType.Node:
+                    outStr += "node = {}\nnode[$node_number$] = {}\n";
+
+                    break;
+                case DefinationsType.Slot:
+                    outStr += "slot = {}\n";
+                    outStr += "slot[$slot_number$] = {}\n";
+                    outStr += "slot[$slot_number$].smu = {}\n";
+                    break;
+                case DefinationsType.NodeSlot:
+                    outStr += "node = {}\n";
+                    outStr += "node[$node_number$] = {}\n";
+                    outStr += "node[$node_number$].slot = {}\n";
+                    outStr += "node[$node_number$].slot[$slot_number$] = {}\n";
+                    break;
+                case DefinationsType.Normal:
+                    outStr += "";
+                    break;
+                default:
+                    break;
+            }
+            return outStr;
+        }
     }
+
+ 
 }
