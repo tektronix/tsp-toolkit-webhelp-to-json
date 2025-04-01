@@ -7,6 +7,8 @@ from Configuration import Configuration
 from helpers import cmd_param
 import json
 
+from main import MODEL_2600, MODEL_MSMU60_2
+
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
 
 # Constant strings
@@ -35,7 +37,7 @@ def fetch_details(command_name,soup):
 
 def get_record(name, webhelpfile, cmd_type, default_value, descr, details, param_info: list, usage, example, related_commands, tsp_link):
     record = {}
-    overloads = list(get_overloads(usage, name, cmd_type)) if FUNCTION in cmd_type else []
+    overloads = list(get_overloads(usage, name)) if FUNCTION in cmd_type else []
     signature = get_signature(overloads[-1]) if FUNCTION in cmd_type else ""
     return_str = get_return_str_function(overloads[-1]) if FUNCTION in cmd_type else get_return_str_attr(usage)
 
@@ -173,130 +175,116 @@ def get_new_paragraph(S, text):
 
 def get_parameter_details(S, command_name):
     param_info = []
+    
+    usage_tag = S.find('p', {'class': 'iclsubheading'}, text='Usage')
+    details_tag = S.find('p', {'class': 'iclsubheading'}, text='Details')
 
+    # Find the table between "Usage" and "Details"
+    current_tag = usage_tag.find_next_sibling()
+    parameter_table = None
+    while current_tag and current_tag != details_tag:
+        if current_tag.name == "table" and "tableintopic" in current_tag.get("class", []):
+            parameter_table = current_tag
+            break
+        current_tag = current_tag.find_next_sibling()
+
+    if not parameter_table:
+        return param_info  # No parameter table found
+
+    # Extract rows from the parameter table
+    rows = parameter_table.find_all("tr")
+    
     if "lan.restoredefaults()" in command_name:
         return param_info
     
-    # if "bufferVar" in command_name:
-    #     return param_info
     
-    try:
-        tables = S.find_all("table")
-        #param_table = tables[2]
-        rows = tables[2].find_all("tr")
-
-        if "trigger.model.load()" in command_name:  # trigger.model.load() - DurationLoop
-            new_row = get_new_row(S, command_name.split('-')[1].rstrip().lstrip(), "load function constant param")
-            #param_table.insert(0, new_row)
-            rows.insert(0, new_row)
+    if "trigger.model.load()" in command_name:  # trigger.model.load() - DurationLoop
+        new_row = get_new_row(S, command_name.split('-')[1].rstrip().lstrip(), "load function constant param")
+        #param_table.insert(0, new_row)
+        rows.insert(0, new_row)
         
-        elif "buffer.unit()" in command_name:
-            new_row = get_new_row(S, "UNIT_CUSTOMN", "Custom unit user can create, The number of the custom unit, 1, 2, or 3")
-            rows.insert(0, new_row)
-            #param_table.insert(0, new_row)
+    elif "buffer.unit()" in command_name:
+        new_row = get_new_row(S, "UNIT_CUSTOMN", "Custom unit user can create, The number of the custom unit, 1, 2, or 3")
+        rows.insert(0, new_row)
+        #param_table.insert(0, new_row)
 
-        elif "display.settext()" in command_name:
-            rows.pop(1)
-            rows.pop(0)
-            #param_table.extract()
-            new_row = get_new_row(S, "displayArea", "display.TEXT1 display.TEXT2")
-            rows.insert(0, new_row)
-            #param_table.insert(0, new_row)
-            new_row = get_new_row(S, "text", "String that contains the message for the top line of the USER swipe screen (up to 20 characters)")
-            #param_table.insert(1, new_row)
-            rows.insert(1, new_row)
-        elif "smuX.savebuffer()" in command_name:            
-            new_row = get_new_row(S, "buffer", "Buffer variable")
-            rows.insert(0, new_row)
+    elif "display.settext()" in command_name:
+        rows.pop(1)
+        rows.pop(0)
+        #param_table.extract()
+        new_row = get_new_row(S, "displayArea", "display.TEXT1 display.TEXT2")
+        rows.insert(0, new_row)
+        #param_table.insert(0, new_row)
+        new_row = get_new_row(S, "text", "String that contains the message for the top line of the USER swipe screen (up to 20 characters)")
+        #param_table.insert(1, new_row)
+        rows.insert(1, new_row)
+    
+    elif "smuX.savebuffer()" in command_name:   
+        new_row = get_new_row(S, "buffer", "Buffer variable")
+        rows.insert(0, new_row)
 
-        """ elif "trigger.model.setblock()" in command_name:  # trigger.model.setblock() - trigger.BLOCK_BRANCH_ALWAYS
-            new_row = get_new_row(S, command_name.split('-')[1].split('.')[1], command_name.split('-')[1])
-            #param_table.insert(0, new_row)
-            rows.insert(0, new_row)
+    for row in rows:
+        mini_dict = {}
 
-            if "trigger.model.setblock() - trigger.BLOCK_DELAY_DYNAMIC" in command_name:
-                new_row = get_new_row(S, "USER_DELAY_Mn","trigger.USER_DELAY_Mn")
-                rows.insert(0, new_row)
-                #param_table.insert(0, new_row)
-
-            elif "trigger.model.setblock() - trigger.BLOCK_NOTIFY" in command_name:
-                new_row = get_new_row(S, "EVENT_NOTIFYN","trigger.EVENT_NOTIFYN")
-                rows.insert(0, new_row)
-                #param_table.insert(0, new_row) """
-
-        # this commnd is having three table data for table row "units", combining two <td> text to one
-        """ elif "buffer.write.format()" in command_name:
-            # Find the first <td> tag
-            first_td = param_table.find_all("tr")[1].find_all("td")[1]
-            # Find the second <td> tag
-            second_td = param_table.find_all("tr")[1].find_all(
-                "td")[2]  # assuming it's the second <td> in the table
-
-            # Move the contents of the second <td> tag to the first <td> tag
-            for child in second_td.children:
-                first_td.append(child.extract())
-
-            # Remove the second <td> tag from the HTML table
-            second_td.extract() """
-
-        for row in rows:
-            mini_dict = {}
-
-            data = row.find_all("td")
-            param = data[0].get_text().replace("\n", "").strip() # name of the parameter
+        data = row.find_all("td")
+        param = data[0].get_text().replace("\n", "").strip() # name of the parameter
             
-            param_desc = "\n".join([item.get_text(separator='\n') for item in data[1:]]) #24xx, dmm, daq
+        param_desc = "\n".join([item.get_text(separator='\n') for item in data[1:]]) #24xx, dmm, daq
             
-            if(str(Configuration.MODEL_NUMBER).find("26")!= -1):
-                param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+        if(MODEL_2600 in Configuration.MODEL_NUMBER or MODEL_MSMU60_2  in Configuration.MODEL_NUMBER):
+            param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
 
-            if param == '':
-                continue
+        if param == '':
+            continue
             
-            mini_dict["name"] = param                        
+        mini_dict["name"] = param
+        
+        enum_details = []
+        if data[1].find("ul"):
+            list_items = data[1].find_all("li")
+            for li in list_items:
+                enum_details.append(li.get_text())  # Extract text from each <li>
+                   
 
-            x = list(OrderedSet(re.findall(r'\b(?:[a-z]+|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', param_desc)))
-            y = re.findall("or\\s(\\d)", param_desc)
-            param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details))))
+        y = re.findall("or\\s(\\d)", param_desc)
+        param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
-            #if "buffer.write.format()" in command_name:
-            if ":" in param_desc:
-                param_desc = param_desc.split(":")[0]
-            mini_dict["description"] = param_desc
+        #if "buffer.write.format()" in command_name:
+        if ":" in param_desc:
+            param_desc = param_desc.split(":")[0]
+        mini_dict["description"] = param_desc
 
-            enum_data = []
+        enum_data = []
             
-            if len(x) != 0:
-                for index in range(len(x)):
+        if len(x) != 0:
+            for index in range(len(x)):
+                data = {}
+                data["name"] = remove_array_string_form_enum(x[index])
+                data["value"] = ""
+                data["description"] = ""
+                enum_data.append(data)
+
+
+        elif command_name in Configuration.MANUALLY_EXTRACTED_COMMANDS:
+            if param in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"]:
+                for enum in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"][param]["enum"]:
                     data = {}
-                    data["name"] = remove_array_string_form_enum(x[index])
-                    data["value"] = ""
-                    data["description"] = ""
+                    data["name"] = enum['name']
+                    data["value"] = enum['value']
+                    data["description"] = enum['description']
                     enum_data.append(data)
 
 
-            elif command_name in Configuration.MANUALLY_EXTRACTED_COMMANDS:
-                if param in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"]:
-                    for enum in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"][param]["enum"]:
-                        data = {}
-                        data["name"] = enum['name']
-                        data["value"] = enum['value']
-                        data["description"] = enum['description']
-                        enum_data.append(data)
-
-
-            mini_dict["enum"] = enum_data
-            mini_dict["type"] = get_param_type(
-                command_name, param)
-             
-            mini_dict["range"] = get_range(
-                command_name, param_desc)
-            param_info.append(mini_dict)
+        mini_dict["enum"] = enum_data
+        mini_dict["type"] = get_param_type(
+            command_name, param)
             
-
-    except Exception as e: # some command does not have parameter table, this exception should catch that
-        print(command_name, e)
+        mini_dict["range"] = get_range(
+            command_name, param_desc)
+        param_info.append(mini_dict)
+            
     return param_info
 
 
@@ -387,26 +375,24 @@ def get_signature_details(S, command_name):
     command_type = ""
     default_value = ""
     tsp_link = ""
-    try:
-        tables = S.find_all("table")
-        table = tables[1]             
-        command_type = table.find_all("tr")[1].find_all("td")[0].text.replace("\n", "")
-        if "ptp.ds.info" in command_name:
-            command_type = "Attribute (R)"  
-        default_value = table.find_all("tr")[1].find_all("td")[4].text  
-        tsp_link = table.find_all("tr")[1].find_all("td")[1].text
-    except Exception as e:
-        print(e)
+    tables = S.find_all("table")
+    table = tables[1]             
+    command_type = table.find_all("tr")[1].find_all("td")[0].text.replace("\n", "")
+    if "ptp.ds.info" in command_name:
+        command_type = "Attribute (R)"  
+    default_value = table.find_all("tr")[1].find_all("td")[4].text  
+    tsp_link = table.find_all("tr")[1].find_all("td")[1].text
+   
 
     return command_type, default_value, tsp_link
 
 
-def get_overloads(usage, command_name, command_type):
+def get_overloads(usage, command_name):
     oveloads = set()
     for sig in usage:
         if command_name.split("(")[0]+"(" in sig:
             oveloads.add(sig)
-        oveloads = sorted(oveloads, key=len)
+    oveloads = sorted(oveloads, key=len)
         
     return oveloads
 

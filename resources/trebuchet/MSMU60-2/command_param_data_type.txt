@@ -74,493 +74,172 @@ bufferVar.timestamps
 timestamp: number[]
 bufferVar: bufferVar
 
-localnode.showerrors
-errorMode: localnodeshowerrorserrorMode
+firmware.update()
 
-digio.line[N].state
-N: number
-state: digiolineArrstatestate
+firmware.verify()
 
-digio.readport()
-data: number
+smu[X].abort()
 
-digio.writeprotect
-writeprotectMask: number
+smu[X].configlist.create()
 
-io.type()
-type: string
-obj: fileVar
+smu[X].configlist.delete()
 
-digio.trigger[N].edge
-triggerEdge: triggerEdgeMode
+smu[X].configlist.query()
 
-digio.trigger[N].logic
-triggerLogic: triggerLogicMode
+smu[X].configlist.recall()
 
-digio.trigger[N].mode
-triggerMode: digioTriggerModes
+smu[X].configlist.size()
 
-digio.trigger[N].overrun
-overrun: boolean
+smu[X].configlist.store()
 
-digio.trigger[N].pulsewidth
-triggerPulseWidth: number
+smu[X].configlist.table()
 
-digio.writeport()
-data: number
+smu[X].contact.calibratehi()
 
-digio.trigger[N].wait()
-triggered: boolean
-timeout: number
+smu[X].contact.calibratelo()
 
-digio.readbit()
-data: number
-N: number
+smu[X].contact.check()
 
-digio.writebit()
-data: number
-N: number
+smu[X].contact.r()
 
-digio.writeport()
-data: number
+smu[X].contact.speed
 
-digio.readbit()
-N: number
-data: number
+smu[X].contact.threshold
 
-digio.readport()
-data: number
+smu[X].defbufferY
 
-digio.trigger[N].assert()
-N: number
+smu[X].guard.v()
 
-digio.trigger[N].clear()
-N: number
+smu[X].makebuffer()
 
-digio.trigger[N].release()
-N: number
+smu[X].measure.aperture
 
-digio.trigger[N].reset()
-N: number
+smu[X].measure.autodelay
 
-digio.writebit()
-N: number
-data: number
+smu[X].measure.autorangeY
 
-digio.writeport()
-data: number
+smu[X].measure.count
 
-tsplink.writeprotect
-mask: integer
+smu[X].measure.delay
 
-slot.start()
-slot: number
+smu[X].measure.interval
 
-slot.stop()
-slot: number
+smu[X].measure.lowrangeY
 
-slot.autostart
-autostart: slotautostartautostart
+smu[X].measure.nplc
 
-slot.autorestart
-autorestart: slotautorestartautorestart
+smu[X].measure.overlappedY()
 
-eventlog.count
-count: integer
+smu[X].measure.rangeY
 
-eventlog.disable.type
-type: integer
+smu[X].measure.rate
 
-eventlog.disable.severity
-severity: number
+smu[X].measure.rel.enableY
 
-eventlog.disable.list
-list: string[]
+smu[X].measure.rel.levelY
 
-eventlog.disable.add
-list: string[]
+smu[X].measure.tempcomp
 
-eventlog.getcount()
-eventType: eventloggetcounteventType
+smu[X].measure.Y()
 
+smu[X].overlapped
 
-eventlog.post()
-message: string
-eventType: eventlogposteventType
+smu[X].reset()
 
-eventlog.save()
-filename: string
-eventType: eventlogsaveeventType
+smu[X].sense
 
-eventlog.all()
-logString: string
+smu[X].source.atlimit
 
-eventlog.next()
-logString: string
+smu[X].source.autodelay
 
-eventlog.suppress()
-eventNumber: number
+smu[X].source.autorangeY
 
-eventlog.overwritemethod
-method: eventlogoverwritemethodmethod
+smu[X].source.constantcurrent
 
-eventlog.enable
-status: eventlogenablestatus
+smu[X].source.delay
 
-eventlog.enable.list
-list: string[]
+smu[X].source.func
 
-format.asciiprecision
-precision: number
+smu[X].source.levelY
 
-format.byteorder
-order: formatbyteorderorder
+smu[X].source.limitnY
 
-format.data
-value: formatdatavalue
+smu[X].source.limitpY
 
-fs.chdir()
-workingDirectory: string
-path: string
+smu[X].source.limitY
 
-fs.cwd()
-path: string
+smu[X].source.lowrangeY
 
-fs.is_dir()
-status: boolean
-path: string
+smu[X].source.offfunc
 
-fs.is_file()
-status: boolean
-path: string
+smu[X].source.offlimitnY
 
-fs.mkdir()
-path: string
-newpath: string
+smu[X].source.offlimitpY
 
-fs.readdir()
-files: string[]
-path: string
+smu[X].source.offlimitY
 
-fs.rmdir()
-path: string
+smu[X].source.offmode
 
-gettimezone()
-timeZone: string
+smu[X].source.output
 
-info()
-systeminfo: string
+smu[X].source.rangeY
 
-io.close()
-file: string
+smu[X].trigger.measureY()
 
-io.input()
-fileVar: fileVar
-newfile: string
+smu[X].trigger.source.linearY()
 
-io.open()
-fileVar: fileVar
-errorMsg: string|nil
-path: string
-mode: string
+smu[X].trigger.source.listY()
 
-io.output()
-fileVar: fileVar
-newfile: string
+smu[X].trigger.source.logY()
 
-lan.linktimeout
-timeout: number
+trigger.model.abort()
 
-lan.timedwait
-timeout: number
+trigger.model.addblock.branch.always()
 
-lan.config.gateway
-gatewayAddress: string
+trigger.model.addblock.branch.counter()
 
-lan.config.ipaddress
-ipAddress: string
+trigger.model.addblock.branch.event()
 
-lan.config.speed
-speed: number
+trigger.model.addblock.branch.once()
 
-lan.config.subnetmask
-mask: string
+trigger.model.addblock.branchonceexcluded()
 
-lan.status.gateway
-gatewayAddress: string
+trigger.model.addblock.reset.branch.counter()
 
+trigger.model.addblock.configlist.next()
 
-lan.status.ipaddress
-ipAddress: string
+trigger.model.addblock.configlist.prev()
 
-lan.status.macaddress
-macAddress: string
+trigger.model.addblock.configlist.recall()
 
-lan.status.speed
-speed: number
+trigger.model.addblock.delay.constant()
 
-lan.status.subnetmask
-mask: string
+trigger.model.addblock.logevent()
 
-lan.trigger[N].connected
-connected:  boolean
+trigger.model.addblock.measure()
 
-lan.trigger[N].ipaddress
-ipAddress: string
+trigger.model.addblock.measureoverlapped()
 
-lan.trigger[N].mode
-mode: lanTriggerMode
+trigger.model.addblock.nop()
 
-lan.trigger[N].overrun
-overrun: boolean
+trigger.model.addblock.notify()
 
-lan.config.dns.address[N]
-dnsAddress: string[]
+trigger.model.addblock.source.action.bias()
 
-lan.config.dns.domain
-domain: string
+trigger.model.addblock.source.action.skip()
 
-lan.config.dns.hostname
-hostName: string
+trigger.model.addblock.source.action.step()
 
-lan.status.dns.name
-hostName: string
+trigger.model.addblock.source.output()
 
-lan.status.port.dst
-port: integer
+trigger.model.addblock.wait()
 
-lan.status.port.rawsocket
-port: integer
+trigger.model.create()
 
-lan.status.port.telnet
-port: integer
+trigger.model.delete()
 
-lan.status.port.vxi11
-port: number
+trigger.model.initiate()
 
-lan.ipconfig()
-method: lanipconfigmethod
-ipV4Address: string
-subnetMask: string
-gateway: string
+trigger.model.removeblock()
 
-lan.lxidomain
-domain: number
-
-lan.macaddress
-MACaddress: string
-
-lan.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-lan.trigger[N].pseudostate
-pseudostate: 0|1
-
-lan.autoconnect
-state: lanautoconnectstate
-
-lan.nagle
-state: lannaglestate
-
-lan.config.dns.dynamic
-state: lanconfigdnsdynamicstate
-
-lan.config.dns.verify
-state: lanconfigdnsverifystate
-
-lan.config.duplex
-duplex: lanconfigduplexduplex
-
-lan.config.method
-method: lanconfigmethodmethod
-
-lan.status.duplex
-duplex: lanstatusduplexduplex
-
-lan.trigger[N].protocol
-protocol: lantriggerprotocolprotocol
-
-
-localnode.manufacturer
-manufacturer: string
-
-localnode.autolinefreq
-flag: boolean
-
-localnode.description
-description: string
-
-localnode.revision
-revision: string
-
-localnode.license
-license_agreement: string
-
-localnode.access
-accessType: localnodeaccessaccessType
-
-localnode.linefreq
-frequency: number
-
-localnode.model
-model: string
-
-localnode.password
-password: string
-passWord: string
-
-localnode.prompts
-prompting: localnodepromptsMode
-
-localnode.prompts4882
-prompting: localnodeprompts4882Mode
-
-localnode.serialno
-serialno: string
-
-localnode.settime()
-year: number
-month: number
-day: number
-hour: number
-minute: number
-second: number
-
-localnode.showevents 
-errorMode: localnodeshoweventserrorMode
-
-localnode.passwordmode
-mode: localnodepasswordmodemode
-
-localnode.version
-version: string
-
-os.time()
-utcTime: number
-timespec: table
-
-os.clock()
-seconds: integer
-
-print()
-value1: any
-...: any
-
-printnumber()
-value1: number
-...: number
-
-
-printbuffer()
-startIndex: integer
-endIndex: integer
-bufferVar: bufferVar
-...: bufferVar
-
-settime()
-time: number
-
-settimezone()
-offset: string
-dstOffset: string
-dstStart: string
-dstEnd: string
-
-trigger.wait()
-triggered: boolean
-timeout: number
-
-trigger.timer[N].delaylist
-intervals: table
-
-trigger.timer[N].overrun
-overrun: boolean
-
-trigger.timer[N].passthrough
-passthrough: boolean
-
-tsplink.writeprotect
-mask: number
-
-tsplink.trigger[N].mode
-mode: tsplinkTriggerModes
-
-tsplink.trigger[N].overrun
-overrun: boolean
-
-tsplink.trigger[N].pulsewidth
-width: number
-
-tsplink.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-tsplink.readbit()
-data: number
-N: number
-
-tsplink.reset()
-nodesFound: number
-expectedNodes: number
-
-tsplink.writebit()
-N: number
-data: boolean
-
-tsplink.group
-groupNumber: number
-
-tsplink.line[N].mode
-mode: tsplinkLineMode 
-
-tsplink.master
-masterNodeNumber: number
-
-tsplink.node
-nodeNumber: number
-
-tsplink.readport()
-data: number
-
-tsplink.state
-state: string
-
-tsplink.writeport()
-data: number
-
-tsplink.readbit()
-data: 0|1
-N: number
-
-tsplink.readport()
-data: number
-
-tsplink.reset()
-nodesFound: number
-expectedNodes: number
-
-tsplink.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-tsplink.writebit()
-data: number
-N: number
-
-tsplink.writeport()
-data: number
-
-userstring.add()
-name: string
-value: number
-
-userstring.get()
-name: string
-value: number
-
-fileVar:seek()
-position: integer
-errorMsg: string
-whence: "set"|"cur"|"end"
-offset: integer
+trigger.model.state()

@@ -44,23 +44,11 @@ namespace jsonToLuaParser
             JObject cmds = JObject.Parse(str);
             IList<CommandInfo> cmdList = PopulateCommands(ref cmds, "commands");
 
-            var factoryScriptCommands = FilterCommands(ref cmdList, cmd => cmd.description.Contains("factory script"));
-            var directCommands = FilterCommands(ref cmdList, cmd => !cmd.name.Contains('.') && !cmd.name.Contains(':'));
-            var triggerModelLoadCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.load()"));
-            var triggerModelSetblockCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.setblock()"));
-            var commandOnlyForTspLinkNodes = FilterCommands(ref cmdList, cmd => cmd.name.Contains("node[N]."));
+            
+            (string outstr , string node_or_slot_out_str) = HandleModelSpecificDefinitions(fileName, cmdList);
 
-            var instrTable = InitializeInstructionTable(10);
-            PopulateInstructionTable(cmdList, instrTable);
+            WriteOutputFiles(baseLibDir, model, outstr, node_or_slot_out_str);
 
-
-
-            var outStr = GenerateNormalCommandDefinations(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
-            var tsplinkStr = GenerateNodeCommandDefinations(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
-
-            HandleModelSpecificDefinitions(fileName, ref outStr, ref tsplinkStr);
-
-            WriteOutputFiles(baseLibDir, model, outStr, tsplinkStr);
         }
 
         static IList<CommandInfo> FilterCommands(ref IList<CommandInfo> cmdList, Func<CommandInfo, bool> predicate)
@@ -102,16 +90,16 @@ namespace jsonToLuaParser
             }
         }
 
-        static string GenerateNormalCommandDefinations(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateNormalCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
             var outStr = "---@meta\n\n";
             outStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
             outStr += "---@class bufferVar\nlocal bufferVar={}\n";
             outStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
-            outStr += Utility.GetStaticLuaTableDefination(DefinationsType.Normal);
+            outStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Normal);
 
-            Utility.SetStaticVariablesString(DefinationsType.Normal);
+            Utility.SetStaticVariablesString(DefinitionsType.Normal);
 
             outStr += Utility.PrintFields(10, fileName, instrTable, false);
             
@@ -143,16 +131,16 @@ namespace jsonToLuaParser
             return outStr;
         }
 
-        static string GenerateNodeCommandDefinations(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateNodeCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
             var OutStr = "---@meta\n\n";
             OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
             OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
             OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
-            OutStr += Utility.GetStaticLuaTableDefination(DefinationsType.Node);
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Node);
 
-            Utility.SetStaticVariablesString(DefinationsType.Node);
+            Utility.SetStaticVariablesString(DefinitionsType.Node);
 
             OutStr += Utility.PrintFields(10, fileName, instrTable, true);
             foreach (var cmd in directFunctionCommands)
@@ -188,50 +176,64 @@ namespace jsonToLuaParser
             return OutStr;
         }
 
-        static string GenerateSlotComamndDefinations(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
             var OutStr = "---@meta\n\n";
             OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
             OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
             OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
-            OutStr += Utility.GetStaticLuaTableDefination(DefinationsType.Slot);
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Slot);
 
-            Utility.SetStaticVariablesString(DefinationsType.Slot);
+            Utility.SetStaticVariablesString(DefinitionsType.Slot);
 
-            OutStr += Utility.PrintFields(10, fileName, instrTable, true);
+            OutStr += Utility.PrintFields(10, fileName, instrTable, false);
             foreach (var cmd in directFunctionCommands)
             {
-                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, "");
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, Utility.NODE_STR.TrimEnd('.'));
             }
 
             return OutStr;
         }
 
-        static string GenerateNodeSlotComamndDefinations(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateNodeSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
             var OutStr = "---@meta\n\n";
             OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
             OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
             OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
-            OutStr += Utility.GetStaticLuaTableDefination(DefinationsType.NodeSlot);
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.NodeSlot);
 
-            Utility.SetStaticVariablesString(DefinationsType.NodeSlot);
+            Utility.SetStaticVariablesString(DefinitionsType.NodeSlot);
 
             OutStr += Utility.PrintFields(10, fileName, instrTable, true);
             foreach (var cmd in directFunctionCommands)
             {
-                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, "");
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, Utility.NODE_STR.TrimEnd('.'));
             }
 
             return OutStr;
         }
-        static void HandleModelSpecificDefinitions(string fileName, ref string outStr, ref string tsplinkStr)
+
+        static (string out_str, string node_str) HandleModelSpecificDefinitions(string fileName, IList<CommandInfo> cmdList)
         {
+            var factoryScriptCommands = FilterCommands(ref cmdList, cmd => cmd.description.Contains("factory script"));
+            var directCommands = FilterCommands(ref cmdList, cmd => !cmd.name.Contains('.') && !cmd.name.Contains(':'));
+            var triggerModelLoadCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.load()"));
+            var triggerModelSetblockCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.setblock()"));
+            var commandOnlyForTspLinkNodes = FilterCommands(ref cmdList, cmd => cmd.name.Contains("node[N]."));
+
+            var instrTable = InitializeInstructionTable(10);
+            PopulateInstructionTable(cmdList, instrTable);
+            var outStr = "";
+            var tsplinkStr = "";
             if (fileName.Contains("26"))
             {
-                // Add specific handling for 26 models if needed
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                
+
             }
             else if (fileName.Contains("37"))
             {
@@ -240,16 +242,28 @@ namespace jsonToLuaParser
             else if (fileName.Contains(Utility.MODULE_MP5103))
             {
                 // Add specific handling for MP5103 models if needed
+                // Add specific handling for 2600 models if needed
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+
+
             }
             else if (fileName.Contains(Utility.MODULE_MSMU60_2))
             {
-                // Add specific handling for MP5103 models if needed
+                // Add specific handling for MSMU60_2 models if needed
+                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+
             }
             else // for tti models
             {
-                outStr += get_def_buffer_definations();
-                tsplinkStr += get_def_buffer_definations(true);
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                outStr += get_def_buffer_Definitions();
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr += get_def_buffer_Definitions(true);
             }
+
+            return (outStr, tsplinkStr);
         }
 
         static void WriteOutputFiles(string baseLibDir, string model, string outStr, string tsplinkStr)

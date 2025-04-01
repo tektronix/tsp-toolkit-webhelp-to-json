@@ -77,6 +77,9 @@ bufferVar: bufferVar
 localnode.showerrors
 errorMode: localnodeshowerrorserrorMode
 
+dataqueue.CAPACITY
+count: dataqueueCAPACITYcount
+
 digio.line[N].state
 N: number
 state: digiolineArrstatestate
@@ -267,6 +270,12 @@ mode: string
 io.output()
 fileVar: fileVar
 newfile: string
+
+lan.config.hislip.enable
+state: hislipenableState
+
+lan.enable
+state: lanenableState
 
 lan.linktimeout
 timeout: number
@@ -550,6 +559,68 @@ N: number
 
 tsplink.writeport()
 data: number
+
+tspnet.connect()
+connectionID: tspnetConnectionID
+ipAddress: string
+portNumber: number
+initString: string
+
+tspnet.clear()
+connectionID: tspnetConnectionID
+
+tspnet.disconnect()
+connectionID: tspnetConnectionID
+
+tspnet.execute()
+connectionID: tspnetConnectionID
+commandString: string
+formatString: string
+...: number|string|...
+
+tspnet.idn()
+idnString: string
+connectionID: tspnetConnectionID
+
+tspnet.read()
+connectionID: tspnetConnectionID
+commandString: string
+formatString: string
+...: number|string|...
+
+tspnet.readavailable()
+bytesAvailable: number
+connectionID: tspnetConnectionID
+
+tspnet.termination()
+connectionID: tspnetConnectionID
+termSequence: tspnetterminationtype
+type: tspnetterminationtype
+
+tspnet.timeout
+value: number
+
+tspnet.tsp.abort()
+connectionID: tspnetConnectionID
+
+tspnet.tsp.abortonconnect
+value: 0|1
+
+tspnet.tsp.rbtablecopy()
+table: table
+connectionID: tspnetConnectionID
+name: string
+startIndex: integer
+endIndex: integer
+
+tspnet.tsp.runscript()
+connectionID: tspnetConnectionID
+name: string
+script: string
+
+tspnet.write()
+connectionID: tspnetConnectionID
+inputString: string
 
 userstring.add()
 name: string

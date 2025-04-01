@@ -9,7 +9,9 @@ from helpers import cmd_param
 import traceback
 
 # Constants for model identifiers
-MODEL_2600 = "2600B"
+MODEL_2600 = "26"
+MODEL_2600B = "2600B"
+
 MODEL_MP5103 = "MP5103"
 MODEL_MSMU60_2 = "MSMU60-2"
 
@@ -25,7 +27,7 @@ def parse_web_help_files(webHelpFoldersDir):
             if os.path.isdir(folder):
                 if dir in Configuration.SUPPORTED_MODELS:
                     Configuration.HELP_FILE_FOLDER_PATH = folder
-                    if MODEL_2600 in dir:
+                    if MODEL_2600B in dir:
                         for model in Configuration.MODEL_2600B_MODELS:
                             Configuration.MODEL_NUMBER = model
                             Configuration.CHANNELS = Configuration.MODEL_CHANNELS.get(model)
@@ -122,15 +124,15 @@ def parse():
                         for x in Configuration.CHANNELS:
                             name = command.replace("X", x)
                             usage1 = [sig.replace("X", x) for sig in usage]
-                            parameter = copy.deepcopy(param_info)
-                            for parm in parameter:
+                            parameters = copy.deepcopy(param_info)
+                            for parm in parameters:
                                 for key in parm:
                                     if parm[key] not in ['X', 'Y']:
                                         if isinstance(parm[key], str):
                                             parm[key] = parm[key].replace("X", x)
                                         elif isinstance(parm[key], list):
-                                            parm[key] = [{**i, "name": i["name"].replace("X", x)} for i in parm[key]]
-                            record = HelperFunctions.get_record(name, filename, command_type, default_value, explanation, details, parameter, usage1, examples, related_commands, tsp_link)
+                                            parm[key] = [{**i, "name": i["name"].replace("X", x).replace("slot[Z].", "")} for i in parm[key]]
+                            record = HelperFunctions.get_record(name, filename, command_type, default_value, explanation, details, parameters, usage1, examples, related_commands, tsp_link)
                             description_list.append(record)
                     else:
                         explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(command, soup)
@@ -141,15 +143,15 @@ def parse():
                                 usage = [sig for sig in usage_orignal if "iv" in sig] if "iv" in y else [sig for sig in usage_orignal if "Y" in sig]
                                 name = command.replace("Y", y).replace("X", x)
                                 usage1 = [sig.replace("Y", y).replace("X", x) for sig in usage]
-                                parameter = copy.deepcopy(param_info)
-                                for parm in parameter:
+                                parameters = copy.deepcopy(param_info)
+                                for parm in parameters:
                                     for key in parm:
                                         if parm[key] not in ['X', 'Y']:
                                             if isinstance(parm[key], str):
                                                 parm[key] = parm[key].replace("X", x).replace("Y", y)
                                             elif isinstance(parm[key], list):
-                                                parm[key] = [{**i, "name": i["name"].replace("X", x).replace("Y", y)} for i in parm[key]]
-                                record = HelperFunctions.get_record(name, filename, command_type, default_value, explanation, details, parameter, usage1, examples, related_commands, tsp_link)
+                                                parm[key] = [{**i, "name": i["name"].replace("X", x).replace("Y", y).replace("slot[Z].", "")} for i in parm[key]]
+                                record = HelperFunctions.get_record(name, filename, command_type, default_value, explanation, details, parameters, usage1, examples, related_commands, tsp_link)
                                 description_list.append(record)
                 elif "smu.source.xlimit" in command:
                     explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(command, soup)
@@ -181,10 +183,11 @@ def parse():
                     process_command(command, filename, description_list)
             
             except Exception as e:
-                print("\n***exception start")
-                print(e)
-                print(f"{command} not added to commands list\n File name: {filename}")
-                print("***exception end\n")
+                if command:
+                    print("\n***exception start")
+                    print(e)
+                    print(f"{command} not added to commands list\n File name: {filename}")
+                    print("***exception end\n")
 
                         
     description_list = {"commands": description_list}

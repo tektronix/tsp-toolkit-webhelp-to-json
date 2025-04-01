@@ -23,8 +23,8 @@ namespace jsonToLuaParser
             "2636B"
         };
 
-        public static readonly string MODULE_MSMU60_2 = "MSMU60-2";
-        public static readonly string MODULE_MP5103 = "MP5103";
+        public const string MODULE_MSMU60_2 = "MSMU60-2";
+        public const string MODULE_MP5103 = "MP5103";
 
         public static string NODE_STR = "";
         public static string NODE_ALIAS_STR = "";
@@ -61,7 +61,7 @@ namespace jsonToLuaParser
             Constant
         }
 
-        public enum DefinationsType
+        public enum DefinitionsType
         {
             Node,
             Slot,
@@ -248,15 +248,24 @@ namespace jsonToLuaParser
         {
             var command_help = new StringBuilder();
             var cmd = command.Value;
+            try
+            {
+                if (cmd.command_type == CommandType.Function)
+                {
+                    ProcessFunctionCommand(command, file_name, table, command_help);
+                }
+                else // attributes
+                {
+                    ProcessAttributeCommand(command, file_name, table, command_help);
+                }
+            }
+            catch(Exception ex)
+            {
+                command_help = new StringBuilder();
+                Console.WriteLine($"An error occuerd for {command.Key}");
+            }
 
-            if (cmd.command_type == CommandType.Function)
-            {
-                ProcessFunctionCommand(command, file_name, table, command_help);
-            }
-            else // attributes
-            {
-                ProcessAttributeCommand(command, file_name, table, command_help);
-            }
+            
 
             return command_help.ToString();
         }
@@ -391,8 +400,11 @@ namespace jsonToLuaParser
             int end = signature.IndexOf(")", start);
             var parameters = signature.Substring(start, end - start);
 
-            return $"local function {function_name}({parameters}) end\n{table}.{function_name} = {function_name}\n";
-            
+            if (table.Length == 0)// function cmd without table
+                return $"function {function_name}({parameters}) end\n";
+            else
+                return $"local function {function_name}({parameters}) end\n{table}.{function_name} = {function_name}\n";
+
         }
 
         public static string getOverloadDoc(string signature)
@@ -473,7 +485,7 @@ local function load(loadFunConst,...) end
            
                 return $@"
 ---@param blockNumber integer The sequence of the block in the trigger model
----@param blockType node$node_number$_triggerBlockBranch
+---@param blockType {NODE_ALIAS_STR}triggerBlockBranch
 function setblock(blockNumber, blockType,...) end;
 {NODE_STR}trigger.model.setblock = setblock
 ";
@@ -533,7 +545,7 @@ function setblock(blockNumber, blockType,...) end;
 ";
         }
 
-        public static string get_def_buffer_definations(bool for_tspLink = false)
+        public static string get_def_buffer_Definitions(bool for_tspLink = false)
         {
             return $@"
 ---@type bufferVar
@@ -605,23 +617,23 @@ function setblock(blockNumber, blockType,...) end;
             }
         }
 
-        public static void SetStaticVariablesString(DefinationsType type )
+        public static void SetStaticVariablesString(DefinitionsType type )
         {
             switch (type)
             {
-            case DefinationsType.Node:
+            case DefinitionsType.Node:
                     Utility.NODE_STR = "node[$node_number$].";
                     Utility.NODE_ALIAS_STR = "node$node_number$_";
                     break;
-            case DefinationsType.Slot:
+            case DefinitionsType.Slot:
                     Utility.NODE_STR = "slot[$slot_number$].";
                     Utility.NODE_ALIAS_STR = "slot$slot_number$_";
                     break;
-            case DefinationsType.NodeSlot:
+            case DefinitionsType.NodeSlot:
                     Utility.NODE_STR = "node[$node_number$].slot[$slot_number$].";
                     Utility.NODE_ALIAS_STR = "node$node_number$_slot$slot_number$_";
                     break;
-            case DefinationsType.Normal:
+            case DefinitionsType.Normal:
                     Utility.NODE_STR = "";
                     Utility.NODE_ALIAS_STR = "";
                     break;
@@ -630,28 +642,29 @@ function setblock(blockNumber, blockType,...) end;
             }
         }
 
-        public static string GetStaticLuaTableDefination(DefinationsType type)
+        public static string GetStaticLuaTableDefination(DefinitionsType type)
         {
             var outStr = "";
 
             switch (type)
             {
-                case DefinationsType.Node:
+                case DefinitionsType.Node:
                     outStr += "node = {}\nnode[$node_number$] = {}\n";
 
                     break;
-                case DefinationsType.Slot:
+                case DefinitionsType.Slot:
                     outStr += "slot = {}\n";
                     outStr += "slot[$slot_number$] = {}\n";
                     outStr += "slot[$slot_number$].smu = {}\n";
                     break;
-                case DefinationsType.NodeSlot:
+                case DefinitionsType.NodeSlot:
                     outStr += "node = {}\n";
                     outStr += "node[$node_number$] = {}\n";
                     outStr += "node[$node_number$].slot = {}\n";
                     outStr += "node[$node_number$].slot[$slot_number$] = {}\n";
+                    outStr += "node[$node_number$].slot[$slot_number$].smu = {}\n";
                     break;
-                case DefinationsType.Normal:
+                case DefinitionsType.Normal:
                     outStr += "";
                     break;
                 default:
