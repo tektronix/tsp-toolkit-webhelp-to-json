@@ -65,7 +65,7 @@ namespace jsonToLuaParser
             var factoryScriptCommands = cmdList.Where(cmd => cmd.description.Contains("factory script")).ToList(); // get factoryScriptCommands and remove it, its there for 26xx models
             cmdList = cmdList.Except(factoryScriptCommands).ToList(); // remove all factoryScriptCommands commands
 
-            var directFunctioncommands = cmdList.Where(cmd => !cmd.name.Contains('.')).ToList();
+            var directFunctioncommands = cmdList.Where(cmd => !cmd.name.Contains('.') && !cmd.name.Contains(':')).ToList();
             cmdList = cmdList.Except(directFunctioncommands).ToList(); // remove all directFunctioncommands commands and handle it speratley
 
 
@@ -107,9 +107,9 @@ namespace jsonToLuaParser
                 }
             }
 
-            outStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n"; //PRIV
+            outStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n"; //PRIV
             outStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            outStr += "---@class digio\n local digio = {}\n\n---@class tsplink\n local tsplink = {}\n\n---@class lan\n  local lan = {}\n\n---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            outStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
 
             var tsplinkStr = "";
             tsplinkStr = outStr;
@@ -174,6 +174,10 @@ namespace jsonToLuaParser
                 // Add specific handling for 26 models if needed
             }
             else if (file_name.Contains("37"))
+            {
+                // Add specific handling for 37 models if needed
+            }
+            else if (file_name.Contains("MP5103"))
             {
                 // Add specific handling for 37 models if needed
             }

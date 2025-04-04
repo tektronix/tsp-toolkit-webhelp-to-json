@@ -24,7 +24,8 @@ class Configuration:
                         "2600B",
                         "2651A",
                         "2657A",
-                        "2601B-PULSE"
+                        "2601B-PULSE",
+                        "MP5103"
                         ]
     
     MODEL_2600B_MODELS = [

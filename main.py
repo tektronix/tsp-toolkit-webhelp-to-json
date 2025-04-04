@@ -46,18 +46,29 @@ def parse_web_help_files(webHelpFoldersDir):
 
 def parse():
     description_list = []
-    
-    if(str(Configuration.MODEL_NUMBER).find("26")!= -1):#2600
-        file_path = os.path.join("resources","2600","26xx-command_param_data_type.txt")
+
+    #2600
+    if(str(Configuration.MODEL_NUMBER).find("26")!= -1):
+        file_path = os.path.join("resources","2600","command_param_data_type.txt")
         Configuration.PARAMS_TYPES_DETAILS = cmd_param.getParamTypeDetails(file_path)
         file_path = os.path.join("resources","2600","manually_extracted_cmd_and_enums.json")
         Configuration.MANUALLY_EXTRACTED_COMMANDS = HelperFunctions.parse_manual_json(file_path)
-        
-    else:#tti
+    
+    elif(str(Configuration.MODEL_NUMBER).find("MP5103")!= -1):
+
+        file_path = os.path.join("resources","trebuchet","manually_extracted_cmd_and_enums.json")
+        # get static enums types
+        Configuration.MANUALLY_EXTRACTED_COMMANDS = HelperFunctions.parse_manual_json(file_path)
+        file_path = os.path.join("resources","trebuchet","command_param_data_type.txt")
+        Configuration.PARAMS_TYPES_DETAILS = cmd_param.getParamTypeDetails(file_path)
+    
+
+    #tti   
+    else:
         file_path = os.path.join("resources","tti","manually_extracted_cmd_and_enums.json")
         # get static enums types
         Configuration.MANUALLY_EXTRACTED_COMMANDS = HelperFunctions.parse_manual_json(file_path)
-        file_path = os.path.join("resources","tti","tti-command_param_data_type.txt")
+        file_path = os.path.join("resources","tti","command_param_data_type.txt")
         Configuration.PARAMS_TYPES_DETAILS = cmd_param.getParamTypeDetails(file_path)
     
    
