@@ -1,637 +1,428 @@
-bufferVar.appendmode
-state: 0|1
 
-bufferVar.basetimestamp
-basetime: number
+In This Section
 
-bufferVar.cachemode
-cacheMode: 0|1
+bit.bitand()
 
-bufferVar.capacity
-bufferCapacity: integer
-bufferVar: bufferVar
+bit.bitor()
 
-bufferVar.clear()
-bufferVar: bufferVar
+bit.bitxor()
 
+bit.clear()
 
-bufferVar.clearcache()
-bufferVar: bufferVar
+bit.get()
 
-bufferVar.collectsourcevalues
-state: 0|1
+bit.getfield()
 
-bufferVar.collecttimestamps
-state: 0|1
+bit.set()
 
-bufferVar.fillcount
-fillCount: integer
+bit.setfield()
 
+bit.test()
 
-bufferVar.fillmode
-fillMode: bufferVarfillmodefillMode
-bufferVar: bufferVar
+bit.toggle()
 
-bufferVar.measurefunctions
-measurefunction: string[]
-bufferVar: bufferVar
-
-bufferVar.measureranges
-measurerange: number[]
-
-bufferVar.n 
-numberOfReadings: integer
-bufferVar: bufferVar
-
-bufferVar.readings
-reading: number[]
-bufferVar: bufferVar
-N: number
-
-bufferVar.sourcefunctions
-sourcefunction: string[]
-bufferVar: bufferVar
-
-bufferVar.sourceoutputstates
-state: string[]
-bufferVar: bufferVar
-
-bufferVar.sourceranges
-sourcerange: number[]
-bufferVar: bufferVar
-
-bufferVar.sourcevalues
-sourcevalue: number[]
-bufferVar: bufferVar
-
-bufferVar.statuses
-statusInformation: number[]
-
-bufferVar.timestampresolution
-resolution: number
-
-bufferVar.timestamps
-timestamp: number[]
-bufferVar: bufferVar
-
-localnode.showerrors
-errorMode: localnodeshowerrorserrorMode
+dataqueue.add()
 
 dataqueue.CAPACITY
-count: dataqueueCAPACITYcount
 
-digio.line[N].state
-N: number
-state: digiolineArrstatestate
+dataqueue.clear()
 
-digio.readport()
-data: number
+dataqueue.count
 
-digio.writeprotect
-writeprotectMask: number
+dataqueue.next()
 
-io.type()
-type: string
-obj: fileVar
-
-digio.trigger[N].edge
-triggerEdge: triggerEdgeMode
-
-digio.trigger[N].logic
-triggerLogic: triggerLogicMode
-
-digio.trigger[N].mode
-triggerMode: digioTriggerModes
-
-digio.trigger[N].overrun
-overrun: boolean
-
-digio.trigger[N].pulsewidth
-triggerPulseWidth: number
-
-digio.writeport()
-data: number
-
-digio.trigger[N].wait()
-triggered: boolean
-timeout: number
+delay()
 
 digio.readbit()
-data: number
-N: number
-
-digio.writebit()
-data: number
-N: number
-
-digio.writeport()
-data: number
-
-digio.readbit()
-N: number
-data: number
 
 digio.readport()
-data: number
 
 digio.trigger[N].assert()
-N: number
 
 digio.trigger[N].clear()
-N: number
+
+digio.trigger[N].edge
+
+digio.trigger[N].EVENT_ID
+
+digio.trigger[N].logic
+
+digio.trigger[N].mode
+
+digio.trigger[N].overrun
+
+digio.trigger[N].pulsewidth
 
 digio.trigger[N].release()
-N: number
 
 digio.trigger[N].reset()
-N: number
+
+digio.trigger[N].stimulus
+
+digio.trigger[N].wait()
 
 digio.writebit()
-N: number
-data: number
 
 digio.writeport()
-data: number
 
-tsplink.writeprotect
-mask: integer
+digio.writeprotect
 
-slot.start()
-slot: number
-
-slot.stop()
-slot: number
-
-slot.autostart
-autostart: slotautostartautostart
-
-slot.autorestart
-autorestart: slotautorestartautorestart
+eventlog.clear()
 
 eventlog.count
-count: integer
-
-eventlog.disable.type
-type: integer
-
-eventlog.disable.severity
-severity: number
-
-eventlog.disable.list
-list: string[]
-
-eventlog.disable.add
-list: string[]
-
-eventlog.getcount()
-eventType: eventloggetcounteventType
-
-
-eventlog.post()
-message: string
-eventType: eventlogposteventType
-
-eventlog.save()
-filename: string
-eventType: eventlogsaveeventType
-
-eventlog.all()
-logString: string
 
 eventlog.next()
-logString: string
 
-eventlog.suppress()
-eventNumber: number
+exit()
 
-eventlog.overwritemethod
-method: eventlogoverwritemethodmethod
+fileVar:close()
 
-eventlog.enable
-status: eventlogenablestatus
+fileVar:flush()
 
-eventlog.enable.list
-list: string[]
-
-format.asciiprecision
-precision: number
-
-format.byteorder
-order: formatbyteorderorder
-
-format.data
-value: formatdatavalue
-
-fs.chdir()
-workingDirectory: string
-path: string
-
-fs.cwd()
-path: string
-
-fs.is_dir()
-status: boolean
-path: string
-
-fs.is_file()
-status: boolean
-path: string
-
-fs.mkdir()
-path: string
-newpath: string
-
-fs.readdir()
-files: string[]
-path: string
-
-fs.rmdir()
-path: string
-
-gettimezone()
-timeZone: string
-
-info()
-systeminfo: string
-
-io.close()
-file: string
-
-io.input()
-fileVar: fileVar
-newfile: string
-
-io.open()
-fileVar: fileVar
-errorMsg: string|nil
-path: string
-mode: string
-
-io.output()
-fileVar: fileVar
-newfile: string
-
-lan.config.hislip.enable
-state: hislipenableState
-
-lan.enable
-state: lanenableState
-
-lan.linktimeout
-timeout: number
-
-lan.timedwait
-timeout: number
-
-lan.config.gateway
-gatewayAddress: string
-
-lan.config.ipaddress
-ipAddress: string
-
-lan.config.speed
-speed: number
-
-lan.config.subnetmask
-mask: string
-
-lan.status.gateway
-gatewayAddress: string
-
-
-lan.status.ipaddress
-ipAddress: string
-
-lan.status.macaddress
-macAddress: string
-
-lan.status.speed
-speed: number
-
-lan.status.subnetmask
-mask: string
-
-lan.trigger[N].connected
-connected:  boolean
-
-lan.trigger[N].ipaddress
-ipAddress: string
-
-lan.trigger[N].mode
-mode: lanTriggerMode
-
-lan.trigger[N].overrun
-overrun: boolean
-
-lan.config.dns.address[N]
-dnsAddress: string[]
-
-lan.config.dns.domain
-domain: string
-
-lan.config.dns.hostname
-hostName: string
-
-lan.status.dns.name
-hostName: string
-
-lan.status.port.dst
-port: integer
-
-lan.status.port.rawsocket
-port: integer
-
-lan.status.port.telnet
-port: integer
-
-lan.status.port.vxi11
-port: number
-
-lan.ipconfig()
-method: lanipconfigmethod
-ipV4Address: string
-subnetMask: string
-gateway: string
-
-lan.lxidomain
-domain: number
-
-lan.macaddress
-MACaddress: string
-
-lan.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-lan.trigger[N].pseudostate
-pseudostate: 0|1
-
-lan.autoconnect
-state: lanautoconnectstate
-
-lan.nagle
-state: lannaglestate
-
-lan.config.dns.dynamic
-state: lanconfigdnsdynamicstate
-
-lan.config.dns.verify
-state: lanconfigdnsverifystate
-
-lan.config.duplex
-duplex: lanconfigduplexduplex
-
-lan.config.method
-method: lanconfigmethodmethod
-
-lan.status.duplex
-duplex: lanstatusduplexduplex
-
-lan.trigger[N].protocol
-protocol: lantriggerprotocolprotocol
-
-
-localnode.manufacturer
-manufacturer: string
-
-localnode.autolinefreq
-flag: boolean
-
-localnode.description
-description: string
-
-localnode.revision
-revision: string
-
-localnode.license
-license_agreement: string
-
-localnode.access
-accessType: localnodeaccessaccessType
-
-localnode.linefreq
-frequency: number
-
-localnode.model
-model: string
-
-localnode.password
-password: string
-passWord: string
-
-localnode.prompts
-prompting: localnodepromptsMode
-
-localnode.prompts4882
-prompting: localnodeprompts4882Mode
-
-localnode.serialno
-serialno: string
-
-localnode.settime()
-year: number
-month: number
-day: number
-hour: number
-minute: number
-second: number
-
-localnode.showevents 
-errorMode: localnodeshoweventserrorMode
-
-localnode.passwordmode
-mode: localnodepasswordmodemode
-
-localnode.version
-version: string
-
-os.time()
-utcTime: number
-timespec: table
-
-os.clock()
-seconds: integer
-
-print()
-value1: any
-...: any
-
-printnumber()
-value1: number
-...: number
-
-
-printbuffer()
-startIndex: integer
-endIndex: integer
-bufferVar: bufferVar
-...: bufferVar
-
-settime()
-time: number
-
-settimezone()
-offset: string
-dstOffset: string
-dstStart: string
-dstEnd: string
-
-trigger.wait()
-triggered: boolean
-timeout: number
-
-trigger.timer[N].delaylist
-intervals: table
-
-trigger.timer[N].overrun
-overrun: boolean
-
-trigger.timer[N].passthrough
-passthrough: boolean
-
-tsplink.writeprotect
-mask: number
-
-tsplink.trigger[N].mode
-mode: tsplinkTriggerModes
-
-tsplink.trigger[N].overrun
-overrun: boolean
-
-tsplink.trigger[N].pulsewidth
-width: number
-
-tsplink.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-tsplink.readbit()
-data: number
-N: number
-
-tsplink.reset()
-nodesFound: number
-expectedNodes: number
-
-tsplink.writebit()
-N: number
-data: boolean
-
-tsplink.group
-groupNumber: number
-
-tsplink.line[N].mode
-mode: tsplinkLineMode 
-
-tsplink.master
-masterNodeNumber: number
-
-tsplink.node
-nodeNumber: number
-
-tsplink.readport()
-data: number
-
-tsplink.state
-state: string
-
-tsplink.writeport()
-data: number
-
-tsplink.readbit()
-data: 0|1
-N: number
-
-tsplink.readport()
-data: number
-
-tsplink.reset()
-nodesFound: number
-expectedNodes: number
-
-tsplink.trigger[N].wait()
-triggered: boolean
-timeout: number
-
-tsplink.writebit()
-data: number
-N: number
-
-tsplink.writeport()
-data: number
-
-tspnet.connect()
-connectionID: tspnetConnectionID
-ipAddress: string
-portNumber: number
-initString: string
-
-tspnet.clear()
-connectionID: tspnetConnectionID
-
-tspnet.disconnect()
-connectionID: tspnetConnectionID
-
-tspnet.execute()
-connectionID: tspnetConnectionID
-commandString: string
-formatString: string
-...: number|string|...
-
-tspnet.idn()
-idnString: string
-connectionID: tspnetConnectionID
-
-tspnet.read()
-connectionID: tspnetConnectionID
-commandString: string
-formatString: string
-...: number|string|...
-
-tspnet.readavailable()
-bytesAvailable: number
-connectionID: tspnetConnectionID
-
-tspnet.termination()
-connectionID: tspnetConnectionID
-termSequence: tspnetterminationtype
-type: tspnetterminationtype
-
-tspnet.timeout
-value: number
-
-tspnet.tsp.abort()
-connectionID: tspnetConnectionID
-
-tspnet.tsp.abortonconnect
-value: 0|1
-
-tspnet.tsp.rbtablecopy()
-table: table
-connectionID: tspnetConnectionID
-name: string
-startIndex: integer
-endIndex: integer
-
-tspnet.tsp.runscript()
-connectionID: tspnetConnectionID
-name: string
-script: string
-
-tspnet.write()
-connectionID: tspnetConnectionID
-inputString: string
-
-userstring.add()
-name: string
-value: number
-
-userstring.get()
-name: string
-value: number
+fileVar:read()
 
 fileVar:seek()
-position: integer
-errorMsg: string
-whence: "set"|"cur"|"end"
-offset: integer
+
+fileVar:write()
+
+firmware.load()
+
+firmware.update()
+
+format.asciiprecision
+
+format.byteorder
+
+format.data
+
+fs.chdir()
+
+fs.cwd()
+
+fs.is_dir()
+
+fs.is_file()
+
+fs.mkdir()
+
+fs.readdir()
+
+fs.rmdir()
+
+gettimezone()
+
+info
+
+io.close()
+
+io.flush()
+
+io.input()
+
+io.open()
+
+io.output()
+
+io.read()
+
+io.type()
+
+io.write()
+
+lan.applysettings()
+
+lan.autoconnect
+
+lan.config.dns.address[N]
+
+lan.config.dns.domain
+
+lan.config.dns.dynamic
+
+lan.config.dns.hostname
+
+lan.config.dns.verify
+
+lan.config.gateway
+
+lan.config.hislip.enable
+
+lan.config.ipaddress
+
+lan.config.method
+
+lan.config.subnetmask
+
+lan.enable
+
+lan.ipconfig()
+
+lan.linktimeout
+
+lan.nagle
+
+lan.reset()
+
+lan.restoredefaults()
+
+lan.status.dns.address[N]
+
+lan.status.dns.name
+
+lan.status.gateway
+
+lan.status.ipaddress
+
+lan.status.macaddress
+
+lan.status.port.dst
+
+lan.status.port.hislip
+
+lan.status.port.rawsocket
+
+lan.status.port.telnet
+
+lan.status.speed
+
+lan.status.subnetmask
+
+localnode.linefreq
+
+localnode.manufacturer
+
+localnode.model
+
+localnode.prompts
+
+localnode.prompts4882
+
+localnode.serialno
+
+localnode.showerrors
+
+localnode.version
+
+makegetter()
+
+makesetter()
+
+node[N].execute()
+
+node[N].getglobal()
+
+node[N].setglobal()
+
+os.clock()
+
+os.remove()
+
+os.rename()
+
+os.time()
+
+print()
+
+printbuffer()
+
+printnumber()
+
+script.delete()
+
+script.factory.catalog()
+
+script.load()
+
+script.new()
+
+script.newautorun()
+
+script.restore()
+
+script.user.catalog()
+
+scriptVar.autorun
+
+scriptVar.list()
+
+scriptVar.name
+
+scriptVar.run()
+
+scriptVar.save()
+
+scriptVar.source
+
+settime()
+
+settimezone()
+
+slot.autorestart
+
+slot.autostart
+
+slot.start()
+
+slot.stop()
+
+status.condition
+
+status.operation.*
+
+status.operation.instrument.*
+
+status.operation.instrument.digio.*
+
+status.operation.instrument.digio.trigger_overrun.*
+
+status.operation.instrument.digio.trigger_overrun2.*
+
+status.operation.instrument.lan.*
+
+status.operation.program.*
+
+status.operation.remote.*
+
+status.operation.slot.presence.*
+
+status.operation.slot.status.*
+
+status.operation.slot.summary.*
+
+status.operation.trigger_overrun.*
+
+status.operation.user.*
+
+status.system.*
+
+status.system2.*
+
+status.system3.*
+
+status.system4.*
+
+status.system5.*
+
+timer.cleartime()
+
+timer.readtime()
+
+trigger.clear()
+
+trigger.detector[N].clear()
+
+trigger.detector[N].overrun
+
+trigger.detector[N].stimulus
+
+trigger.detector[N].wait
+
+trigger.EVENT_ID
+
+trigger.EVENT_NONE
+
+trigger.generator[N].assert()
+
+trigger.generator[N].EVENT_ID
+
+timer.measure.t()
+
+trigger.timer[N].clear()
+
+trigger.timer[N].count
+
+trigger.timer[N].delay
+
+trigger.timer[N].EVENT_ID
+
+trigger.timer[N].overrun
+
+trigger.timer[N].passthrough
+
+trigger.timer[N].reset
+
+trigger.timer[N].stimulus
+
+trigger.timer[N].wait()
+
+trigger.wait()
+
+tsplink.group
+
+tsplink.master
+
+tsplink.node
+
+tsplink.readbit()
+
+tsplink.readport()
+
+tsplink.reset()
+
+tsplink.state
+
+tsplink.trigger[N].assert()
+
+tsplink.trigger[N].clear()
+
+tsplink.trigger[N].EVENT_ID
+
+tsplink.trigger[N].mode
+
+tsplink.trigger[N].overrun
+
+tsplink.trigger[N].pulsewidth
+
+tsplink.trigger[N].release()
+
+tsplink.trigger[N].reset()
+
+tsplink.trigger[N].stimulus
+
+tsplink.trigger[N].wait()
+
+tsplink.writebit()
+
+tsplink.writeport()
+
+tsplink.writeprotect
+
+tspnet.clear()
+
+tspnet.connect()
+
+tspnet.disconnect()
+
+tspnet.execute()
+
+tspnet.idn()
+
+tspnet.read()
+
+tspnet.readavailable()
+
+tspnet.reset()
+
+tspnet.termination()
+
+tspnet.timeout()
+
+tspnet.tsp.abort()
+
+tspnet.tsp.abortonconnect
+
+tspnet.tsp.rbtablecopy()
+
+tspnet.tsp.runscript()
+
+tspnet.write()
+
+userstring.add()
+
+userstring.delete()
+
+userstring.get()
+
+userstring.table()
+
+waitcomplete()
