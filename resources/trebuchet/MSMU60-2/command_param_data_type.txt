@@ -258,7 +258,7 @@ z:number
 x:number
 
 smu[X].source.atlimit
-value:True|False
+value:boolean
 z:number
 x:number
 
@@ -271,7 +271,7 @@ z:number
 x:number
 
 smu[X].source.constantcurrent
-value:True|False
+value:boolean
 z:number
 x:number
 
