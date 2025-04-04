@@ -247,7 +247,7 @@ def get_parameter_details(S, command_name):
                 enum_details.append(li.get_text())  # Extract text from each <li>
                    
 
-        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details))))
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
         y = re.findall("or\\s(\\d)", param_desc)
         param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
 
@@ -276,11 +276,10 @@ def get_parameter_details(S, command_name):
                     data["description"] = enum['description']
                     enum_data.append(data)
 
-
-        mini_dict["enum"] = enum_data
-        mini_dict["type"] = get_param_type(
+        translation_table = str.maketrans("()[].", "_"*5)
+        mini_dict["type"] = command_name.translate(translation_table) + "_" +param if enum_data else get_param_type(
             command_name, param)
-            
+        mini_dict["enum"] = enum_data
         mini_dict["range"] = get_range(
             command_name, param_desc)
         param_info.append(mini_dict)

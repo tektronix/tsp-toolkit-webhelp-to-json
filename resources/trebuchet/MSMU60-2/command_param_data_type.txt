@@ -8,7 +8,7 @@ bufferVar.cachemode
 cacheMode: 0|1
 
 bufferVar.capacity
-bufferCapacity: integer
+maxNumber: integer
 bufferVar: bufferVar
 
 bufferVar.clear()
@@ -23,6 +23,9 @@ state: 0|1
 
 bufferVar.collecttimestamps
 state: 0|1
+
+bufferVar.fractionalseconds
+fractionalSec: number[]
 
 bufferVar.fillcount
 fillCount: integer
@@ -47,6 +50,9 @@ bufferVar.readings
 reading: number[]
 bufferVar: bufferVar
 N: number
+
+bufferVar.seconds
+nonFracSeconds: integer[]
 
 bufferVar.sourcefunctions
 sourcefunction: string[]
@@ -161,6 +167,7 @@ x:number
 contactCheckThreshold:number
 
 smu[X].defbufferY
+bufferVar: bufferVar
 z:number
 x:number
 
@@ -170,7 +177,7 @@ z:number
 x:number
 
 smu[X].makebuffer()
-bufferVar:string
+bufferVar:bufferVar
 z:number
 x:number
 bufferSize:number

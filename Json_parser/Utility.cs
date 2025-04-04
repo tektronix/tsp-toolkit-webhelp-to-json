@@ -190,7 +190,7 @@ namespace jsonToLuaParser
                             if (!arrList.Contains(type_name))
                             {
                                 arrList = arrList.Append(type_name).ToArray();
-                                class_data += $"---@class {type_name}\n";
+                                class_data += $"---@class {type_name.Replace('[', '_').Replace(']', '_')}\n";
                                 class_data += $"local {type_name} = {{}}\n\n";
                                 class_data += $"---@type {type_name}[]\n";
                                 class_data += $"{NODE_STR}{table_name} = {{}}\n";
@@ -213,7 +213,7 @@ namespace jsonToLuaParser
                         if (keyValuePair.Key.Contains("bufferVar")) // handle bufferVar type
                             table_name = keyValuePair.Key;
                             
-                        class_data += "---@class " + keyValuePair.Key + "\n";
+                        class_data += "---@class " + keyValuePair.Key.Replace('[','_').Replace(']','_') + "\n";
                         class_data += $"{table_name} = {{}}\n";
                     }
 
@@ -653,16 +653,16 @@ function setblock(blockNumber, blockType,...) end;
 
                     break;
                 case DefinitionsType.Slot:
-                    outStr += "slot = {}\n";
+                    outStr += "slot = {slot[$slot_number$]}\n";
                     outStr += "slot[$slot_number$] = {}\n";
-                    outStr += "slot[$slot_number$].smu = {}\n";
+                    outStr += "slot[$slot_number$].smu = { slot[$slot_number$].smu[1], slot[$slot_number$].smu[2]}\n";
                     break;
                 case DefinitionsType.NodeSlot:
-                    outStr += "node = {}\n";
+                    outStr += "node = {node[$node_number$]}\n";
                     outStr += "node[$node_number$] = {}\n";
-                    outStr += "node[$node_number$].slot = {}\n";
+                    outStr += "node[$node_number$].slot = {node[$node_number$].slot[$slot_number$]}\n";
                     outStr += "node[$node_number$].slot[$slot_number$] = {}\n";
-                    outStr += "node[$node_number$].slot[$slot_number$].smu = {}\n";
+                    outStr += "node[$node_number$].slot[$slot_number$].smu = {node[$node_number$].slot[$slot_number$].smu[1], node[$node_number$].slot[$slot_number$].smu[2]}\n";
                     break;
                 case DefinitionsType.Normal:
                     outStr += "";
