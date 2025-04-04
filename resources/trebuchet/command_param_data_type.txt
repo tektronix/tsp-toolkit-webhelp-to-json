@@ -2,112 +2,201 @@
 In This Section
 
 bit.bitand()
+result:number
+value1:number
+value2:number
 
 bit.bitor()
+result:number
+value1:number
+value2:number
 
 bit.bitxor()
+result:number
+value1:number
+value2:number
 
 bit.clear()
+result:number
+value:number
+index:number
 
 bit.get()
+result:number
+value:number
+index:number
 
 bit.getfield()
+result:number
+value:number
+index:number
+width:number
 
 bit.set()
+result:number
+value:number
+index:number
 
 bit.setfield()
+result:number
+value:number
+index:number
+width:number
+fieldValue:number
 
 bit.test()
+result:number
+value:number
+index:number
 
 bit.toggle()
+result:number
+value:number
+index:number
 
 dataqueue.add()
+result:boolean
+value:number
+timeout:number
 
 dataqueue.CAPACITY
+count:number
 
 dataqueue.clear()
 
 dataqueue.count
+count:number
 
 dataqueue.next()
+value:number
+timeout:number
 
 delay()
+seconds:number
 
 digio.readbit()
+data:0|1
+N:number
 
 digio.readport()
+data:number
 
 digio.trigger[N].assert()
+N:number
 
 digio.trigger[N].clear()
+N:number
 
 digio.trigger[N].edge
+N:number
 
 digio.trigger[N].EVENT_ID
+eventID:number
+N:number
 
 digio.trigger[N].logic
+N:number
 
 digio.trigger[N].mode
+N:number
 
 digio.trigger[N].overrun
+overrun:boolean
+N:number
 
 digio.trigger[N].pulsewidth
+triggerPulseWidth:number
+N:number
 
 digio.trigger[N].release()
+N:number
 
 digio.trigger[N].reset()
+N:number
 
 digio.trigger[N].stimulus
+N:number
 
 digio.trigger[N].wait()
+triggered:boolean
+N:number
+timeout:number
 
 digio.writebit()
+N:number
+value:number
 
 digio.writeport()
+data:number
 
 digio.writeprotect
+mask:number
 
 eventlog.clear()
 
 eventlog.count
+count:number
 
 eventlog.next()
+eventNumber:number
+message:string
+severity:string
+nodeID:number
+timeSeconds:number
+timeFractional:number
 
 exit()
 
 fileVar:close()
 
-fileVar:flush()
-
 fileVar:read()
 
 fileVar:seek()
+position:number
+errorMsg:string
+whence:string
+offset:number
 
 fileVar:write()
+data:string
+data1:string
+data2:string
+datan:string
 
 firmware.load()
+filename:string
 
 firmware.update()
 
 format.asciiprecision
+precision:number 
 
 format.byteorder
 
 format.data
 
 fs.chdir()
+path:string
 
 fs.cwd()
+path:string
 
 fs.is_dir()
+status:boolean
+path:string
 
 fs.is_file()
+status:boolean
+path:string
 
 fs.mkdir()
+newpath:string
 
 fs.readdir()
+path:string
 
 fs.rmdir()
+path:string
 
 gettimezone()
 
@@ -118,311 +207,514 @@ io.close()
 io.flush()
 
 io.input()
+newfile:string
 
 io.open()
+path:string
+mode:string
 
 io.output()
 
 io.read()
+data1:string
+data2:string
+dataN:string
+format1:string|number
+format2:string|number
+formatN:string|number
 
 io.type()
 
 io.write()
+data1:string
+data2:string
+dataN:string
 
 lan.applysettings()
 
 lan.autoconnect
+state:0|1
 
 lan.config.dns.address[N]
+dnsAddress:string
+N:number
 
 lan.config.dns.domain
+domain:string
 
 lan.config.dns.dynamic
+state:0|1
 
 lan.config.dns.hostname
+hostName:string
 
 lan.config.dns.verify
+state:0|1
 
 lan.config.gateway
+gatewayAddress:string
 
 lan.config.hislip.enable
 
 lan.config.ipaddress
+ipAddress:string
 
 lan.config.method
+method:0|1
 
 lan.config.subnetmask
+mask:string
 
 lan.enable
 
 lan.ipconfig()
+ipV4Address:string
+subnetMask:string
+gateway:string
 
 lan.linktimeout
+timeout:string
 
 lan.nagle
+state:0|1
 
 lan.reset()
 
 lan.restoredefaults()
 
 lan.status.dns.address[N]
+dnsAddress:string
+N:number
 
 lan.status.dns.name
+hostName:string
 
 lan.status.gateway
+gatewayAddress:string
 
 lan.status.ipaddress
+ipAddress:string
 
 lan.status.macaddress
+macAddress:string
 
 lan.status.port.dst
+port:number
 
 lan.status.port.hislip
+port:number
 
 lan.status.port.rawsocket
+port:number
 
 lan.status.port.telnet
+port:number
 
 lan.status.speed
+speed:number
 
 lan.status.subnetmask
+mask:string
 
 localnode.linefreq
+frequency:number
 
 localnode.manufacturer
+manufacturer:string
 
 localnode.model
+model:number
 
 localnode.prompts
 
 localnode.prompts4882
 
 localnode.serialno
+serialno:number
 
 localnode.showerrors
 
 localnode.version
+version:number
 
 makegetter()
+getter:number
+attributeName:string
 
 makesetter()
+attributeName:string
 
 node[N].execute()
+N:number
+scriptCode:string
 
 node[N].getglobal()
+value:number
+N:number
+name:string
 
 node[N].setglobal()
+value:number
+N:number
+name:string
 
 os.clock()
+seconds:number 
 
 os.remove()
+success:True|nil
+filename:string
 
 os.rename()
+success:True|nil
+oldname:string
+newname:string
 
 os.time()
+utcSeconds:number
+utcFractional:number
 
 print()
 
 printbuffer()
+startIndex:number
+endIndex:number
 
 printnumber()
+value1:number
+value2:number
+valueN:number
 
 script.delete()
+scriptName:string
 
 script.factory.catalog()
+name:string
 
 script.load()
+file:string
+name:string
 
 script.new()
+scriptVar:string
+name:string
 
 script.newautorun()
+scriptVar:string
+code:string
+name:string
 
 script.restore()
+name:string
 
 script.user.catalog()
+name:string
 
 scriptVar.autorun
+scriptVar:string
+state:number
 
 scriptVar.list()
+scriptVar:string
 
 scriptVar.name
+scriptName:string
 
 scriptVar.run()
 
 scriptVar.save()
+filename:string
 
 scriptVar.source
+code:string
 
 settime()
+seconds:number
+fractional:number
 
 settimezone()
+offset:string
+dstOffset:string
+dstStart:string
+dstEnd:string
 
 slot.autorestart
 
 slot.autostart
 
 slot.start()
+slot:number
 
 slot.stop()
+slot:number
 
 status.condition
+statusByte:number
 
 status.operation.*
+operationRegister:number
 
 status.operation.instrument.*
+operationRegister:number
 
 status.operation.instrument.digio.*
+operationRegister:number
 
 status.operation.instrument.digio.trigger_overrun.*
+operationRegister:number
 
 status.operation.instrument.digio.trigger_overrun2.*
+operationRegister:number
 
 status.operation.instrument.lan.*
+operationRegister:number
 
 status.operation.program.*
+operationRegister:number
 
 status.operation.remote.*
+operationRegister:number
 
 status.operation.slot.presence.*
+operationRegister:number
 
 status.operation.slot.status.*
+operationRegister:number
 
 status.operation.slot.summary.*
+operationRegister:number
 
 status.operation.trigger_overrun.*
+operationRegister:number
 
 status.operation.user.*
+operationRegister:number
 
 status.system.*
+enableRegister:number
 
 status.system2.*
+enableRegister:number
 
 status.system3.*
+enableRegister:number
 
 status.system4.*
+enableRegister:number
 
 status.system5.*
+enableRegister:number
 
 timer.cleartime()
+time:number
 
 timer.readtime()
+time:number
 
 trigger.clear()
 
 trigger.detector[N].clear()
+N:number
 
 trigger.detector[N].overrun
+overrun:boolean
+N:number
 
 trigger.detector[N].stimulus
+N:number
 
 trigger.detector[N].wait
+triggered:boolean
+N:number
+timeout:number
 
 trigger.EVENT_ID
 
 trigger.EVENT_NONE
 
 trigger.generator[N].assert()
+N:number
 
 trigger.generator[N].EVENT_ID
+N:number
 
 timer.measure.t()
+time:number
 
 trigger.timer[N].clear()
+N:number
 
 trigger.timer[N].count
+count:number
+N:number
 
 trigger.timer[N].delay
+interval:number
+N:number
 
 trigger.timer[N].EVENT_ID
+eventID:number
+N:number
 
 trigger.timer[N].overrun
+overrun:boolean
+N:number
 
 trigger.timer[N].passthrough
+passthrough:boolean
+N:number
 
 trigger.timer[N].reset
+N:number
 
 trigger.timer[N].stimulus
+N:number
 
 trigger.timer[N].wait()
+triggered:boolean
+N:number
+timeout:number
 
 trigger.wait()
+triggered:boolean
+timeout:number
 
 tsplink.group
+groupNumber:number
 
 tsplink.master
+masterNodeNumber:number
 
 tsplink.node
+nodeNumber:number
 
 tsplink.readbit()
+data:0|1
+N:number
 
 tsplink.readport()
+data:number
 
 tsplink.reset()
+nodesFound:number
+expectedNodes:number
 
 tsplink.state
+state:string
 
 tsplink.trigger[N].assert()
+N:number
 
 tsplink.trigger[N].clear()
+N:number
 
 tsplink.trigger[N].EVENT_ID
+eventID:number
+N:number
 
 tsplink.trigger[N].mode
+N:number
 
 tsplink.trigger[N].overrun
+overrun:boolean
+N:number
 
 tsplink.trigger[N].pulsewidth
+width:number
+N:number
 
 tsplink.trigger[N].release()
+N:number
 
 tsplink.trigger[N].reset()
+N:number
 
 tsplink.trigger[N].stimulus
+N:number
 
 tsplink.trigger[N].wait()
+triggered:boolean
+N:number
+timeout:number
 
 tsplink.writebit()
+N:number
+data:0|1
 
 tsplink.writeport()
+data:number
 
 tsplink.writeprotect
+mask:number
 
 tspnet.clear()
 
 tspnet.connect()
+ipAddress:string
+portNumber:number
+initString:string
 
 tspnet.disconnect()
 
 tspnet.execute()
+commandString:string
+value1:number
+value2:number
+valueN:string
+formatString:string
 
 tspnet.idn()
+idnString:string
 
 tspnet.read()
+value1:number
+value2:number
+valueN:string
+formatString:string
 
 tspnet.readavailable()
+bytesAvailable:number
 
 tspnet.reset()
 
 tspnet.termination()
+type:number
 
 tspnet.timeout()
+value:number
 
 tspnet.tsp.abort()
+connectionID:number
 
 tspnet.tsp.abortonconnect
+value:0|1
 
 tspnet.tsp.rbtablecopy()
+connectionID:number
+name:string
+startIndex:number
+endIndex:number
 
 tspnet.tsp.runscript()
+name:string
+script:string
 
 tspnet.write()
+inputString:string
 
 userstring.add()
+name:string
+value:string
 
 userstring.delete()
+value:number
+name:string
 
 userstring.get()
+value:number
+name:string
 
 userstring.table()
+name:string
 
 waitcomplete()
