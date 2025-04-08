@@ -16,10 +16,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
-## [0.19.0]
+## [0.19.1]
 
 ### Added
-- support for MP5103 model
+- new module support infrestructure
 
 ## [0.18.4]
 
@@ -67,7 +67,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.0...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.1...HEAD
+[0.19.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.0
 [0.19.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.0
 [0.18.4]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.4
 [0.18.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.3
