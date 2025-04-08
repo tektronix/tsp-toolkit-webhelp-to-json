@@ -199,8 +199,7 @@ fs.rmdir()
 path:string
 
 gettimezone()
-
-info
+timeZone:string
 
 io.close()
 
