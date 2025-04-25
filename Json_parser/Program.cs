@@ -90,12 +90,20 @@ namespace jsonToLuaParser
             }
         }
 
+        static string getStaticTables()
+        {
+            var OutStr = "---@meta\n\n";
+            OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
+            OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
+            OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            return OutStr;
+
+        }
         static string GenerateNormalCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
-            var outStr = "---@meta\n\n";
-            outStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
-            outStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            outStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            var outStr = "";
+
+            outStr += getStaticTables();
 
             outStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Normal);
 
@@ -133,10 +141,8 @@ namespace jsonToLuaParser
 
         static string GenerateNodeCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
         {
-            var OutStr = "---@meta\n\n";
-            OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
-            OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            var OutStr = "";
+            OutStr += getStaticTables();
 
             OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Node);
 
@@ -176,14 +182,13 @@ namespace jsonToLuaParser
             return OutStr;
         }
 
-        static string GenerateSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes, string psu_or_smu)
         {
-            var OutStr = "---@meta\n\n";
-            OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
-            OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            var OutStr = "";
 
-            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Slot);
+            OutStr += getStaticTables();
+
+            OutStr += GetStaticLuaTableDefination(DefinitionsType.Slot, psu_or_smu);
 
             Utility.SetStaticVariablesString(DefinitionsType.Slot);
 
@@ -196,14 +201,11 @@ namespace jsonToLuaParser
             return OutStr;
         }
 
-        static string GenerateNodeSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        static string GenerateNodeSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes, string psu_or_smu)
         {
-            var OutStr = "---@meta\n\n";
-            OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
-            OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
-
-            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.NodeSlot);
+            var OutStr = "";
+            OutStr += getStaticTables();
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.NodeSlot, psu_or_smu);
 
             Utility.SetStaticVariablesString(DefinitionsType.NodeSlot);
 
@@ -226,8 +228,10 @@ namespace jsonToLuaParser
 
             var instrTable = InitializeInstructionTable(10);
             PopulateInstructionTable(cmdList, instrTable);
+
             var outStr = "";
             var tsplinkStr = "";
+
             if (fileName.Contains("26"))
             {
                 outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
@@ -237,12 +241,11 @@ namespace jsonToLuaParser
             }
             else if (fileName.Contains("37"))
             {
-                // Add specific handling for 37 models if needed
+                // Add specific handling for 37 models
             }
             else if (fileName.Contains(Utility.MODULE_MP5103))
             {
-                // Add specific handling for MP5103 models if needed
-                // Add specific handling for 2600 models if needed
+                // Add specific handling for MP5103 models
                 outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
                 tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
 
@@ -250,9 +253,18 @@ namespace jsonToLuaParser
             }
             else if (fileName.Contains(Utility.MODULE_MSMU60_2))
             {
-                // Add specific handling for MSMU60_2 models if needed
-                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
-                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                // Add specific handling for MSMU60_2 models
+
+                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "smu");
+                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "smu");
+
+            }
+
+            else if (fileName.Contains(Utility.MODULE_MPSU50_2ST))
+            {
+                // Add specific handling for MODULE_MPSU50_2ST models 
+                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "psu");
+                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "psu");
 
             }
             else // for tti models

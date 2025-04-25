@@ -14,6 +14,7 @@ MODEL_2600B = "2600B"
 
 MODEL_MP5103 = "MP5103"
 MODEL_MSMU60_2 = "MSMU60-2"
+MODEL_MPSU50_2ST = "MPSU50-2ST"
 
 def parse_web_help_files(webHelpFoldersDir):
     output_folder = "data"
@@ -52,6 +53,8 @@ def parse():
             base_path = os.path.join("resources", "trebuchet")
         elif MODEL_MSMU60_2 in model_number:
             base_path = os.path.join("resources", "trebuchet", MODEL_MSMU60_2)
+        elif MODEL_MPSU50_2ST in model_number:
+            base_path = os.path.join("resources", "trebuchet", MODEL_MPSU50_2ST)
         else:
             base_path = os.path.join("resources", "tti")
 
@@ -69,7 +72,7 @@ def parse():
             except:
                 command = ""
 
-            if MODEL_MSMU60_2 in  Configuration.MODEL_NUMBER and "slot[Z]" in command:
+            if (MODEL_MSMU60_2 in  Configuration.MODEL_NUMBER or MODEL_MPSU50_2ST in Configuration.MODEL_NUMBER) and "slot[Z]" in command:
                 command = command.replace("slot[Z].", "")
             try:
                 if Configuration.MODEL_NUMBER == "2601B-PULSE" and 'smua.' in command:
@@ -118,7 +121,7 @@ def parse():
                                 name = command.replace("*", status_star_command[x]).replace("X", ch)
                                 record = HelperFunctions.get_record(name, filename, command_type, default_value, explanation, details, param_info, usage, examples, related_commands, "Yes")
                                 description_list.append(record)
-                elif "smuX" in command or "smu[X]" in command:
+                elif "smuX" in command or "smu[X]" in command or "psu[X]" in command:
                     if "Y" not in command:
                         explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(command, soup)
                         for x in Configuration.CHANNELS:

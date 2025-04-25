@@ -24,6 +24,7 @@ namespace jsonToLuaParser
         };
 
         public const string MODULE_MSMU60_2 = "MSMU60-2";
+        public const string MODULE_MPSU50_2ST = "MPSU50-2ST";
         public const string MODULE_MP5103 = "MP5103";
 
         public static string NODE_STR = "";
@@ -159,7 +160,7 @@ namespace jsonToLuaParser
 
         public static string[] GetValidArrays(string file_name)
         {
-            if (file_name.Contains(MODULE_MSMU60_2))
+            if (file_name.Contains(MODULE_MSMU60_2) || file_name.Contains(MODULE_MPSU50_2ST))
                 return new string[] {};
             else
                 return new string[] { "[N]", "[Y]", "[slot]", "[1]", "[X]" };
@@ -552,8 +553,8 @@ function setblock(blockNumber, blockType,...) end;
 {NODE_STR}defbuffer1 = {{}}
 
 ---@type bufferVar
-{NODE_STR}defbuffer2 = {{}}
-";
+{NODE_STR}defbuffer2 = {{}}"
+;
         }
         public static void SetFileReadOnly(string file_path)
         {
@@ -642,35 +643,40 @@ function setblock(blockNumber, blockType,...) end;
             }
         }
 
-        public static string GetStaticLuaTableDefination(DefinitionsType type)
+        public static string GetStaticLuaTableDefination(DefinitionsType type, string psu_or_smu="")
         {
-            var outStr = "";
+            var builder = new StringBuilder();
 
             switch (type)
             {
                 case DefinitionsType.Node:
-                    outStr += "node = {}\nnode[$node_number$] = {}\n";
+                    builder.AppendLine("node = {node[$node_number$]}");
+                    builder.AppendLine("node[$node_number$] = {}");
+                    break;
 
-                    break;
                 case DefinitionsType.Slot:
-                    outStr += "slot = {slot[$slot_number$]}\n";
-                    outStr += "slot[$slot_number$] = {}\n";
-                    outStr += "slot[$slot_number$].smu = { slot[$slot_number$].smu[1], slot[$slot_number$].smu[2]}\n";
+                    builder.AppendLine("slot = {slot[$slot_number$]}");
+                    builder.AppendLine("slot[$slot_number$] = {}");
+                    builder.AppendLine($"slot[$slot_number$].{psu_or_smu} = {{ slot[$slot_number$].{psu_or_smu}[1], slot[$slot_number$].{psu_or_smu}[2] }}");
                     break;
+
                 case DefinitionsType.NodeSlot:
-                    outStr += "node = {node[$node_number$]}\n";
-                    outStr += "node[$node_number$] = {}\n";
-                    outStr += "node[$node_number$].slot = {node[$node_number$].slot[$slot_number$]}\n";
-                    outStr += "node[$node_number$].slot[$slot_number$] = {}\n";
-                    outStr += "node[$node_number$].slot[$slot_number$].smu = {node[$node_number$].slot[$slot_number$].smu[1], node[$node_number$].slot[$slot_number$].smu[2]}\n";
+                    builder.AppendLine("node = {node[$node_number$]}");
+                    builder.AppendLine("node[$node_number$] = {}");
+                    builder.AppendLine("node[$node_number$].slot = {node[$node_number$].slot[$slot_number$]}");
+                    builder.AppendLine("node[$node_number$].slot[$slot_number$] = {}");
+                    builder.AppendLine($"node[$node_number$].slot[$slot_number$].{psu_or_smu} = {{ node[$node_number$].slot[$slot_number$].{psu_or_smu}[1], node[$node_number$].slot[$slot_number$].{psu_or_smu}[2] }}");
                     break;
+
                 case DefinitionsType.Normal:
-                    outStr += "";
+                    // No additional definitions needed for Normal type.
                     break;
+
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException(nameof(type), $"Unsupported DefinitionsType: {type}");
             }
-            return outStr;
+
+            return builder.ToString();
         }
     }
 
