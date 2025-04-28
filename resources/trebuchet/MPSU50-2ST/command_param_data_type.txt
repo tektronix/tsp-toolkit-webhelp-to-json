@@ -89,13 +89,6 @@ Z:integer
 firmware.verify()
 Z:integer
 
-manufacturer
-Z:integer
-
-model
-model:number
-Z:integer
-
 psu[X].abort()
 Z:integer
 X:integer
@@ -298,10 +291,6 @@ StartY:number
 EndY:number 
 Steps:integer
 
-serialno
-serialno:integer
-Z:integer
-
 trigger.model.abort()
 Z:integer
 triggerModelName:string
@@ -433,7 +422,3 @@ trigger.model.removeblock()
 Z:integer
 triggerModelName:string
 triggerBlockName:string
-
-version
-version:number
-Z:integer
