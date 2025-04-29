@@ -224,6 +224,9 @@ x:number
 smu[X].measure.overlappedY()
 z:number
 x:number
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 smu[X].measure.rangeY
 rangeValue:number
@@ -251,6 +254,7 @@ smu[X].measure.Y()
 reading:number
 z:number
 x:number
+readingBuffer: bufferVar
 
 smu[X].overlapped
 z:number
@@ -348,16 +352,20 @@ value:number
 z:number
 x:number
 
-smu[X].trigger.measureY()
+smu[X].trigger.measure.Y()
 z:number
 x:number
+ReadingBuffer:bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 smu[X].trigger.source.linearY()
 z:number
 x:number
-StartY:number
-EndY:number
-Steps:number
+StartY:integer
+EndY:integer
+Steps:integer
+Points: integer
 
 smu[X].trigger.source.listY()
 z:number
@@ -367,9 +375,9 @@ SourceLevels:number{}
 smu[X].trigger.source.logY()
 z:number
 x:number
-StartY:number
-EndY:number
-Steps:number
+StartY:integer
+EndY:integer
+Points: integer
 
 trigger.model.abort()
 z:number
@@ -390,6 +398,11 @@ targetCount:number
 
 trigger.model.addblock.branch.event()
 z:number
+triggerModelName:string
+blockName:string
+branchToBlockName:string
+
+trigger.model.addblock.branch.onceexcluded()
 triggerModelName:string
 blockName:string
 branchToBlockName:string
@@ -515,7 +528,7 @@ triggerModelName:string
 trigger.model.removeblock()
 z:number
 triggerModelName:string
-TriggerBlockName:string
+triggerBlockName:string
 
 trigger.model.state()
 z:number

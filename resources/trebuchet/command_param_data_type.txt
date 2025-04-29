@@ -1,6 +1,3 @@
-
-In This Section
-
 bit.bitand()
 result:number
 value1:number
@@ -361,11 +358,11 @@ os.clock()
 seconds:number 
 
 os.remove()
-success:True|nil
+success:true|nil
 filename:string
 
 os.rename()
-success:True|nil
+success:true|nil
 oldname:string
 newname:string
 
@@ -647,13 +644,16 @@ tsplink.writeprotect
 mask:number
 
 tspnet.clear()
+connectionID: tspnetConnectionID
 
 tspnet.connect()
 ipAddress:string
 portNumber:number
 initString:string
+connectionID: tspnetConnectionID
 
 tspnet.disconnect()
+connectionID: tspnetConnectionID
 
 tspnet.execute()
 commandString:string
@@ -661,29 +661,34 @@ value1:number
 value2:number
 valueN:string
 formatString:string
+connectionID: tspnetConnectionID
 
 tspnet.idn()
 idnString:string
+connectionID: tspnetConnectionID
 
 tspnet.read()
 value1:number
 value2:number
 valueN:string
 formatString:string
+connectionID: tspnetConnectionID
 
 tspnet.readavailable()
 bytesAvailable:number
+connectionID: tspnetConnectionID
 
 tspnet.reset()
 
 tspnet.termination()
 type:number
+connectionID: tspnetConnectionID
 
-tspnet.timeout()
+tspnet.timeout
 value:number
 
 tspnet.tsp.abort()
-connectionID:number
+connectionID: tspnetConnectionID
 
 tspnet.tsp.abortonconnect
 value:0|1
@@ -693,13 +698,16 @@ connectionID:number
 name:string
 startIndex:number
 endIndex:number
+connectionID: tspnetConnectionID
 
 tspnet.tsp.runscript()
 name:string
 script:string
+connectionID: tspnetConnectionID
 
 tspnet.write()
 inputString:string
+connectionID: tspnetConnectionID
 
 userstring.add()
 name:string

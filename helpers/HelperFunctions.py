@@ -7,7 +7,7 @@ from Configuration import Configuration
 from helpers import cmd_param
 import json
 
-from main import MODEL_2600, MODEL_MSMU60_2
+from main import MODEL_2600, MODEL_MPSU50_2ST, MODEL_MSMU60_2
 
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
 
@@ -224,37 +224,25 @@ def get_parameter_details(S, command_name):
         rows.insert(0, new_row)
 
     for row in rows:
-        mini_dict = {}
-
         data = row.find_all("td")
         param = data[0].get_text().replace("\n", "").strip() # name of the parameter
-            
-        param_desc = "\n".join([item.get_text(separator='\n') for item in data[1:]]) #24xx, dmm, daq
-            
-        if(MODEL_2600 in Configuration.MODEL_NUMBER or MODEL_MSMU60_2  in Configuration.MODEL_NUMBER):
-            param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
-
-
         if param == '':
             continue
-            
-        mini_dict["name"] = param
-        
+
+        param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+
         enum_details = []
         if data[1].find("ul"):
             list_items = data[1].find_all("li")
             for li in list_items:
                 enum_details.append(li.get_text())  # Extract text from each <li>
-                   
 
-        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
-        y = re.findall("or\\s(\\d)", param_desc)
-        param_desc = param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+        if param == "Y":
+            if enum_details:
+                param_desc = "("+", ".join([el.split(":")[1].strip() +" = "+ el.split(":")[0].strip() for el in enum_details])+")"
 
-        #if "buffer.write.format()" in command_name:
-        if ":" in param_desc:
-            param_desc = param_desc.split(":")[0]
-        mini_dict["description"] = param_desc
+
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
 
         enum_data = []
             
@@ -266,7 +254,6 @@ def get_parameter_details(S, command_name):
                 data["description"] = ""
                 enum_data.append(data)
 
-
         elif command_name in Configuration.MANUALLY_EXTRACTED_COMMANDS:
             if param in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"]:
                 for enum in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"][param]["enum"]:
@@ -277,8 +264,13 @@ def get_parameter_details(S, command_name):
                     enum_data.append(data)
 
         translation_table = str.maketrans("()[].", "_"*5)
-        mini_dict["type"] = command_name.translate(translation_table) + "_" +param if enum_data else get_param_type(
+        data_type = command_name.translate(translation_table) + "_" +param if enum_data else get_param_type(
             command_name, param)
+        
+        mini_dict = {}
+        mini_dict["name"] = param
+        mini_dict["description"] = param_desc
+        mini_dict["type"] = data_type
         mini_dict["enum"] = enum_data
         mini_dict["range"] = get_range(
             command_name, param_desc)

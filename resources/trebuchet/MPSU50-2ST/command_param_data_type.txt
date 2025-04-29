@@ -115,7 +115,7 @@ psu[X].configlist.recall()
 Z:integer
 X:integer
 configListName:string
-indeX:integer
+index:integer
 
 psu[X].configlist.size()
 indexCount:integer
@@ -162,6 +162,9 @@ psu[X].measure.overlappedY()
 Z:integer
 X:integer
 Y:string
+rbuffer: bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 psu[X].measure.rangeY
 rangeValue:number
@@ -193,6 +196,7 @@ reading:number
 Z:integer
 X:integer
 Y:string
+readingBuffer: bufferVar
 
 psu[X].overlapped
 overlappedMode:0|1
@@ -268,14 +272,17 @@ psu[X].trigger.measure.Y()
 Z:integer
 X:integer
 Y:string
+ReadingBuffer:bufferVar
+ibuffer: bufferVar
+vbuffer: bufferVar
 
 psu[X].trigger.source.linearY()
 Z:integer
 X:integer
 Y:string
-StartY:number
-EndY:number 
-Steps:integer
+StartY:integer
+EndY:integer 
+Points:integer
 
 psu[X].trigger.source.listY()
 Z:integer
@@ -287,9 +294,9 @@ psu[X].trigger.source.logY()
 Z:integer
 X:integer
 Y:string
-StartY:number
-EndY:number 
-Steps:integer
+StartY:integer
+EndY:integer 
+Points:integer
 
 trigger.model.abort()
 Z:integer
@@ -331,21 +338,21 @@ Z:integer
 triggerModelName:string
 blockName:string
 channel:integer
-configListName:string
+configlistName:string
 
 trigger.model.addblock.configlist.prev()
 Z:integer
 triggerModelName:string
 blockName:string
 channel:integer
-configListName:string
+configlistName:string
 
 trigger.model.addblock.configlist.recall()
 Z:integer
 triggerModelName:string
 blockName:string
 channel:integer
-configListName:string
+configlistName:string
 index:integer
 
 trigger.model.addblock.delay.constant()
@@ -382,6 +389,12 @@ Z:integer
 triggerModelName:string
 blockName:string
 resetBranchCountBlockName:string
+
+trigger.model.addblock.source.action.bias()
+triggerModelName: string
+blockName: string
+channel: integer
+
 
 trigger.model.addblock.source.action.skip()
 Z:integer
