@@ -650,21 +650,14 @@ function setblock(blockNumber, blockType,...) end;
             switch (type)
             {
                 case DefinitionsType.Node:
-                    builder.AppendLine("node = {node[$node_number$]}");
                     builder.AppendLine("node[$node_number$] = {}");
                     break;
 
                 case DefinitionsType.Slot:
-                    builder.AppendLine("slot = {slot[$slot_number$]}");
-                    builder.AppendLine("slot[$slot_number$] = {}");
                     builder.AppendLine($"slot[$slot_number$].{psu_or_smu} = {{ slot[$slot_number$].{psu_or_smu}[1], slot[$slot_number$].{psu_or_smu}[2] }}");
                     break;
 
                 case DefinitionsType.NodeSlot:
-                    builder.AppendLine("node = {node[$node_number$]}");
-                    builder.AppendLine("node[$node_number$] = {}");
-                    builder.AppendLine("node[$node_number$].slot = {node[$node_number$].slot[$slot_number$]}");
-                    builder.AppendLine("node[$node_number$].slot[$slot_number$] = {}");
                     builder.AppendLine($"node[$node_number$].slot[$slot_number$].{psu_or_smu} = {{ node[$node_number$].slot[$slot_number$].{psu_or_smu}[1], node[$node_number$].slot[$slot_number$].{psu_or_smu}[2] }}");
                     break;
 
