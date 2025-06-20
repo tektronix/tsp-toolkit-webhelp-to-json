@@ -19,7 +19,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.19.1]
 
 ### Added
-- new module support infrestructure
+- new module support infrastructure
 
 ## [0.18.4]
 
