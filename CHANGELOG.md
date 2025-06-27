@@ -16,10 +16,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
-## [0.19.1]
+## [0.19.0]
 
 ### Added
 - new module support infrastructure
+- MP5103, MSMU60-2 and MPSU50-2ST command defination has been added
 
 ## [0.18.4]
 
