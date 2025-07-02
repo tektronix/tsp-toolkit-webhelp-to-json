@@ -64,6 +64,11 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
 
+      - name: Install mono
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
+
       - name: Restore dependencies
         run: |
           cd Json_parser
@@ -218,6 +223,37 @@ jobs:
           name: keithley_instrument_libraries
           path: keithley_instrument_libraries/
 
+      - name: Get RC Version
+        run: |
+          COMMIT="${{github.sha}}"
+          if ${{contains(github.head_ref, 'release/')}}; then
+            V="${{github.head_ref}}"
+            V="${V#release/}"
+          else
+            V="$(npm pkg get version)"
+            echo "Extracted Version: $V"
+            V="$(echo v"$V" | sed 's/\"//g')"
+            echo "Cleaned up Version: $V"
+          fi
+
+          # Check to see if the version tag already exists
+          # If it does, print a message and exit with an error code
+          if [ $(git tag --list "$V") ]; then
+            echo "Version tag already exists. Did you bump the version number?"
+            exit 1
+          fi
+
+          # Create an RC release if
+          # 1) This PR is a release branch that hasn't been merged to main.
+          # 2) This is a feature branch being merged into the main branch.
+          if ${{(! github.event.pull_request.merged && contains(github.head_ref, 'release/')) || (github.event.pull_request.merged && !contains(github.head_ref, 'release/'))}}; then
+            V="${V}-$(git tag --list ${V}* | wc -l)"
+            echo "RC Version: $V"
+          fi
+
+          echo "version=${V}" >> $GITHUB_OUTPUT
+          npm version --no-git-tag-version "${V}" || true
+
       - name: npm Package
         run: npm pack
 
@@ -226,7 +262,7 @@ jobs:
           npm publish *.tgz
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
+  
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -237,6 +273,7 @@ jobs:
     needs:
       - webhelp-to-json
       - json-to-lua
+      - publish
     if: ${{ (endsWith(github.base_ref, 'main') && (contains(github.head_ref, 'release/')) || github.event.pull_request.merged ) }}
     steps:
       - name: Checkout

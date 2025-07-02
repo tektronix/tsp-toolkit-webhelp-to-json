@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-//using static jsonToLuaParser.Utility;
 using static jsonToLuaParser.Utility;
+
 namespace jsonToLuaParser
 {
     class Program
@@ -14,17 +14,14 @@ namespace jsonToLuaParser
         {
             if (args.Length < 1)
             {
-                Console.WriteLine("Josn folder path is not provided, please pass josn folder path as argumnet");
+                Console.WriteLine("Json folder path is not provided, please pass json folder path as argument");
+                return;
             }
 
             const string base_lib_dir = "keithley_instrument_libraries";
-            // Check if the directory exists
             if (Directory.Exists(base_lib_dir))
             {
-                // Recursively remove read-only attribute from all files in the directory and its subdirectories
                 Utility.RemoveReadOnlyAttributes(base_lib_dir);
-
-                // Delete the directory
                 Directory.Delete(base_lib_dir, recursive: true);
             }
 
@@ -32,175 +29,276 @@ namespace jsonToLuaParser
 
             foreach (string file in Directory.EnumerateFiles(args[0]))
             {
-                parse_commands_josn(base_lib_dir, file);
+                ParseCommandsJson(base_lib_dir, file);
             }
 
-            // Copy tsp-lua-5.0 definations
-            Directory.CreateDirectory(Path.Combine(base_lib_dir, "tsp-lua-5.0"));
-            var lua_definations_file_path = Path.Combine(base_lib_dir, "tsp-lua-5.0");
-            CopyStaticFiles("tsp-lua-5.0", lua_definations_file_path);
+            CopyStaticFiles("tsp-lua-5.0", Path.Combine(base_lib_dir, "tsp-lua-5.0"));
         }
 
-       static void parse_commands_josn(string base_lib_dir, string json_file_path)
+        static void ParseCommandsJson(string baseLibDir, string jsonFilePath)
         {
-            Dictionary<string, string> arrayfound = new Dictionary<string, string>();
-            var str = File.ReadAllText(json_file_path);
+            var str = File.ReadAllText(jsonFilePath);
+            var fileName = Path.GetFileNameWithoutExtension(jsonFilePath);
+            var model = fileName;
 
-            var file_name = Path.GetFileNameWithoutExtension(json_file_path);
-
-            var model = Path.GetFileNameWithoutExtension(json_file_path);
-            //var file_name = "NewDMM7510commands";
             JObject cmds = JObject.Parse(str);
-
             IList<CommandInfo> cmdList = PopulateCommands(ref cmds, "commands");
-            Console.WriteLine(cmdList.First());
-            var outStr = "---@meta\n\n";
-            int MAX_DEPT = 10;
-            Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable = new Dictionary<string, Dictionary<string, CommandInfo>>[MAX_DEPT];
-            for (int i = 0; i < MAX_DEPT; i++)
+
+            
+            (string outstr , string node_or_slot_out_str) = HandleModelSpecificDefinitions(fileName, cmdList);
+
+            WriteOutputFiles(baseLibDir, model, outstr, node_or_slot_out_str);
+
+        }
+
+        static IList<CommandInfo> FilterCommands(ref IList<CommandInfo> cmdList, Func<CommandInfo, bool> predicate)
+        {
+            var filteredCommands = cmdList.Where(predicate).ToList();
+            cmdList = cmdList.Except(filteredCommands).ToList();
+            return filteredCommands;
+        }
+
+        static Dictionary<string, Dictionary<string, CommandInfo>>[] InitializeInstructionTable(int maxDepth)
+        {
+            var instrTable = new Dictionary<string, Dictionary<string, CommandInfo>>[maxDepth];
+            for (int i = 0; i < maxDepth; i++)
             {
                 instrTable[i] = new Dictionary<string, Dictionary<string, CommandInfo>>();
             }
+            return instrTable;
+        }
 
-            var factoryScriptCommands = cmdList.Where(cmd => cmd.description.Contains("factory script")).ToList(); // get factoryScriptCommands and remove it, its there for 26xx models
-            cmdList = cmdList.Except(factoryScriptCommands).ToList(); // remove all factoryScriptCommands commands
-
-            var directFunctioncommands = cmdList.Where(cmd => !cmd.name.Contains('.')).ToList();
-            cmdList = cmdList.Except(directFunctioncommands).ToList(); // remove all directFunctioncommands commands and handle it speratley
-
-
-            var triggerModelLoadCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.load()")).ToList(); // get trigger.model.load() commands
-            cmdList = cmdList.Except(triggerModelLoadCommands).ToList(); // remove all trigger.model.load() commands and handle it speratley
-
-            var triggerModelSetblockCommands = cmdList.Where(cmd => cmd.name.Contains("trigger.model.setblock()")).ToList();
-            cmdList = cmdList.Except(triggerModelSetblockCommands).ToList();
-
-            var commad_only_for_tspLinkNodes = cmdList.Where(cmd => cmd.name.Contains("node[N].")).ToList();
-            cmdList = cmdList.Except(commad_only_for_tspLinkNodes).ToList();
-
-
-           
-            
-
-           
+        static void PopulateInstructionTable(IList<CommandInfo> cmdList, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable)
+        {
             foreach (var cmd in cmdList)
             {
-                string s = cmd.name;
-                var tSplit = s.Contains(".") ? s.Trim().Split('.') : s.Trim().Split(':');
-               
+                var tSplit = cmd.name.Contains(".") ? cmd.name.Trim().Split('.') : cmd.name.Trim().Split(':');
                 for (int i = 0; i < tSplit.Length - 1; i++)
-                {//ignore functions
-                    string attr = null;
-                    //if (cmd.command_type != CommandType.Function)
-                    //{//attributes
-                    //TODO get attribute type and/or defaults
-                    attr = tSplit[tSplit.Length - 1];
-                    //}
+                {
+                    string attr = tSplit[tSplit.Length - 1];
                     string tableStr = string.Join(".", tSplit, 0, i + 1);
 
                     if (!instrTable[i].ContainsKey(tableStr))
                     {
                         instrTable[i][tableStr] = new Dictionary<string, CommandInfo>();
                     }
-                    if (attr != null && i == tSplit.Length - 2)
+                    if (i == tSplit.Length - 2)
+                    {
                         instrTable[i][tableStr][attr] = cmd;
+                    }
                 }
             }
+        }
 
-            outStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n"; //PRIV
-            outStr += "---@class bufferVar\nlocal bufferVar={}\n";
-            outStr += "---@class digio\n local digio = {}\n\n---@class tsplink\n local tsplink = {}\n\n---@class lan\n  local lan = {}\n\n---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+        static string getStaticTables()
+        {
+            var OutStr = "---@meta\n\n";
+            OutStr += "---@class io_object\nlocal io_object={}\n---@class scriptVar\nlocal scriptVar={}\n---@class fileVar\nlocal fileVar={}\n---@class eventID\n\n---@class file_object\nlocal file_object ={}\n\n";
+            OutStr += "---@class bufferVar\nlocal bufferVar={}\n";
+            OutStr += "---@class tspnetConnectionID\nlocal tspnetConnectionID = {}\n\n ---@class promptID\nlocal promptID = {}\n\n";
+            return OutStr;
 
-            var tsplinkStr = "";
-            tsplinkStr = outStr;
-            tsplinkStr += Utility.PrintFields(MAX_DEPT, file_name, instrTable, true);
-            outStr += Utility.PrintFields(MAX_DEPT, file_name, instrTable, false);
-            foreach (var cmd in directFunctioncommands)
-            {
-                var cmd_info = new KeyValuePair<string, CommandInfo>(cmd.name, cmd);
-                outStr += Utility.HelpContent(cmd_info, file_name, "", true);
-            }
+        }
+        static string GenerateNormalCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        {
+            var outStr = "";
+
+            outStr += getStaticTables();
+
+            outStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Normal);
+
+            Utility.SetStaticVariablesString(DefinitionsType.Normal);
+
+            outStr += Utility.PrintFields(10, fileName, instrTable, false);
+            
 
             if (triggerModelLoadCommands.Count > 0)
             {
-                var defStr = "---This is generic function, This function loads a trigger-model template configuration\n---";
-                outStr += defStr;
-                tsplinkStr += defStr;
-
+                outStr += "---This is generic function, This function loads a trigger-model template configuration\n---";
                 foreach (var cmd in triggerModelLoadCommands)
                 {
-                    var header = Utility.get_command_header(cmd, file_name);
-                    outStr += header;
-                    tsplinkStr += header;
+                    outStr += Utility.get_command_header(cmd, fileName);
                 }
                 outStr += "\n" + get_trigger_load_cmd_signature();
-                tsplinkStr += "\n" + get_trigger_load_cmd_signature(true);
             }
 
             if (triggerModelSetblockCommands.Count > 0)
             {
-                var defStr = @"
----This is generic function to define trigger model setblock.
----Signature of this function depends on the BlockType.
----For more details, please keep scrolling to find the required function signature for specific BlockType
----";
-                outStr += $"{get_BlockType_alias()}"+defStr;
-                tsplinkStr += $"{get_BlockType_alias(true)}" + defStr;
-
+                outStr += $"{get_BlockType_alias()}---This is generic function to define trigger model setblock.\n---Signature of this function depends on the BlockType.\n---For more details, please keep scrolling to find the required function signature for specific BlockType\n---";
                 foreach (var cmd in triggerModelSetblockCommands)
                 {
-                    var header = Utility.get_command_header(cmd, file_name);
-                    outStr += header;
-                    tsplinkStr += header;
+                    outStr += Utility.get_command_header(cmd, fileName);
                 }
-
-
                 outStr += get_trigger_model_setBlock_cmd_signature();
-                tsplinkStr += get_trigger_model_setBlock_cmd_signature(true);
             }
 
-            if (commad_only_for_tspLinkNodes.Count > 0)
+            foreach (var cmd in directFunctionCommands)
             {
-                foreach (var cmd in commad_only_for_tspLinkNodes)
+                outStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, "");
+            }
+            return outStr;
+        }
+
+        static string GenerateNodeCommandDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes)
+        {
+            var OutStr = "";
+            OutStr += getStaticTables();
+
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.Node);
+
+            Utility.SetStaticVariablesString(DefinitionsType.Node);
+
+            OutStr += Utility.PrintFields(10, fileName, instrTable, true);
+            foreach (var cmd in directFunctionCommands)
+            {
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, "");
+            }
+
+            if (triggerModelLoadCommands.Count > 0)
+            {
+                OutStr += "---This is generic function, This function loads a trigger-model template configuration\n---";
+                foreach (var cmd in triggerModelLoadCommands)
                 {
-                    var cmd_info = new KeyValuePair<string, CommandInfo>(cmd.name.Split('.')[1], cmd);
-                    tsplinkStr += Utility.HelpContent(cmd_info, file_name, "", false, true);
+                    OutStr += Utility.get_command_header(cmd, fileName);
                 }
+                OutStr += "\n" + get_trigger_load_cmd_signature(true);
             }
 
-
-            if (file_name.Contains("26"))
+            if (triggerModelSetblockCommands.Count > 0)
             {
-                // Add specific handling for 26 models if needed
+                OutStr += $"{get_BlockType_alias()}---This is generic function to define trigger model setblock.\n---Signature of this function depends on the BlockType.\n---For more details, please keep scrolling to find the required function signature for specific BlockType\n---";
+                foreach (var cmd in triggerModelSetblockCommands)
+                {
+                    OutStr += Utility.get_command_header(cmd, fileName);
+                }
+                OutStr += get_trigger_model_setBlock_cmd_signature(true);
             }
-            else if (file_name.Contains("37"))
+
+            foreach (var cmd in commandOnlyForTspLinkNodes)
             {
-                // Add specific handling for 37 models if needed
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name.Split('.')[1], cmd), fileName, "");
+            }
+
+            return OutStr;
+        }
+
+        static string GenerateSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes, string psu_or_smu)
+        {
+            var OutStr = "";
+
+            OutStr += getStaticTables();
+
+            OutStr += GetStaticLuaTableDefination(DefinitionsType.Slot, psu_or_smu);
+
+            Utility.SetStaticVariablesString(DefinitionsType.Slot);
+
+            OutStr += Utility.PrintFields(10, fileName, instrTable, false);
+            foreach (var cmd in directFunctionCommands)
+            {
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, Utility.NODE_STR.TrimEnd('.'));
+            }
+
+            return OutStr;
+        }
+
+        static string GenerateNodeSlotComamndDefinitions(string fileName, Dictionary<string, Dictionary<string, CommandInfo>>[] instrTable, IList<CommandInfo> directFunctionCommands, IList<CommandInfo> triggerModelLoadCommands, IList<CommandInfo> triggerModelSetblockCommands, IList<CommandInfo> commandOnlyForTspLinkNodes, string psu_or_smu)
+        {
+            var OutStr = "";
+            OutStr += getStaticTables();
+            OutStr += Utility.GetStaticLuaTableDefination(DefinitionsType.NodeSlot, psu_or_smu);
+
+            Utility.SetStaticVariablesString(DefinitionsType.NodeSlot);
+
+            OutStr += Utility.PrintFields(10, fileName, instrTable, true);
+            foreach (var cmd in directFunctionCommands)
+            {
+                OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name, cmd), fileName, Utility.NODE_STR.TrimEnd('.'));
+            }
+
+            return OutStr;
+        }
+
+        static (string out_str, string node_str) HandleModelSpecificDefinitions(string fileName, IList<CommandInfo> cmdList)
+        {
+            var factoryScriptCommands = FilterCommands(ref cmdList, cmd => cmd.description.Contains("factory script"));
+            var directCommands = FilterCommands(ref cmdList, cmd => !cmd.name.Contains('.') && !cmd.name.Contains(':'));
+            var triggerModelLoadCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.load()"));
+            var triggerModelSetblockCommands = FilterCommands(ref cmdList, cmd => cmd.name.Contains("trigger.model.setblock()"));
+            var commandOnlyForTspLinkNodes = FilterCommands(ref cmdList, cmd => cmd.name.Contains("node[N]."));
+
+            var instrTable = InitializeInstructionTable(10);
+            PopulateInstructionTable(cmdList, instrTable);
+
+            var outStr = "";
+            var tsplinkStr = "";
+
+            if (fileName.Contains("26"))
+            {
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                
+
+            }
+            else if (fileName.Contains("37"))
+            {
+                // Add specific handling for 37 models
+            }
+            else if (fileName.Contains(Utility.MODULE_MP5103))
+            {
+                // Add specific handling for MP5103 models
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+
+                // removing this slot table form here, it should be part of common table group
+                outStr = outStr.Replace("---@class slot\nslot = {}", "");
+
+
+            }
+            else if (fileName.Contains(Utility.MODULE_MSMU60_2))
+            {
+                // Add specific handling for MSMU60_2 models
+
+                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "smu");
+                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "smu");
+
+            }
+
+            else if (fileName.Contains(Utility.MODULE_MPSU50_2ST))
+            {
+                // Add specific handling for MODULE_MPSU50_2ST models 
+                outStr = GenerateSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "psu");
+                tsplinkStr = GenerateNodeSlotComamndDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes, "psu");
+
             }
             else // for tti models
             {
-                outStr += get_def_buffer_definations();
-                tsplinkStr += get_def_buffer_definations(true);
+                outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                outStr += get_def_buffer_Definitions();
+                tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
+                tsplinkStr += get_def_buffer_Definitions(true);
             }
 
-            Directory.CreateDirectory(Path.Combine(base_lib_dir, model));
-            Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "tspLinkSupportedCommands"));
-            Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "AllTspCommands"));
-            Directory.CreateDirectory(Path.Combine(base_lib_dir, model, "Helper"));
+            return (outStr, tsplinkStr);
+        }
 
-            var AllTspCommandsFilePath = $"{base_lib_dir}/{model}/AllTspCommands/definitions.lua";
-            var tspLinkSupportedCommandsFilePath = $"{base_lib_dir}/{model}/tspLinkSupportedCommands/definitions.txt";
+        static void WriteOutputFiles(string baseLibDir, string model, string outStr, string tsplinkStr)
+        {
+            Directory.CreateDirectory(Path.Combine(baseLibDir, model));
+            Directory.CreateDirectory(Path.Combine(baseLibDir, model, "tspLinkSupportedCommands"));
+            Directory.CreateDirectory(Path.Combine(baseLibDir, model, "AllTspCommands"));
+            Directory.CreateDirectory(Path.Combine(baseLibDir, model, "Helper"));
 
-            var static_folder_Path = Path.Combine(base_lib_dir, model, "Helper");
+            var allTspCommandsFilePath = $"{baseLibDir}/{model}/AllTspCommands/definitions.lua";
+            var tspLinkSupportedCommandsFilePath = $"{baseLibDir}/{model}/tspLinkSupportedCommands/definitions.txt";
 
-            Utility.CopyStaticFiles(model, static_folder_Path);
+            var staticFolderPath = Path.Combine(baseLibDir, model, "Helper");
+            Utility.CopyStaticFiles(model, staticFolderPath);
 
-            Utility.write_to_file(AllTspCommandsFilePath, outStr);
+            Utility.write_to_file(allTspCommandsFilePath, outStr);
             Utility.write_to_file(tspLinkSupportedCommandsFilePath, tsplinkStr);
 
-            Utility.SetFileReadOnly(AllTspCommandsFilePath);
+            Utility.SetFileReadOnly(allTspCommandsFilePath);
             Utility.SetFileReadOnly(tspLinkSupportedCommandsFilePath);
-            
         }
     }
 }

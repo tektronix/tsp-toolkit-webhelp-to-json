@@ -16,6 +16,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
+## [0.19.0]
+
+### Added
+- new module support infrastructure
+- MP5103, MSMU60-2 and MPSU50-2ST command defination has been added
+
 ## [0.18.4]
 
 ### Added
@@ -62,7 +68,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.18.4...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.0...HEAD
+[0.19.0]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.0
 [0.18.4]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.4
 [0.18.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.3
 [0.18.2]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.18.2
