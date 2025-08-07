@@ -402,7 +402,13 @@ namespace jsonToLuaParser
             var parameters = signature.Substring(start, end - start);
 
             if (table.Length == 0)// function cmd without table
+            {
+                if (function_name.Contains("reset"))
+                    return $"local function {function_name}({parameters}) end\n_G.reset = reset";
+
                 return $"function {function_name}({parameters}) end\n";
+            }
+               
             else
                 return $"local function {function_name}({parameters}) end\n{table}.{function_name} = {function_name}\n";
 
@@ -655,10 +661,16 @@ function setblock(blockNumber, blockType,...) end;
 
                 case DefinitionsType.Slot:
                     builder.AppendLine($"slot[$slot_number$].{psu_or_smu} = {{ slot[$slot_number$].{psu_or_smu}[1], slot[$slot_number$].{psu_or_smu}[2] }}");
+                    builder.AppendLine($"slot[$slot_number$].status.measurement.instrument.{psu_or_smu} = {{}}");
+                    builder.AppendLine($"slot[$slot_number$].status.operation.instrument.{psu_or_smu} = {{}}");
+                    builder.AppendLine($"slot[$slot_number$].status.questionable.instrument.{psu_or_smu} = {{}}");
                     break;
 
                 case DefinitionsType.NodeSlot:
                     builder.AppendLine($"node[$node_number$].slot[$slot_number$].{psu_or_smu} = {{ node[$node_number$].slot[$slot_number$].{psu_or_smu}[1], node[$node_number$].slot[$slot_number$].{psu_or_smu}[2] }}");
+                    builder.AppendLine($"node[$node_number$].slot[$slot_number$].status.measurement.instrument.{psu_or_smu} = {{}}");
+                    builder.AppendLine($"node[$node_number$].slot[$slot_number$].status.operation.instrument.{psu_or_smu} = {{}}");
+                    builder.AppendLine($"node[$node_number$].slot[$slot_number$].status.questionable.instrument.{psu_or_smu} = {{}}");
                     break;
 
                 case DefinitionsType.Normal:

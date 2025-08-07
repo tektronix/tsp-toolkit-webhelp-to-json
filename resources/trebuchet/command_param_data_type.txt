@@ -725,3 +725,6 @@ userstring.table()
 name:string
 
 waitcomplete()
+
+reset()
+system:boolean
