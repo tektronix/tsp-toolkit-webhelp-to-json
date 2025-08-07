@@ -236,7 +236,6 @@ namespace jsonToLuaParser
             {
                 outStr = GenerateNormalCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
                 tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
-                
 
             }
             else if (fileName.Contains("37"))
@@ -251,7 +250,7 @@ namespace jsonToLuaParser
 
                 // removing this slot table form here, it should be part of common table group
                 outStr = outStr.Replace("---@class slot\nslot = {}", "");
-
+                outStr += "\nlocalnode.slot = slot\n";
 
             }
             else if (fileName.Contains(Utility.MODULE_MSMU60_2))
@@ -276,6 +275,7 @@ namespace jsonToLuaParser
                 outStr += get_def_buffer_Definitions();
                 tsplinkStr = GenerateNodeCommandDefinitions(fileName, instrTable, directCommands, triggerModelLoadCommands, triggerModelSetblockCommands, commandOnlyForTspLinkNodes);
                 tsplinkStr += get_def_buffer_Definitions(true);
+
             }
 
             return (outStr, tsplinkStr);

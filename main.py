@@ -113,7 +113,7 @@ def parse():
                     elif "status" in command:
                         status_star_command = ["condition", "enable", "event", "ntr", "ptr"]
                         status_star_command_type = ["Attribute (R)", "Attribute (RW)", "Attribute (R)", "Attribute (RW)", "Attribute (RW)"]
-                        channel = [""] if "smuX" not in command else Configuration.CHANNELS
+                        channel = Configuration.CHANNELS if any(x in command for x in ["smuX", "smu[X]", "psu[X]"]) else [""]
                         for ch in channel:
                             for x in range(5):
                                 explanation, usage, details, examples, related_commands, param_info, command_type, default_value, tsp_link = HelperFunctions.fetch_details(command, soup)
