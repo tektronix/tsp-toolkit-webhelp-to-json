@@ -496,6 +496,12 @@ triggerModelName:string
 blockName:string
 channel:number
 
+trigger.model.addblock.source.action.set()
+z:number
+triggerModelName:string
+blockName:string
+channel:number
+
 trigger.model.addblock.source.action.step()
 z:number
 triggerModelName:string
