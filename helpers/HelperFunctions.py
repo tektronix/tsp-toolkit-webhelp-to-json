@@ -1,13 +1,9 @@
-from logging import exception
-import os
 import re
 from bs4 import BeautifulSoup
 from ordered_set import OrderedSet
 from Configuration import Configuration
-from helpers import cmd_param
 import json
 
-from main import MODEL_2600, MODEL_MPSU50_2ST, MODEL_MSMU60_2
 
 supportedInstruments = "2601, 2602, 2611, 2612, 2635, 2636, 2601A, 2602A, 2611A, 2612A, 2635A, 2636A,2651A, 2657A, 2601B, 2601B-PULSE, 2602B, 2606B, 2611B, 2612B, 2635B, 2636B, 2604B, 2614B, 2634B,2601B-L, 2602B-L, 2611B-L, 2612B-L, 2635B-L, 2636B-L, 2604B-L, 2614B-L, 2634B-L"
 
@@ -225,11 +221,11 @@ def get_parameter_details(S, command_name):
 
     for row in rows:
         data = row.find_all("td")
-        param = data[0].get_text().replace("\n", "").strip() # name of the parameter
-        if param == '':
+        param_name = data[0].get_text().replace("\n", "").strip() # name of the parameter
+        if param_name == '':
             continue
 
-        param_desc = "\n".join([item.get_text().replace("\n", "") for item in data[1:]])
+        param_desc = "<br>".join([paragraph.get_text() for item in data[1:] for paragraph in item.find_all("p")])
 
         enum_details = []
         if data[1].find("ul"):
@@ -237,16 +233,23 @@ def get_parameter_details(S, command_name):
             for li in list_items:
                 enum_details.append(li.get_text())  # Extract text from each <li>
 
-        if param == "Y":
-            if enum_details:
-                param_desc = "("+", ".join([el.split(":")[1].strip() +" = "+ el.split(":")[0].strip() for el in enum_details])+")"
+        param_desc = "<br>".join([param_desc] + enum_details) if enum_details else param_desc
 
-
-        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
 
         enum_data = []
+
+        # Check if parameter is present in manually extreacted enums first
+        if command_name in Configuration.MANUALLY_EXTRACTED_COMMANDS and \
+           param_name in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"]:
+            for enum in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"][param_name]["enum"]:
+                data = {}
+                data["name"] = enum['name']
+                data["value"] = enum['value']
+                data["description"] = enum['description']
+                enum_data.append(data)
             
-        if len(x) != 0:
+        elif len(x) != 0:
             for index in range(len(x)):
                 data = {}
                 data["name"] = remove_array_string_form_enum(x[index])
@@ -254,21 +257,13 @@ def get_parameter_details(S, command_name):
                 data["description"] = ""
                 enum_data.append(data)
 
-        elif command_name in Configuration.MANUALLY_EXTRACTED_COMMANDS:
-            if param in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"]:
-                for enum in Configuration.MANUALLY_EXTRACTED_COMMANDS[command_name]["param_info"][param]["enum"]:
-                    data = {}
-                    data["name"] = enum['name']
-                    data["value"] = enum['value']
-                    data["description"] = enum['description']
-                    enum_data.append(data)
 
         translation_table = str.maketrans("()[].", "_"*5)
-        data_type = command_name.translate(translation_table) + "_" +param if enum_data else get_param_type(
-            command_name, param)
+        data_type = command_name.translate(translation_table) + "_" +param_name if enum_data else get_param_type(
+            command_name, param_name)
         
         mini_dict = {}
-        mini_dict["name"] = param
+        mini_dict["name"] = param_name
         mini_dict["description"] = param_desc
         mini_dict["type"] = data_type
         mini_dict["enum"] = enum_data
@@ -400,12 +395,21 @@ def get_Y_param_options(command,param_details, cmd_type, usage):
     y_param_details = param_details[index].get("description")
 
     if y_param_details:
-        param_str = y_param_details.split('(')[1].split(')')[0]
-        params = [p.strip() for p in param_str.split(',')]
-        # create a list of i,v,p,r names
-        y_options = [p.split('=')[0].strip() for p in params]
+        if "(" in y_param_details:
+            param_str = y_param_details.split('(')[1].split(')')[0]
+            params = [p.strip() for p in param_str.split(',')]
+            # create a list of i,v,p,r names
+            y_options = [p.split('=')[0].strip() for p in params]
+
+        elif ";" in y_param_details: # for trebuchet
+            param_str = y_param_details.split(';')[1]
+            params = [p.strip() for p in param_str.split(',')]
+            # create a list of i,v,p,r names
+            y_options = [p.split('=')[0].strip() for p in params]
+        else:
+            raise Exception("Not able to parser Y parameter descriptions: "+ y_param_details)
     else:
-        print("command without 'Y' parameter ", param_details)
+        raise Exception("command without 'Y' parameter ", param_details)
 
     if "Function" in cmd_type:
         if any("iv" in string for string in usage):

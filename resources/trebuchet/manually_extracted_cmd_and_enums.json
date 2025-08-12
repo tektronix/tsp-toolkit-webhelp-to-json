@@ -99,7 +99,7 @@
             "name":"tsplink.trigger[N].mode",
             "param_info": [
                 {
-                    "name":"mode",
+                    "name":"triggerMode",
                     "enum": [
                         {
                             "name":"tsplink.TRIG_BYPASS",
