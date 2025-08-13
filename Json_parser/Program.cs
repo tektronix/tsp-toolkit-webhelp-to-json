@@ -32,6 +32,8 @@ namespace jsonToLuaParser
                 ParseCommandsJson(base_lib_dir, file);
             }
 
+            Directory.CreateDirectory(Path.Combine(base_lib_dir, "tsp-lua-5.0"));
+
             CopyStaticFiles("tsp-lua-5.0", Path.Combine(base_lib_dir, "tsp-lua-5.0"));
         }
 
