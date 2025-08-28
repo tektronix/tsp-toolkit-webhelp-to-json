@@ -388,15 +388,16 @@ script.factory.catalog()
 name:string
 
 script.load()
+scriptVar:scriptVar
 file:string
 name:string
 
 script.new()
-scriptVar:string
+scriptVar:scriptVar
 name:string
 
 script.newautorun()
-scriptVar:string
+scriptVar:scriptVar
 code:string
 name:string
 
@@ -411,7 +412,7 @@ scriptVar:string
 state:number
 
 scriptVar.list()
-scriptVar:string
+scriptVar:scriptVar
 
 scriptVar.name
 scriptName:string
