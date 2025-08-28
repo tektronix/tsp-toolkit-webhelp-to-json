@@ -370,7 +370,7 @@ Points: integer
 smu[X].trigger.source.listY()
 z:number
 x:number
-SourceLevels:number{}
+SourceLevels:number[]
 
 smu[X].trigger.source.logY()
 z:number
