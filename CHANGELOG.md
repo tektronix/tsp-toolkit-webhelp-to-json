@@ -18,6 +18,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.19.3]
 
+### Changed
+- **tsp-toolkit-webhelp:** Updating with latest commands set manual for MP5103, MSMU60-2 and MPSU50-2ST
+
 ### Fixed
 - scriptVar and listY commands data type is corrected
 
