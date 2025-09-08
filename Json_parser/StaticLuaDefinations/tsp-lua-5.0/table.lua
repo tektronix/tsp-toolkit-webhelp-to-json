@@ -30,7 +30,6 @@ function table.concat(list, sep, i, j) end
 ---@param list any
 ---@param callback fun(key: string, value: any):T|nil
 ---@return T|nil
----@deprecated
 function table.foreach(list, callback) end
 
 ---
@@ -42,7 +41,6 @@ function table.foreach(list, callback) end
 ---@param list any
 ---@param callback fun(key: string, value: any):T|nil
 ---@return T|nil
----@deprecated
 function table.foreachi(list, callback) end
 
 ---
@@ -54,7 +52,6 @@ function table.foreachi(list, callback) end
 ---@param list T[]
 ---@return integer
 ---@nodiscard
----@deprecated
 function table.getn(list) end
 
 ---

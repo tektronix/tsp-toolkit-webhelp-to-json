@@ -132,7 +132,7 @@ Z:integer
 X:integer
 
 psu[X].defbufferY
-bufferVar:bufferVar
+bufferContents:bufferVar
 Z:integer
 X:integer
 Y:1|2
@@ -288,7 +288,7 @@ psu[X].trigger.source.listY()
 Z:integer
 X:integer
 Y:string
-SourceLevels:integer{}
+SourceLevels:number[]
 
 psu[X].trigger.source.logY()
 Z:integer
@@ -407,6 +407,7 @@ Z:integer
 triggerModelName:string
 blockName:string
 channel:integer
+channelList: table
 
 trigger.model.addblock.source.action.set()
 z:number

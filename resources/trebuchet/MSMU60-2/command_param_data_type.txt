@@ -167,7 +167,7 @@ x:number
 contactCheckThreshold:number
 
 smu[X].defbufferY
-bufferVar: bufferVar
+bufferContents: bufferVar
 z:number
 x:number
 
@@ -507,6 +507,7 @@ z:number
 triggerModelName:string
 blockName:string
 channel:number
+channelList:table
 
 trigger.model.addblock.source.output()
 z:number
