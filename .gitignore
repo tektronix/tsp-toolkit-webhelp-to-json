@@ -10,3 +10,4 @@ release/
 *.zip
 workspaceDir/
 testResults/
+.npmrc
