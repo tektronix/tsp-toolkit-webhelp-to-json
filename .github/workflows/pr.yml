@@ -1,14 +1,7 @@
 name: Parser WebHelp and output npm package contains lua definitions file
 
-
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
-  pull_request_target:
     types:
       - opened
       - reopened
@@ -190,59 +183,17 @@ jobs:
           echo "failed_tests=$FAILED_TESTS" >> $GITHUB_ENV
           echo "passed_tests=$PASSED_TESTS" >> $GITHUB_ENV
 
-  comment-on-pr:
-    name: Comment on PR with test results
-    if: github.event_name == 'pull_request_target'
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Download diagnostics-reports artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: diagnostics-reports
-          path: testResults
-
-      - name: Summarize test results
-        id: summarize
-        run: |
-          FAILED_TESTS=0
-          PASSED_TESTS=0
-          RESULT=""
-          for SUBFOLDER in testResults/*/; do
-            if [ -d "$SUBFOLDER" ]; then
-              JSON_FILE="${SUBFOLDER}Diagnostics.json"
-              if [[ -f "$JSON_FILE" ]]; then
-                if [[ $(jq 'length' $JSON_FILE) -ne 0 ]]; then
-                  RESULT+="Test failed for subfolder: ${SUBFOLDER}\n"
-                  FAILED_TESTS=$((FAILED_TESTS+1))
-                else
-                  RESULT+="Test passed for subfolder: ${SUBFOLDER}\n"
-                  PASSED_TESTS=$((PASSED_TESTS+1))
-                fi
-              else
-                RESULT+="No JSON file found in subfolder: ${SUBFOLDER}\n"
-              fi
-            fi
-          done
-          echo "result<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$RESULT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          echo "failed_tests=$FAILED_TESTS" >> $GITHUB_OUTPUT
-          echo "passed_tests=$PASSED_TESTS" >> $GITHUB_OUTPUT
-
       - name: Create pull request comment
         uses: actions/github-script@v8
-        env:
-          RESULT: ${{ steps.summarize.outputs.result }}
-          FAILED_TESTS: ${{ steps.summarize.outputs.failed_tests }}
-          PASSED_TESTS: ${{ steps.summarize.outputs.passed_tests }}
+        if: github.event_name == 'pull_request'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = process.env.RESULT;
-            const failedTests = process.env.FAILED_TESTS;
-            const passedTests = process.env.PASSED_TESTS;
+            const result = process.env.result;
+            const failedTests = process.env.failed_tests;
+            const passedTests = process.env.passed_tests;
             const message = `## JSON File Check Results\n\n${result}\n**Total Failed Tests:** ${failedTests}\n**Total Passed Tests:** ${passedTests}`;
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
