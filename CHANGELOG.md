@@ -17,7 +17,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 -->
 
 
-## [0.19.4-0]
+## [0.19.4]
  
 ### Added
 
