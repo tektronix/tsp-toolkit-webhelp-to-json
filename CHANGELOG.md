@@ -16,6 +16,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
+### Fixed
+- Added the BLOCK_SOURCE_OUTPUT and BLOCK_SOURCE_PULSE_OUTPUT in model 2461 
 
 ## [0.19.4]
  
