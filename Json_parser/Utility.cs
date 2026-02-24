@@ -524,6 +524,8 @@ function setblock(blockNumber, blockType,...) end;
 {NODE_STR}trigger.BLOCK_NOTIFY= nil
 {NODE_STR}trigger.BLOCK_RESET_BRANCH_COUNT= nil
 {NODE_STR}trigger.BLOCK_WAIT= nil
+{NODE_STR}trigger.BLOCK_SOURCE_OUTPUT= nil
+{NODE_STR}trigger.BLOCK_SOURCE_PULSE_OUTPUT=nil
 
 
 ---@alias {NODE_ALIAS_STR}triggerBlockBranch
@@ -549,6 +551,8 @@ function setblock(blockNumber, blockType,...) end;
 ---| `{NODE_STR}trigger.BLOCK_RESET_BRANCH_COUNT`
 ---| `{NODE_STR}trigger.BLOCK_SOURCE_OUTPUT`
 ---| `{NODE_STR}trigger.BLOCK_WAIT`
+---| `{NODE_STR}trigger.BLOCK_SOURCE_PULSE_OUTPUT`
+
 ";
         }
 
