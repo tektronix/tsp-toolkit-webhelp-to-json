@@ -23,6 +23,7 @@ class Configuration:
                         "DAQ6510",
                         "DMM6500",
                         "DMM7510",
+                        "DMM7512",
                         "2600B",
                         "2651A",
                         "2657A",
