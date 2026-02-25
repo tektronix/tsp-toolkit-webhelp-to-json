@@ -184,7 +184,8 @@ jobs:
           echo "passed_tests=$PASSED_TESTS" >> $GITHUB_ENV
 
       - name: Create pull request comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
+        if: github.event_name == 'pull_request'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -207,6 +208,8 @@ jobs:
       - webhelp-to-json
       - json-to-lua
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
