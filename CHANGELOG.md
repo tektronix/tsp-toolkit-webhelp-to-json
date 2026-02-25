@@ -16,6 +16,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Security -- in case of vulnerabilities.
 -->
 
+## [0.19.4]
+
+### Added
+- Support for DAQ6510
+- Support for DMM6500
+- Support for DMM7512
+
+### Fixed
+- Trigger model commands are missing for 2461
+
 ## [0.19.3]
 
 ### Changed
@@ -86,7 +96,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - workflow has been added for generaing json artifacts.
 
 <!--Version Comparison Links-->
-[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.3...HEAD
+[Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.4...HEAD
+[0.19.4]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.4
 [0.19.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.3
 [0.19.2]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.2
 [0.19.1]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.1
