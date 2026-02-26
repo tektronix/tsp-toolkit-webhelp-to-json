@@ -441,9 +441,6 @@ default: any
 display.readingformat
 format: displayreadingformatformat
 
-display.settext()
-DisplayText: dsiplayText
-Text: string
 
 display.waitevent()
 objectID: number
@@ -1548,7 +1545,7 @@ time: number
 trigger.model.setblock() - trigger.BLOCK_DELAY_DYNAMIC
 BLOCK_DELAY_DYNAMIC: triggerBlockBranch
 blockNumber: number
-USER_DELAY_Mn: triggerUserDelay
+USER_DELAY_Mn: triggerUserSourceDelay | triggerUserSourceDelay
 
 trigger.model.setblock() - trigger.BLOCK_DIGITAL_IO
 BLOCK_DIGITAL_IO: triggerBlockBranch
@@ -2479,6 +2476,7 @@ column: number
 style: number
 
 display.settext()
+displayArea: dsiplayText
 text: string
 
 display.trigger.wait()
@@ -2742,6 +2740,9 @@ password: string
 
 smuX.interlock.enable
 interlockState: interlockState
+
+smuX.pulser.rangeY
+range: number
 
 smuX.pulser.enable
 enable: pulserState

@@ -137,11 +137,7 @@ def usage_func(S, command_name):
 def filter_paragraph(S, command_name):
     # get all the paragraphs between 'usage' and 'details'
     all_paragraphs = []
-    
-    if "display.settext()" in command_name:
-        all_paragraphs.append(get_new_paragraph(
-            S, "display.settext(displayArea, text)"))
-        return all_paragraphs
+
 
     try:
         # find the 'usage' and 'details' tags with the 'iclsubheading' class
@@ -193,27 +189,11 @@ def get_parameter_details(S, command_name):
     if "lan.restoredefaults()" in command_name:
         return param_info
     
-    
-    if "trigger.model.load()" in command_name:  # trigger.model.load() - DurationLoop
-        new_row = get_new_row(S, command_name.split('-')[1].rstrip().lstrip(), "load function constant param")
-        #param_table.insert(0, new_row)
-        rows.insert(0, new_row)
         
     elif "buffer.unit()" in command_name:
         new_row = get_new_row(S, "UNIT_CUSTOMN", "Custom unit user can create, The number of the custom unit, 1, 2, or 3")
         rows.insert(0, new_row)
         #param_table.insert(0, new_row)
-
-    elif "display.settext()" in command_name:
-        rows.pop(1)
-        rows.pop(0)
-        #param_table.extract()
-        new_row = get_new_row(S, "displayArea", "display.TEXT1 display.TEXT2")
-        rows.insert(0, new_row)
-        #param_table.insert(0, new_row)
-        new_row = get_new_row(S, "text", "String that contains the message for the top line of the USER swipe screen (up to 20 characters)")
-        #param_table.insert(1, new_row)
-        rows.insert(1, new_row)
     
     elif "smuX.savebuffer()" in command_name:   
         new_row = get_new_row(S, "buffer", "Buffer variable")

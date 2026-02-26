@@ -271,6 +271,18 @@ namespace jsonToLuaParser
             return command_help.ToString();
         }
 
+        public static StringBuilder createConstants(CommandInfo command)
+        {
+            var command_help = new StringBuilder();
+             foreach (var param in command.param_info)
+            {
+                if (param.enums.Length > 0)
+                {
+                    command_help.Append(create_enum_alias_type(param));
+                }
+            }
+            return command_help;
+        }
         private static void ProcessFunctionCommand(KeyValuePair<string, CommandInfo> command, string file_name, string table, StringBuilder command_help)
         {
             var cmd = command.Value;
@@ -597,8 +609,10 @@ function setblock(blockNumber, blockType,...) end;
 
         public static void CopyStaticFiles(string model, string folder_path)
         {
+            string folder = model.Contains("26") ? "26xx" : model.Contains("24") ? "24xx" : model.Contains("DMM") || model.Contains("DAQ") ? "DMM" : model;
+
             // Specify the source folder path
-            string sourceFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "StaticLuaDefinations", model);
+            string sourceFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "StaticLuaDefinations", folder);
              
 
             try
@@ -616,10 +630,10 @@ function setblock(blockNumber, blockType,...) end;
                     // Set the copied file as read-only
                     File.SetAttributes(destinationFilePath, File.GetAttributes(destinationFilePath) | FileAttributes.ReadOnly);
 
-                    Console.WriteLine($"Copied {fileName} to {folder_path} and set as read-only.");
+                    //Console.WriteLine($"Copied {fileName} to {folder_path} and set as read-only.");
                 }
 
-                Console.WriteLine("All files copied successfully and set as read-only.");
+                //Console.WriteLine("All files copied successfully and set as read-only.");
             }
             catch (Exception ex)
             {
