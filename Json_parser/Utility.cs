@@ -260,7 +260,7 @@ namespace jsonToLuaParser
                     ProcessAttributeCommand(command, file_name, table, command_help);
                 }
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 command_help = new StringBuilder();
                 Console.WriteLine($"An error occuerd for {command.Key}");
