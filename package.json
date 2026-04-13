@@ -1,7 +1,7 @@
 {
   "name": "@tektronix/keithley_instrument_libraries",
   "version": "0.19.4",
-  "description": "",
+  "description": "instrument web help parser and lua definitions generator for Tektronix instruments",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,13 +20,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@octokit/rest": "^20.1.2",
-    "@tektronix/web-help-documents": "0.19.4-0",
+    "@octokit/rest": "22.0.1",
+    "@tektronix/web-help-documents": "0.19.4-1",
     "@types/node-fetch": "^2.6.11",
-    "axios": "^1.11.0",
-    "decompress": "^4.2.1"
+    "axios": "1.15.0",
+    "decompress": "4.2.1"
   },
   "dependencies": {
-    "node-fetch": "^2.7.0"
+    "node-fetch": "2.7.0"
   }
 }
