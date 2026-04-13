@@ -392,7 +392,7 @@ display.readingformat
 format: displayreadingformatformat
 
 display.settext()
-displayArea: displaysettextdisplayArea
+displayArea: dsiplayText
 text: string
 
 display.waitevent()
@@ -1567,7 +1567,7 @@ trigger.model.setblock() - trigger.BLOCK_DELAY_DYNAMIC
 userDelay: triggermodelsetblocktriggerBLOCK_DELAY_DYNAMICuserDelay
 BLOCK_DELAY_DYNAMIC: triggerBlockBranch
 blockNumber: number
-USER_DELAY_Mn: triggerUserDelay
+USER_DELAY_Mn: triggerUserSourceDelay | triggerUserSourceDelay
 
 trigger.model.setblock() - trigger.BLOCK_DIGITAL_IO
 BLOCK_DIGITAL_IO: triggerBlockBranch

@@ -30,11 +30,13 @@ namespace jsonToLuaParser
             foreach (string file in Directory.EnumerateFiles(args[0]))
             {
                 ParseCommandsJson(base_lib_dir, file);
+                Console.WriteLine("definitions generated for " + Path.GetFileNameWithoutExtension(file));
             }
 
             Directory.CreateDirectory(Path.Combine(base_lib_dir, "tsp-lua-5.0"));
 
             CopyStaticFiles("tsp-lua-5.0", Path.Combine(base_lib_dir, "tsp-lua-5.0"));
+            Console.WriteLine("All files generated successfully."); 
         }
 
         static void ParseCommandsJson(string baseLibDir, string jsonFilePath)
@@ -126,12 +128,16 @@ namespace jsonToLuaParser
 
             if (triggerModelSetblockCommands.Count > 0)
             {
+                var headers = "";
+                var alias = "";
                 outStr += $"{get_BlockType_alias()}---This is generic function to define trigger model setblock.\n---Signature of this function depends on the BlockType.\n---For more details, please keep scrolling to find the required function signature for specific BlockType\n---";
                 foreach (var cmd in triggerModelSetblockCommands)
                 {
-                    outStr += Utility.get_command_header(cmd, fileName);
+                    alias += Utility.createConstants(cmd);
+                    headers += Utility.get_command_header(cmd, fileName);
                 }
-                outStr += get_trigger_model_setBlock_cmd_signature();
+                outStr += alias + headers;
+                outStr += get_trigger_model_setBlock_cmd_signature(true);
             }
 
             foreach (var cmd in directFunctionCommands)
@@ -162,23 +168,30 @@ namespace jsonToLuaParser
                 foreach (var cmd in triggerModelLoadCommands)
                 {
                     OutStr += Utility.get_command_header(cmd, fileName);
+                  
                 }
                 OutStr += "\n" + get_trigger_load_cmd_signature(true);
             }
 
             if (triggerModelSetblockCommands.Count > 0)
             {
+                var headers = "";
+                var alias = "";
                 OutStr += $"{get_BlockType_alias()}---This is generic function to define trigger model setblock.\n---Signature of this function depends on the BlockType.\n---For more details, please keep scrolling to find the required function signature for specific BlockType\n---";
                 foreach (var cmd in triggerModelSetblockCommands)
                 {
-                    OutStr += Utility.get_command_header(cmd, fileName);
+                    alias += Utility.createConstants(cmd);
+                    headers += Utility.get_command_header(cmd, fileName);
                 }
+                OutStr += alias + headers;
                 OutStr += get_trigger_model_setBlock_cmd_signature(true);
             }
 
             foreach (var cmd in commandOnlyForTspLinkNodes)
             {
                 OutStr += Utility.HelpContent(new KeyValuePair<string, CommandInfo>(cmd.name.Split('.')[1], cmd), fileName, "");
+                var commadStr = cmd.name.Split('.')[1].Replace("(", "").Replace(")", "");
+                OutStr += NODE_STR+ commadStr + " = " + commadStr + "\n\n";
             }
 
             return OutStr;
