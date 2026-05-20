@@ -21,9 +21,9 @@
   "license": "ISC",
   "devDependencies": {
     "@octokit/rest": "22.0.1",
-    "@tektronix/web-help-documents": "0.19.4-1",
+    "@tektronix/web-help-documents": "0.19.4",
     "@types/node-fetch": "2.6.13",
-    "axios": "1.15.0",
+    "axios": "1.16.1",
     "decompress": "4.2.1"
   },
   "dependencies": {
