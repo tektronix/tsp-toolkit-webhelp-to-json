@@ -30,7 +30,8 @@ class Configuration:
                         "2601B-PULSE",
                         "MP5103",
                         "MSMU60-2",
-                        "MPSU50-2ST"
+                        "MPSU50-2ST",
+                        "MSMU200-2"
                         ]
     
     MODEL_2600B_MODELS = [
@@ -59,5 +60,6 @@ class Configuration:
                           "2657A":["a"],
                           "2601B-PULSE": ["a"],
                           "MSMU60-2":["1", "2"],
-                          "MPSU50-2ST":["1", "2"]
+                          "MPSU50-2ST":["1", "2"],
+                          "MSMU200-2":["1", "2"]
                           }

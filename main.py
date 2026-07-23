@@ -15,6 +15,7 @@ MODEL_2600B = "2600B"
 MODEL_MP5103 = "MP5103"
 MODEL_MSMU60_2 = "MSMU60-2"
 MODEL_MPSU50_2ST = "MPSU50-2ST"
+MODEL_MSMU200_2 = "MSMU200-2"
 
 def parse_web_help_files(webHelpFoldersDir):
     output_folder = "data"
@@ -53,6 +54,8 @@ def parse():
             base_path = os.path.join("resources", "trebuchet")
         elif MODEL_MSMU60_2 in model_number:
             base_path = os.path.join("resources", "trebuchet", MODEL_MSMU60_2)
+        elif MODEL_MSMU200_2 in model_number:
+            base_path = os.path.join("resources", "trebuchet", MODEL_MSMU200_2)
         elif MODEL_MPSU50_2ST in model_number:
             base_path = os.path.join("resources", "trebuchet", MODEL_MPSU50_2ST)
         else:
@@ -72,7 +75,7 @@ def parse():
             except:
                 command = ""
 
-            if (MODEL_MSMU60_2 in  Configuration.MODEL_NUMBER or MODEL_MPSU50_2ST in Configuration.MODEL_NUMBER) and "slot[Z]" in command:
+            if (MODEL_MSMU60_2 in  Configuration.MODEL_NUMBER or MODEL_MPSU50_2ST in Configuration.MODEL_NUMBER or MODEL_MSMU200_2 in Configuration.MODEL_NUMBER) and "slot[Z]" in command:
                 command = command.replace("slot[Z].", "")
             try:
                 if Configuration.MODEL_NUMBER == "2601B-PULSE" and 'smua.' in command:
