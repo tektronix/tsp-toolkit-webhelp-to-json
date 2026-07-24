@@ -614,7 +614,7 @@ trigger.model.addblock.source.output()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
 
 trigger.model.addblock.wait()
 z:number

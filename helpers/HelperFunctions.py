@@ -101,8 +101,6 @@ def get_details(S):
     details = ""
     tags = S.find_all("p", ["bodytext", "iclbody"])
     for tag in tags:
-        if tag.find_parent("table", {"class": "relatedtopics"}):
-            continue
         details = details + tag.get_text()
     return details
 
@@ -225,21 +223,21 @@ def get_parameter_details(S, command_name):
                     param_info[-1]["description"] += "<br>" + continuation_desc
             continue
 
-        param_name = data[0].get_text(" ", strip=True) # name of the parameter
+        param_name = data[0].get_text().replace("\n", "").strip() # name of the parameter
         if param_name == '':
             continue
 
-        param_desc = "<br>".join([extract_cell_text(item) for item in data[1:] if extract_cell_text(item)])
+        param_desc = "<br>".join([paragraph.get_text() for item in data[1:] for paragraph in item.find_all("p")])
 
         enum_details = []
         if data[1].find("ul"):
             list_items = data[1].find_all("li")
             for li in list_items:
-                enum_details.append(li.get_text(" ", strip=True))  # Extract text from each <li>
+                enum_details.append(li.get_text())  # Extract text from each <li>
 
         param_desc = "<br>".join([param_desc] + enum_details) if enum_details else param_desc
 
-        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+X?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\]|slot\[Z\]\.(?:psu|smu|trigger)(?:\.[a-z]+)*)\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
 
         enum_data = []
 
@@ -256,7 +254,7 @@ def get_parameter_details(S, command_name):
         elif len(x) != 0:
             for index in range(len(x)):
                 data = {}
-                data["name"] = remove_array_string_form_enum(x[index])
+                data["name"] = remove_array_string_form_enum(x[index]).replace("slot[Z].", "")
                 data["value"] = ""
                 data["description"] = ""
                 enum_data.append(data)
