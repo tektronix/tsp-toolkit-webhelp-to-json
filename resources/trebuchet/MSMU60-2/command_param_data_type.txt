@@ -14,7 +14,6 @@ bufferVar: bufferVar
 bufferVar.clear()
 bufferVar: bufferVar
 
-
 bufferVar.clearcache()
 bufferVar: bufferVar
 
@@ -80,6 +79,10 @@ bufferVar.timestamps
 timestamp: number[]
 bufferVar: bufferVar
 
+bank[X].meminfo()
+z: number
+x: number 
+
 firmware.update()
 z:number
 
@@ -90,6 +93,43 @@ smu[X].abort()
 z:number
 x:number
 
+smu[X].acal.adjust()
+z: number
+x: number
+
+smu[X].acal.adjustdate()
+z: number
+x: number
+
+smu[X].acal.due()
+z: number
+x: number
+
+smu[X].acal.temperaturedelta()
+z: number
+x: number
+
+smu[X].acal.valid()
+z: number
+x: number
+
+smu[X].config.active()
+z: number
+x: number
+
+smu[X].config.default()
+z: number
+x: number
+
+smu[X].config.set()
+z: number
+x: number
+
+smu[X].configlist.append()
+z:number
+x:number
+configListName:string
+
 smu[X].configlist.create()
 z:number
 x:number
@@ -99,7 +139,12 @@ smu[X].configlist.delete()
 z:number
 x:number
 configListName:string
-index:number 
+index:number
+
+smu[X].configlist.deletelist()
+z:number
+x:number
+configListName:string
 
 smu[X].configlist.query()
 z:number
@@ -113,6 +158,11 @@ z:number
 x:number
 configListName:string
 index:number
+
+smu[X].configlist.reference()
+z:number
+x:number
+configListName:string
 
 smu[X].configlist.size()
 indexCount:number
@@ -165,6 +215,26 @@ smu[X].contact.threshold
 z:number
 x:number
 contactCheckThreshold:number
+
+smu[X].contact.zero.adjust()
+z:number
+x:number
+
+smu[X].contact.zero.adjustdate()
+z:number
+x:number
+
+smu[X].contact.zero.due()
+z:number
+x:number
+
+smu[X].contact.zero.temperaturedelta()
+z:number
+x:number
+
+smu[X].contact.zero.valid()
+z:number
+x:number
 
 smu[X].defbufferY
 bufferContents: bufferVar
@@ -273,6 +343,14 @@ value:boolean
 z:number
 x:number
 
+smu[X].source.activelimitnY
+z:number
+x:number
+
+smu[X].source.activelimitpY
+z:number
+x:number
+
 smu[X].source.autodelay
 z:number
 x:number
@@ -352,6 +430,25 @@ value:number
 z:number
 x:number
 
+smu[X].source.pulse.limitnY
+value:number
+z:number
+x:number
+
+smu[X].source.pulse.limitpY
+value:number
+z:number
+x:number
+
+smu[X].source.pulse.limitY
+value:number
+z:number
+x:number
+
+smu[X].trigger.EVENT_AT_LIMIT
+z:number
+x:number
+
 smu[X].trigger.measure.Y()
 z:number
 x:number
@@ -378,6 +475,10 @@ x:number
 StartY:integer
 EndY:integer
 Points: integer
+
+smu[X].waitcomplete
+z:number
+x:number
 
 trigger.model.abort()
 z:number
@@ -464,15 +565,15 @@ trigger.model.addblock.measure()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
 count:number
+channel:integer|table
 
 trigger.model.addblock.measureoverlapped()
-z:number
+Z:integer
 triggerModelName:string
 blockName:string
-channel:number
-count:number
+count:integer
+channel:integer|table
 
 trigger.model.addblock.nop()
 z:number
@@ -488,7 +589,7 @@ trigger.model.addblock.source.action.bias()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
 
 trigger.model.addblock.source.action.skip()
 z:number
@@ -500,20 +601,31 @@ trigger.model.addblock.source.action.set()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
+
+trigger.model.addblock.source.action.pulseset()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.action.step()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
-channelList:table
+channel:number|table
+
+trigger.model.addblock.source.action.pulsestep()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.output()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
 
 trigger.model.addblock.wait()
 z:number

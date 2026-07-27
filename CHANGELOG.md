@@ -15,6 +15,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
     Fixed -- for any bug fixes.
     Security -- in case of vulnerabilities.
 -->
+## [0.19.4]
+
+### Changed
+- **tsp-toolkit-webhelp:** Updating with latest commands set manual for MPSU50-2ST, MSMU60-2, and MSMU200-2
+- updated parser to support latest command set support
 
 ## [0.19.4]
 

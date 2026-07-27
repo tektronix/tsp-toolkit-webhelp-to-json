@@ -83,6 +83,8 @@ def get_signature(signature_str):
     return signature
 
 def get_return_str_attr(usage):
+    if not usage:
+        return ""
     parts = usage[0].split("=")
     return_str = parts[0].strip() if "." not in parts[0] else parts[1].strip()
     return return_str            
@@ -97,7 +99,7 @@ def get_return_str_function(signature_str):
 
 def get_details(S):
     details = ""
-    tags = S.find_all("p", "iclbody")
+    tags = S.find_all("p", ["bodytext", "iclbody"])
     for tag in tags:
         details = details + tag.get_text()
     return details
@@ -141,15 +143,13 @@ def filter_paragraph(S, command_name):
 
     try:
         # find the 'usage' and 'details' tags with the 'iclsubheading' class
-        usage_tag = S.find('p', {'class': 'iclsubheading'}, text='Usage')
-        details_tag = S.find('p', {'class': 'iclsubheading'}, text='Details')
+        usage_tag = S.find('p', {'class': ['iclsubheading', 'commandsubheading']}, text='Usage')
+        details_tag = S.find('p', {'class': ['iclsubheading', 'commandsubheading']}, text='Details')
 
         # find the data within 'usage' and 'deatails' tag.
         current_tag = usage_tag.find_next_sibling()
         while current_tag != details_tag:
-            if "smu.contact.check" in command_name and current_tag.name == 'p' and 'iclbody' in current_tag['class']:
-                all_paragraphs.append(current_tag)
-            elif current_tag.name == 'p' and 'iclcode' in current_tag['class']:
+            if current_tag.name == 'p' and any(c in current_tag.get('class', []) for c in ['iclcode', 'commandsyntax']):
                 all_paragraphs.append(current_tag)
             current_tag = current_tag.find_next_sibling()
 
@@ -165,11 +165,22 @@ def get_new_paragraph(S, text):
     return paragraph
 
 
+def extract_cell_text(cell):
+    parts = []
+    parts.extend([p.get_text(" ", strip=True) for p in cell.find_all("p")])
+    parts.extend([li.get_text(" ", strip=True) for li in cell.find_all("li")])
+    if len(parts) == 0:
+        text = cell.get_text(" ", strip=True)
+        if text:
+            parts.append(text)
+    return " ".join([part for part in parts if part])
+
+
 def get_parameter_details(S, command_name):
     param_info = []
     
-    usage_tag = S.find('p', {'class': 'iclsubheading'}, text='Usage')
-    details_tag = S.find('p', {'class': 'iclsubheading'}, text='Details')
+    usage_tag = S.find('p', {'class': ['iclsubheading', 'commandsubheading']}, text='Usage')
+    details_tag = S.find('p', {'class': ['iclsubheading', 'commandsubheading']}, text='Details')
 
     # Find the table between "Usage" and "Details"
     current_tag = usage_tag.find_next_sibling()
@@ -201,6 +212,17 @@ def get_parameter_details(S, command_name):
 
     for row in rows:
         data = row.find_all("td")
+        if len(data) == 0:
+            continue
+
+        # Generic handling for rows created by rowspan continuation.
+        if len(data) == 1:
+            if len(param_info) > 0:
+                continuation_desc = extract_cell_text(data[0])
+                if continuation_desc:
+                    param_info[-1]["description"] += "<br>" + continuation_desc
+            continue
+
         param_name = data[0].get_text().replace("\n", "").strip() # name of the parameter
         if param_name == '':
             continue
@@ -215,7 +237,7 @@ def get_parameter_details(S, command_name):
 
         param_desc = "<br>".join([param_desc] + enum_details) if enum_details else param_desc
 
-        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+[X]?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\]|slot\[Z\]\.smu\[X\])\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
+        x = list(OrderedSet(re.findall(r'\b(?:[a-z]+X?|smu\[X\]|slot\[Z\]\.psu\[X\]|slot\[Z\]\.smu\[X\]|slot\[Z\]\.(?:psu|smu|trigger)(?:\.[a-z]+)*)\.[A-Z0-9_]+\b', "\n".join(enum_details) if enum_details else param_desc)))
 
         enum_data = []
 
@@ -232,7 +254,7 @@ def get_parameter_details(S, command_name):
         elif len(x) != 0:
             for index in range(len(x)):
                 data = {}
-                data["name"] = remove_array_string_form_enum(x[index])
+                data["name"] = remove_array_string_form_enum(x[index]).replace("slot[Z].", "")
                 data["value"] = ""
                 data["description"] = ""
                 enum_data.append(data)
@@ -305,7 +327,7 @@ def get_examples(S):
     i = 0
     example_count = 0
     try:
-        headings = S.find_all("p", "iclsubheading")
+        headings = S.find_all("p",{"class": ["iclsubheading", "commandsubheading"]})
         for heading in headings:
             if "Example" in heading.get_text():
                 example_count += 1
@@ -387,7 +409,11 @@ def get_Y_param_options(command,param_details, cmd_type, usage):
             # create a list of i,v,p,r names
             y_options = [p.split('=')[0].strip() for p in params]
         else:
-            raise Exception("Not able to parser Y parameter descriptions: "+ y_param_details)
+            numbers = re.findall(r'\b(\d+)\b', y_param_details)
+            if numbers:
+                y_options = numbers
+            else:
+                raise Exception("Not able to parser Y parameter descriptions: "+ y_param_details)
     else:
         raise Exception("command without 'Y' parameter ", param_details)
 

@@ -2,6 +2,14 @@ bufferVar.appendmode
 state:0|1
 bufferVar:bufferVar
 
+bufferVar.basetimestampfractional
+fractionalSec: number
+bufferVar: bufferVar
+
+bufferVar.basetimestampseconds
+nonFracSeconds: number
+bufferVar: bufferVar
+
 bufferVar.cachemode
 cacheMode:0|1
 bufferVar:bufferVar
@@ -83,6 +91,10 @@ timestamp: number[]
 bufferVar: bufferVar
 N:integer
 
+bank[X].meminfo()
+Z:integer
+X:integer
+
 firmware.update()
 Z:integer
 
@@ -93,16 +105,43 @@ psu[X].abort()
 Z:integer
 X:integer
 
+psu[X].configlist.active()
+Z:integer
+X:integer
+configListName:string
+
+psu[X].configlist.default()
+Z:integer
+X:integer
+configListName:string
+
+psu[X].configlist.set()
+Z:integer
+X:integer
+config:table
+
+psu[X].configlist.append()
+Z:integer
+X:integer
+configListName:string
+config: table
+
 psu[X].configlist.create()
 Z:integer
 X:integer
 configListName:string
+config: table
 
 psu[X].configlist.delete()
 Z:integer
 X:integer
 configListName:string
 index:integer
+
+psu[X].configlist.deletelist()
+Z:integer
+X:integer
+configListName:string
 
 psu[X].configlist.query()
 Z:integer
@@ -117,7 +156,14 @@ X:integer
 configListName:string
 index:integer
 
+psu[X].configlist.reference()
+Z:integer
+X:integer
+configListName:string
+
 psu[X].configlist.size()
+Z:integer
+X:integer
 indexCount:integer
 configListName:string
 
@@ -126,6 +172,7 @@ Z:integer
 X:integer
 configListName:string
 index:integer
+config: table
 
 psu[X].configlist.table()
 Z:integer
@@ -154,7 +201,7 @@ Z:integer
 X:integer
 
 psu[X].measure.nplc
-nplc:number
+rate:number
 Z:integer
 X:integer
 
@@ -263,7 +310,17 @@ value:number
 Z:integer
 X:integer
 
-psu[X].source.slewratev
+psu[X].source.slewrate.fallv
+value:number
+Z:integer
+X:integer
+
+psu[X].source.slewrate.risev
+value:number
+Z:integer
+X:integer
+
+psu[X].source.slewrate.v
 value:number
 Z:integer
 X:integer
@@ -297,6 +354,10 @@ Y:string
 StartY:integer
 EndY:integer 
 Points:integer
+
+psu[X].waitcomplete()
+Z:integer
+X:integer
 
 trigger.model.abort()
 Z:integer
@@ -373,6 +434,14 @@ Z:integer
 triggerModelName:string
 blockName:string
 count:integer
+channel:integer|table
+
+trigger.model.addblock.measureoverlapped()
+Z:integer
+triggerModelName:string
+blockName:string
+count:integer
+channel:integer|table
 
 trigger.model.addblock.nop()
 Z:integer
@@ -393,8 +462,7 @@ resetBranchCountBlockName:string
 trigger.model.addblock.source.action.bias()
 triggerModelName: string
 blockName: string
-channel: integer
-
+channel:integer|table
 
 trigger.model.addblock.source.action.skip()
 Z:integer
@@ -406,20 +474,32 @@ trigger.model.addblock.source.action.step()
 Z:integer
 triggerModelName:string
 blockName:string
-channel:integer
-channelList: table
+channel:integer|table
+
+trigger.model.addblock.source.action.pulsestep()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.action.set()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:integer|table
+
+trigger.model.addblock.source.action.pulseset()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
+
 
 trigger.model.addblock.source.output()
 Z:integer
 triggerModelName:string
 blockName:string
-channel:integer
+channel:integer|table
 
 trigger.model.addblock.wait()
 Z:integer
