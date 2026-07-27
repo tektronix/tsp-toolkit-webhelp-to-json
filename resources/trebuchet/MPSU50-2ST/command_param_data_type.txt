@@ -201,7 +201,7 @@ Z:integer
 X:integer
 
 psu[X].measure.nplc
-nplc:number
+rate:number
 Z:integer
 X:integer
 
