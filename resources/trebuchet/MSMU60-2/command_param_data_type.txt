@@ -565,15 +565,15 @@ trigger.model.addblock.measure()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
 count:number
+channel:integer|table
 
 trigger.model.addblock.measureoverlapped()
-z:number
+Z:integer
 triggerModelName:string
 blockName:string
-channel:number
-count:number
+count:integer
+channel:integer|table
 
 trigger.model.addblock.nop()
 z:number
@@ -589,7 +589,7 @@ trigger.model.addblock.source.action.bias()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
 
 trigger.model.addblock.source.action.skip()
 z:number
@@ -601,14 +601,25 @@ trigger.model.addblock.source.action.set()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:number|table
+
+trigger.model.addblock.source.action.pulseset()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.action.step()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
-channelList:table
+channel:number|table
+
+trigger.model.addblock.source.action.pulsestep()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.output()
 z:number

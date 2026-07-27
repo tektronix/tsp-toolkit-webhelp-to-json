@@ -434,6 +434,14 @@ Z:integer
 triggerModelName:string
 blockName:string
 count:integer
+channel:integer|table
+
+trigger.model.addblock.measureoverlapped()
+Z:integer
+triggerModelName:string
+blockName:string
+count:integer
+channel:integer|table
 
 trigger.model.addblock.nop()
 Z:integer
@@ -454,8 +462,7 @@ resetBranchCountBlockName:string
 trigger.model.addblock.source.action.bias()
 triggerModelName: string
 blockName: string
-channel: integer
-
+channel:integer|table
 
 trigger.model.addblock.source.action.skip()
 Z:integer
@@ -467,14 +474,26 @@ trigger.model.addblock.source.action.step()
 Z:integer
 triggerModelName:string
 blockName:string
-channel:integer
-channelList: table
+channel:integer|table
+
+trigger.model.addblock.source.action.pulsestep()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
 
 trigger.model.addblock.source.action.set()
 z:number
 triggerModelName:string
 blockName:string
-channel:number
+channel:integer|table
+
+trigger.model.addblock.source.action.pulseset()
+Z:integer
+triggerModelName:string
+blockName:string
+channel:integer|table
+
 
 trigger.model.addblock.source.output()
 Z:integer
