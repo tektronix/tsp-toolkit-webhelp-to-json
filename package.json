@@ -1,6 +1,6 @@
 {
   "name": "@tektronix/keithley_instrument_libraries",
-  "version": "0.19.4",
+  "version": "0.19.5",
   "description": "instrument web help parser and lua definitions generator for Tektronix instruments",
   "main": "index.js",
   "scripts": {
