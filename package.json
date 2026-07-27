@@ -21,10 +21,11 @@
   "license": "ISC",
   "devDependencies": {
     "@octokit/rest": "22.0.1",
-    "@tektronix/web-help-documents": "0.19.4",
+    "@tektronix/web-help-documents": "0.19.5-0",
     "@types/node-fetch": "2.6.13",
-    "axios": "1.16.1",
-    "decompress": "4.2.1"
+    "axios": "1.18.1",
+    "extract-zip": "2.0.1",
+    "tar": "^7.5.22"
   },
   "dependencies": {
     "node-fetch": "3.3.2"

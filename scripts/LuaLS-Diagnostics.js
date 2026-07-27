@@ -1,7 +1,8 @@
 const { Octokit } = require("@octokit/rest");
 const fs = require("fs");
 const axios = require("axios");
-const decompress = require("decompress");
+const extractZip = require("extract-zip");
+const tar = require("tar");
 const { execFile } = require("child_process");
 const path = require("path");
 const os = require("os");
@@ -41,12 +42,27 @@ async function downloadReleaseAssetAndUnzipIt(owner, repo) {
   }
 }
 
-async function unzipAndSave(assetName, dist) {
+async function extractAndSave(assetName, dist) {
   try {
-    await decompress(assetName, dist);
-    console.log(`${assetName} successfully unzipped into ${dist} folder.`);
+    const outputDir = path.resolve(dist);
+    fs.mkdirSync(outputDir, { recursive: true });
+
+    if (assetName.endsWith(".zip")) {
+      await extractZip(assetName, { dir: outputDir });
+    } else if (assetName.endsWith(".tar.gz") || assetName.endsWith(".tgz")) {
+      await tar.x({
+        file: assetName,
+        cwd: outputDir,
+        strict: true,
+        preservePaths: false,
+      });
+    } else {
+      throw new Error(`Unsupported archive format for ${assetName}`);
+    }
+
+    console.log(`${assetName} successfully extracted into ${dist} folder.`);
   } catch (error) {
-    console.error(`Error unzipping ${assetName}: ${error.message}`);
+    console.error(`Error extracting ${assetName}: ${error.message}`);
   }
 }
 
@@ -136,7 +152,7 @@ async function main() {
 
   try {
     const assetName = await downloadReleaseAssetAndUnzipIt(owner, repo);
-    await unzipAndSave(assetName, "release");
+    await extractAndSave(assetName, "release");
 
     const luaLSPath = os.platform() === "win32" 
       ? path.join("release", "bin", "lua-language-server.exe") 
