@@ -268,7 +268,7 @@ namespace jsonToLuaParser
                 outStr += "\nlocalnode.slot = slot\n";
 
             }
-            else if (fileName.Contains(Utility.MODULE_MSMU60_2))
+            else if (fileName.Contains(Utility.MODULE_MSMU60_2) || fileName.Contains(Utility.MODULE_MSMU200_2))
             {
                 // Add specific handling for MSMU60_2 models
 

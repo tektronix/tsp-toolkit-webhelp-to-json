@@ -24,6 +24,7 @@ namespace jsonToLuaParser
         };
 
         public const string MODULE_MSMU60_2 = "MSMU60-2";
+        public const string MODULE_MSMU200_2 = "MSMU200-2";
         public const string MODULE_MPSU50_2ST = "MPSU50-2ST";
         public const string MODULE_MP5103 = "MP5103";
 
@@ -160,7 +161,7 @@ namespace jsonToLuaParser
 
         public static string[] GetValidArrays(string file_name)
         {
-            if (file_name.Contains(MODULE_MSMU60_2) || file_name.Contains(MODULE_MPSU50_2ST))
+            if (file_name.Contains(MODULE_MSMU60_2) || file_name.Contains(MODULE_MSMU200_2) || file_name.Contains(MODULE_MPSU50_2ST))
                 return new string[] {};
             else
                 return new string[] { "[N]", "[Y]", "[slot]", "[1]", "[X]" };
