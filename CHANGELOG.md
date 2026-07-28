@@ -102,7 +102,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 <!--Version Comparison Links-->
 [Unreleased]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/compare/v0.19.5...HEAD
-[0.19.5]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.4
+[0.19.5]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.5
 [0.19.4]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.4
 [0.19.3]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.3
 [0.19.2]: https://github.com/tektronix/tsp-toolkit-webhelp-to-json/releases/tag/v0.19.2
