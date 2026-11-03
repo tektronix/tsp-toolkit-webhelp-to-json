@@ -300,19 +300,11 @@ def get_new_row(S, param, disc):
 
 
 def get_param_type(cmd, param_name) -> str:
-    data_type = "any"
-
     if str(cmd).startswith("status.") and "*" in cmd:
         return "number"
-    
-    
-    value = Configuration.PARAMS_TYPES_DETAILS.get(cmd, None)
-    if value:
-        param_details = {v.split(':')[0]: v.split(
-            ':')[1].rstrip().lstrip() for v in value.split(',')}
-        data_type = param_details.get(param_name, "any")
 
-    return data_type
+    param_details = Configuration.PARAMS_TYPES_DETAILS.get(cmd, {})
+    return param_details.get(param_name, "any")
 
 
 def get_range(cmd, description):
