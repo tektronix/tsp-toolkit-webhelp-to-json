@@ -59,7 +59,7 @@ def parse():
         else:
             base_path = os.path.join("resources", "tti")
 
-        Configuration.PARAMS_TYPES_DETAILS = cmd_param.getParamTypeDetails(os.path.join(base_path, "command_param_data_type.txt"))
+        Configuration.PARAMS_TYPES_DETAILS = cmd_param.getParamTypeDetails(os.path.join(base_path, "command_param_data_type.json"))
         Configuration.MANUALLY_EXTRACTED_COMMANDS = HelperFunctions.parse_manual_json(os.path.join(base_path, "manually_extracted_cmd_and_enums.json"))
 
     load_configuration_files(Configuration.MODEL_NUMBER)

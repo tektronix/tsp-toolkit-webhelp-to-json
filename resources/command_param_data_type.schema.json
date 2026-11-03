@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Command parameter types",
+  "description": "Command names mapped to parameter/value names and opaque type expressions.",
+  "type": "object",
+  "propertyNames": {
+    "pattern": "\\S"
+  },
+  "additionalProperties": {
+    "type": "object",
+    "propertyNames": {
+      "pattern": "\\S"
+    },
+    "additionalProperties": {
+      "type": "string",
+      "pattern": "\\S"
+    }
+  }
+}
