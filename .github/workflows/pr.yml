@@ -88,7 +88,7 @@ jobs:
       - name: Run the binary with folder path
         run: |
           cd Json_parser
-          dotnet run $GITHUB_WORKSPACE/data/
+          mono bin/Release/net48/jsonToLuaParser.exe "$GITHUB_WORKSPACE/data/"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
